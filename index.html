@@ -95,29 +95,23 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>利用github搭建hexo博客</p>
-<p><a target="_blank" rel="noopener" href="https://www.yuque.com/wangx1aoer/qfn3xp/hovgegs9hbanngoc?singleDoc#">https://www.yuque.com/wangx1aoer/qfn3xp/hovgegs9hbanngoc?singleDoc#</a> 《利用github搭建hexo博客》</p>
+        <p>[TOC]</p>
+<h2 id="利用github搭建hexo博客"><a href="#利用github搭建hexo博客" class="headerlink" title="利用github搭建hexo博客"></a>利用github搭建hexo博客</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/wangx1aoer/qfn3xp/hovgegs9hbanngoc?singleDoc#">https://www.yuque.com/wangx1aoer/qfn3xp/hovgegs9hbanngoc?singleDoc#</a> 《利用github搭建hexo博客》</p>
 <p><a target="_blank" rel="noopener" href="https://www.yuque.com/wangx1aoer/qfn3xp/hovgegs9hbanngoc?singleDoc#%20%E3%80%8A%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%E3%80%8B">https://www.yuque.com/wangx1aoer/qfn3xp/hovgegs9hbanngoc?singleDoc#%20%E3%80%8A%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%E3%80%8B</a></p>
 <p><a target="_blank" rel="noopener" href="https://sunwu57.github.io/2023/03/26/%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/">https://sunwu57.github.io/2023/03/26/%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/</a></p>
 <p>Hexo是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。即把用户的markdown文件，按照指定的主题解析成静态网页。</p>
 <p>安装使用hexo之前需要先安装Node.js和Git。</p>
-<p>准备前提</p>
-<p>1.提前安装好(node.js)[<a target="_blank" rel="noopener" href="https://nodejs.org/en]">https://nodejs.org/en]</a> 左边的那个<br>2.提前安装好(GIt)[<a target="_blank" rel="noopener" href="https://git-scm.com/downloads]">https://git-scm.com/downloads]</a><br>3.提前注册好一个github账号（）<br>4.如果文章图片没有显示，请自行挂代理</p>
-<p>操作步骤</p>
-<p>1.在本地找个目录放博客源文件，路径不要有中文</p>
-<p>例如：boke</p>
-<p>2.在选定的目录中，右键Git Bash Here</p>
-<p><img src="/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_07_16_26_50_830.png"></p>
-<p>3.使用npm命令安装Hexo，输入：</p>
-<pre><code>npm install -g hexo-cli
+<h3 id="准备前提"><a href="#准备前提" class="headerlink" title="准备前提"></a>准备前提</h3><p>1.提前安装好(node.js)[<a target="_blank" rel="noopener" href="https://nodejs.org/en]">https://nodejs.org/en]</a> 左边的那个<br>2.提前安装好(GIt)[<a target="_blank" rel="noopener" href="https://git-scm.com/downloads]">https://git-scm.com/downloads]</a><br>3.提前注册好一个github账号（）<br>4.如果文章图片没有显示，请自行挂代理</p>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="1-在本地找个目录放博客源文件，路径不要有中文"><a href="#1-在本地找个目录放博客源文件，路径不要有中文" class="headerlink" title="1.在本地找个目录放博客源文件，路径不要有中文"></a>1.在本地找个目录放博客源文件，路径不要有中文</h4><p>例如：boke</p>
+<h4 id="2-在选定的目录中，右键Git-Bash-Here"><a href="#2-在选定的目录中，右键Git-Bash-Here" class="headerlink" title="2.在选定的目录中，右键Git Bash Here"></a>2.在选定的目录中，右键Git Bash Here</h4><p><img src="/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_07_16_26_50_830.png"></p>
+<h4 id="3-使用npm命令安装Hexo，输入："><a href="#3-使用npm命令安装Hexo，输入：" class="headerlink" title="3.使用npm命令安装Hexo，输入："></a>3.使用npm命令安装Hexo，输入：</h4><pre><code>npm install -g hexo-cli
 hexo init blog //hexo init &lt;folder&gt; 新建一个网站。如果没有设置 &lt;folder&gt; ，Hexo 默认在目前的文件夹建立网站。
 cd blog
 hexo g         //hexo generate #生成静态文件
 </code></pre>
 <p>构建好的效果如下：</p>
 <p><img src="/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_07_16_48_02_393.png"></p>
-<p>4.检查网站雏形</p>
-<pre><code>hexo new x
+<h4 id="4-检查网站雏形"><a href="#4-检查网站雏形" class="headerlink" title="4.检查网站雏形"></a>4.检查网站雏形</h4><pre><code>hexo new x
 //新建一个名为x的网页模块
 //hexo new [layout] &lt;title&gt; 新建一篇文章。
 //如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。hexo new &quot;post title with whitespace&quot;
@@ -131,8 +125,7 @@ hexo d -g
 //g 是 generate 缩写，d 是 deploy 缩写：
 //输入d后等待一会完成博客部署
 </code></pre>
-<p>5.配置ssh</p>
-<pre><code>cd ~/.ssh
+<h4 id="5-配置ssh"><a href="#5-配置ssh" class="headerlink" title="5.配置ssh"></a>5.配置ssh</h4><pre><code>cd ~/.ssh
 //检查本机已存在的ssh密钥
 </code></pre>
 <p>如果提示：No such file or directory 说明你是第一次使用git。</p>
@@ -164,8 +157,7 @@ hexo d -g
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config –global user.name &quot;xxx&quot;// 你的github用户名，非昵称</span><br><span class="line">//git config –-global user.name &quot;xxx”</span><br><span class="line">git config –global user.email &quot;xxx@qq.com&quot;// 填写你的github注册邮箱</span><br><span class="line">//git config –-global user.email &quot;xxx@qq.com&quot;</span><br></pre></td></tr></table></figure>
 
-<p>6.准备上传代码</p>
-<ul>
+<h4 id="6-准备上传代码"><a href="#6-准备上传代码" class="headerlink" title="6.准备上传代码"></a>6.准备上传代码</h4><ul>
 <li>在github上新建一个存储库，命名为github的用户名.github.io（必须与自己github注册用户名一致，因为Github 仅能使用一个同名仓库的代码托管一个静态站点）</li>
 <li>编辑本地网站的_config.yml文件，在最后改成这样</li>
 </ul>
@@ -180,8 +172,7 @@ hexo d -g
 <p><img src="/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_07_20_26_13_35.png"></p>
 <p>在创建的存储库的设置中-pages-如图设置</p>
 <p><img src="/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_07_20_28_36_362.png"></p>
-<p>7.hexo命令介绍</p>
-<pre><code>hexo init #进行初始化，hexo 会自动下载一些文件到这个目录，包括 node_modules
+<h4 id="7-hexo命令介绍"><a href="#7-hexo命令介绍" class="headerlink" title="7.hexo命令介绍"></a>7.hexo命令介绍</h4><pre><code>hexo init #进行初始化，hexo 会自动下载一些文件到这个目录，包括 node_modules
 
 hexo n &quot;我的博客&quot; #hexo new &quot;我的博客&quot; #新建文章
 hexo new page &quot;pageName&quot; #新建页面
@@ -201,8 +192,7 @@ hexo generate #生成静态页面至public目录
 hexo s -g #生成并本地预览
 hexo d -g #生成并上传
 </code></pre>
-<p>8.hexo目录结构</p>
-<pre><code>– .deploy      #hexo deploy生成的文件
+<h4 id="8-hexo目录结构"><a href="#8-hexo目录结构" class="headerlink" title="8.hexo目录结构"></a>8.hexo目录结构</h4><pre><code>– .deploy      #hexo deploy生成的文件
 + node_modules #npm组件
 + public       #生成的静态网页文件
 + scaffolds    #模板
@@ -212,8 +202,7 @@ hexo d -g #生成并上传
 + _config.yml  #全局配置文件
 – package.json #定义了hexo所需要的各种模块
 </code></pre>
-<p>9.写博客</p>
-<p>1、在 D:\hexo 目录下，通过输入一下命令，该命令会在 &#x2F;source 文件夹下生成对应文章的 .md 文件，然后就可以通过 Typora 打开此文件编写文章并保存了</p>
+<h4 id="9-写博客"><a href="#9-写博客" class="headerlink" title="9.写博客"></a>9.写博客</h4><p>1、在 D:\hexo 目录下，通过输入一下命令，该命令会在 &#x2F;source 文件夹下生成对应文章的 .md 文件，然后就可以通过 Typora 打开此文件编写文章并保存了</p>
 <pre><code>hexo new &quot;文章 title&quot;
 </code></pre>
 <p>2、当您写完该篇文章后，依次输入以下命令:</p>
@@ -236,7 +225,7 @@ hexo d     #将博客推送到 github
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/" data-id="clop2shwn00010ot19c8w6de4" data-title="用github搭建hexo博客" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/" data-id="clop342fd000100t13ab98fzj" data-title="用github搭建hexo博客" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -274,7 +263,7 @@ hexo d     #将博客推送到 github
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/abcde/" data-id="clop2shwi00000ot10bna3p27" data-title="abcde" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/abcde/" data-id="clop342f8000000t12csu4ji7" data-title="abcde" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -325,7 +314,7 @@ hexo d     #将博客推送到 github
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/hello-world/" data-id="clop2shwp00020ot13vkx70lv" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/hello-world/" data-id="clop342ff000200t14umf725z" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
