@@ -151,7 +151,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/08/%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +169,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/11/08/%E5%88%A9%E7%94%A8github%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">github+hexo搭建博客</a>
+          <a href="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">github+hexo搭建博客</a>
         </h2>
 
         <div class="post-meta-container">
@@ -238,12 +238,12 @@
 <hr>
 <h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="1、博客目录"><a href="#1、博客目录" class="headerlink" title="1、博客目录"></a>1、博客目录</h4><p>在本地找个目录放博客源文件，路径不要有中文。目录名随意，例如：boke。</p>
 <h4 id="2、安装hexo"><a href="#2、安装hexo" class="headerlink" title="2、安装hexo"></a>2、安装hexo</h4><p>选定博客目录，然后右键，选择 <code>Git Bash Here</code>。</p>
-<p><img src="/oCam_2023_11_07_16_26_50_830.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_16_26_50_830.png"></p>
 <p>然后在 <code>Git Bash Here</code> 中使用npm命令安装Hexo。命令如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli		//安装hexo</span><br><span class="line">hexo init blog				//新建一个网站，网站名随意，例如：blog</span><br><span class="line">cd blog						//进入网站目录</span><br><span class="line">hexo g						//hexo generate #生成静态文件</span><br></pre></td></tr></table></figure>
 
 <p>构建好的效果如下：</p>
-<p><img src="/oCam_2023_11_07_16_48_02_393.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_16_48_02_393.png"></p>
 <blockquote>
 <p>node_modules: 依赖包</p>
 <p>public：存放生成的页面</p>
@@ -262,32 +262,32 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s 			//hexo server #启动服务预览。可以通过 localhost:4000 预览页面。或者输入 127.0.0.1:4000 进行访问。Ctrl+C 可关闭。</span><br></pre></td></tr></table></figure>
 
 <p>启动本地服务预览后，访问页面如下：</p>
-<p><img src="/oCam_2023_11_07_16_50_50_135.png" alt="屏幕捕获_2023_11_07_16_50_50_135"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_16_50_50_135.png" alt="屏幕捕获_2023_11_07_16_50_50_135"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">//清除缓存文件 (db.json) 和已生成的静态文件 (public)。在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</span><br><span class="line">hexo d -g</span><br><span class="line">//g 是 generate 缩写，d 是 deploy 缩写：</span><br><span class="line">//输入d后等待一会完成博客部署</span><br></pre></td></tr></table></figure>
 
 <h4 id="4、配置ssh"><a href="#4、配置ssh" class="headerlink" title="4、配置ssh"></a>4、配置ssh</h4><p>在上面打开的 <code>Git Bash Here</code> 中，再次输入如下命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh		//检查本机已存在的ssh密钥</span><br></pre></td></tr></table></figure>
 
 <p>如果提示：No such file or directory 说明你是第一次使用git。</p>
-<p><img src="/oCam_2023_11_07_19_58_05_911.png" alt="屏幕捕获_2023_11_07_19_58_05_911"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_19_58_05_911.png" alt="屏幕捕获_2023_11_07_19_58_05_911"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “邮件地址”			//邮件地址就是你注册Github的邮件地址，比如我注册用的是QQ邮箱地址。</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>ssh，简单来讲，就是一个秘钥，其中，id_rsa是你这台电脑的私人秘钥，不能给别人看的，id_rsa.pub是公共秘钥，可以随便给别人看。把这个公钥放在GitHub上，这样当你链接GitHub自己的账户时，它就会根据公钥匹配你的私钥，当能够相互匹配时，才能够顺利的通过git上传你的文件到GitHub上。</p>
 </blockquote>
 <p>然后连续3次回车，最终会生成一个文件在 <strong>C:&#x2F;Users&#x2F;当前用户名&#x2F;</strong> 下，打开 <strong>C:&#x2F;Users&#x2F;当前用户名&#x2F;</strong> ，找到 <strong>.ssh&#x2F;id_rsa.pub</strong> 文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; <strong>SSH and GPG keys</strong> -&gt; <strong>New SSH key</strong>：</p>
-<p><img src="/oCam_2023_11_07_20_06_04_738.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_20_06_04_738.png"></p>
 <p>key填写 <code>C:\Users\当前用户名\.ssh\id_rsa.pub</code>中的内容</p>
 <p>在 <code>Git Bash Here</code> 中尝试ssh连接,测试是否成功</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com			//注意邮箱地址不用改</span><br></pre></td></tr></table></figure>
 
 <p>如果提示Are you sure you want to continue connecting (yes&#x2F;no)?，输入yes，然后会看到下面这个，就算成功：</p>
-<p><img src="/oCam_2023_11_07_20_14_48_760.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_20_14_48_760.png"></p>
 <p>在网站目录下(blog目录下)打开 <strong>cmd</strong> (以管理员身份)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git –save			//表示安装 git部署命令工具。在目录下安装 hexo-deployer-git 插件</span><br></pre></td></tr></table></figure>
 
-<p><img src="/oCam_2023_11_07_20_17_34_449.png"></p>
-<p><img src="/oCam_2023_11_07_20_25_48_284.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_20_17_34_449.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_20_25_48_284.png"></p>
 <p>在上面打开的 <code>Git Bash Here</code> 中，输入命令，继续配置：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config –global user.name &quot;xxx&quot;					// xxx 是你的github用户名，非昵称</span><br><span class="line">git config –global user.email &quot;123456@qq.com&quot;		// 123456@qq.com 是你注册Github的邮箱，比如我注册用的是QQ邮箱地址。</span><br></pre></td></tr></table></figure>
 
@@ -306,9 +306,9 @@
 <p>最后上传</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d			#hexo deploy #部署，生成并上传</span><br></pre></td></tr></table></figure>
 
-<p><img src="/oCam_2023_11_07_20_26_13_35.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_20_26_13_35.png"></p>
 <p>在创建的存储库的 <strong>Settings</strong> -&gt; <strong>Pages</strong> 中如下图设置：点击下面的 <a target="_blank" rel="noopener" href="https://yjldsj.gihub.io/">https://yjldsj.gihub.io/</a> 或者 <a target="_blank" rel="noopener" href="https://yjldsj.gihub.io/">Visit site</a> 就可以访问博客了。</p>
-<p><img src="/oCam_2023_11_07_20_28_36_362.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_07_20_28_36_362.png"></p>
 <blockquote>
 <p>之后只要你访问 <a target="_blank" rel="noopener" href="https://github用户名.gihub.io/">https://Github用户名.gihub.io/</a> 就可以访问你的博客了。</p>
 </blockquote>
@@ -348,7 +348,7 @@
 <p>Hexo 有多种图片插入方式，可以将图片存放在本地引用或者将图片放在 CDN 上引用。</p>
 </blockquote>
 <p><strong>插入图片-本地引用</strong></p>
-<p><img src="/oCam_2023_11_08_11_15_21_209.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_11_15_21_209.png"></p>
 <p>1、本地引用–绝对路径</p>
 <p>当 Hexo 项目中只用到少量图片时，可以将图片统一放在网站目录下的 <strong>source&#x2F;images</strong> 文件夹中，通过 markdown 语法访问它们。</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![可以写关于图片的描述](/images/001.jpg)</span><br></pre></td></tr></table></figure>
@@ -371,31 +371,31 @@
 <blockquote>
 <p>图床的就是使用CND方式的，选择图片后，就会自动上传</p>
 </blockquote>
-<p><img src="/oCam_2023_11_08_11_15_38_245.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_11_15_38_245.png"></p>
 <p>1.在github上新建一个存储库，命名为 <code>images</code></p>
 <p>2.进入到 Settings -&gt; Developer Settings -&gt; Personal access tokens -&gt; Tokens</p>
 <p>(Beta是临时的)</p>
-<p><img src="/oCam_2023_11_08_09_59_58_718.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_09_59_58_718.png"></p>
 <p>3.点击 Generate new token 创建token</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note:取一个方便的名字，如图床</span><br><span class="line">Expiration:选择 No expiration 无期限</span><br><span class="line">repo:勾选repo</span><br></pre></td></tr></table></figure>
 
 <p>然后创建。</p>
-<p><img src="/oCam_2023_11_08_10_02_00_704.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_02_00_704.png"></p>
 <p>4.完成后不要着急离开或关闭页面，复制生成的Token，保存到文本中！</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">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</span><br></pre></td></tr></table></figure>
 
-<p><img src="/oCam_2023_11_08_10_04_04_875.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_04_04_875.png"></p>
 <p>5.到PicGo里面进行配置</p>
 <p>选择 图床设置 -&gt; Github</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">设定仓库名:yjldsj/images</span><br><span class="line">//设置规则为:GitHub帐户名/图床仓库名</span><br><span class="line"></span><br><span class="line">设定分支名:main</span><br><span class="line">//默认的就行，main，或master</span><br><span class="line"></span><br><span class="line">设定Token:</span><br><span class="line">//就是刚刚保存的Token，复制粘贴进这里就好</span><br><span class="line"></span><br><span class="line">设定存储路径：photo</span><br><span class="line">//可以设置图片存储在仓库的哪个目录下，这里就设置为图片存储在仓库的 photo 目录，意思就是创建一个文件夹</span><br><span class="line"></span><br><span class="line">设定自定义域名:https://cdn.jsdelivr.net/gh/yjldsj/images@main/</span><br><span class="line">//为了使用jsdeliver进行加速，此处设置规则为：https://cdn.jsdelivr.net/gh/你的github用户名/你的仓库名@分支（一般为main）/</span><br></pre></td></tr></table></figure>
 
-<p><img src="/oCam_2023_11_08_10_31_16_985.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_31_16_985.png"></p>
 <p>然后设置 设为默认图床</p>
-<p><img src="/oCam_2023_11_08_10_41_07_490.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_41_07_490.png"></p>
 <p>6.typora设置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">图像</span><br><span class="line">-&gt; 上传图片</span><br><span class="line">-&gt; 勾选3个</span><br><span class="line">-&gt; PicGo(app)</span><br><span class="line">-&gt; C:\z3\PicGo\PicGo.exe</span><br><span class="line">最后验证图片上传选项</span><br></pre></td></tr></table></figure>
 
-<p><img src="/oCam_2023_11_08_10_41_27_885.png"></p>
+<p><img src="/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_41_27_885.png"></p>
 <hr>
 <h2 id="hexo博客更换主题"><a href="#hexo博客更换主题" class="headerlink" title="hexo博客更换主题"></a>hexo博客更换主题</h2><p><a target="_blank" rel="noopener" href="https://argvchs.github.io/2022/04/17/hexo-blog-2/">博客搭建教程</a></p>
 <h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>首先在 <a target="_blank" rel="noopener" href="https://hexo.io/themes">这里</a> 选择一个主题。下面的我曾经用过的：</p>
