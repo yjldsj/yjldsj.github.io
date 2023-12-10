@@ -19,19 +19,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="钓鱼网页实验环境：KaliLinux mip22介绍mip22是一种高级网络钓鱼工具，使用手动方法克隆任何网站、使用自定义方法添加任何网站、使用子域屏蔽链接、缩短网址、实时查看凭据的音频通知、背景音乐等… 代理方式一：proxychains4proxychains4是一个用于Linux的代理链工具。当使用proxychains4时，它会将所有网络请求通过这些代理服务器转发。这可以用于绕过防火墙或">
+    <meta name="description" content="在Kali搭建钓鱼网页的过程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="钓鱼网页">
 <meta property="og:url" content="http://example.com/2023/11/27/%E9%92%93%E9%B1%BC%E7%BD%91%E9%A1%B5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="钓鱼网页实验环境：KaliLinux mip22介绍mip22是一种高级网络钓鱼工具，使用手动方法克隆任何网站、使用自定义方法添加任何网站、使用子域屏蔽链接、缩短网址、实时查看凭据的音频通知、背景音乐等… 代理方式一：proxychains4proxychains4是一个用于Linux的代理链工具。当使用proxychains4时，它会将所有网络请求通过这些代理服务器转发。这可以用于绕过防火墙或">
+<meta property="og:description" content="在Kali搭建钓鱼网页的过程。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2023/11/27/%E9%92%93%E9%B1%BC%E7%BD%91%E9%A1%B5/oCam_2023_12_02_20_48_12_733.png">
 <meta property="og:image" content="http://example.com/2023/11/27/%E9%92%93%E9%B1%BC%E7%BD%91%E9%A1%B5/oCam_2023_12_02_20_52_27_181.png">
 <meta property="og:image" content="http://example.com/2023/11/27/%E9%92%93%E9%B1%BC%E7%BD%91%E9%A1%B5/oCam_2023_12_02_20_55_56_475.png">
 <meta property="og:image" content="http://example.com/2023/11/27/%E9%92%93%E9%B1%BC%E7%BD%91%E9%A1%B5/oCam_2023_12_02_21_11_30_394.png">
 <meta property="article:published_time" content="2023-11-27T11:23:25.000Z">
-<meta property="article:modified_time" content="2023-12-10T01:21:53.623Z">
+<meta property="article:modified_time" content="2023-12-10T07:23:05.083Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="钓鱼网页">
 <meta property="article:tag" content="mip22">
@@ -139,12 +139,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -185,7 +185,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="钓鱼网页 | Hexo">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="在Kali搭建钓鱼网页的过程。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -207,20 +207,20 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-12-10 09:21:53" itemprop="dateModified" datetime="2023-12-10T09:21:53+08:00">2023-12-10</time>
+      <time title="Modified: 2023-12-10 15:23:05" itemprop="dateModified" datetime="2023-12-10T15:23:05+08:00">2023-12-10</time>
     </span>
 
   
 </div>
 
+            <div class="post-description">在Kali搭建钓鱼网页的过程。</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><hr>
-<h2 id="钓鱼网页"><a href="#钓鱼网页" class="headerlink" title="钓鱼网页"></a>钓鱼网页</h2><p>实验环境：KaliLinux</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="钓鱼网页"><a href="#钓鱼网页" class="headerlink" title="钓鱼网页"></a>钓鱼网页</h2><p>实验环境：KaliLinux</p>
 <h3 id="mip22介绍"><a href="#mip22介绍" class="headerlink" title="mip22介绍"></a>mip22介绍</h3><p>mip22是一种高级网络钓鱼工具，使用手动方法克隆任何网站、使用自定义方法添加任何网站、使用子域屏蔽链接、缩短网址、实时查看凭据的音频通知、背景音乐等…</p>
 <h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><h4 id="方式一：proxychains4"><a href="#方式一：proxychains4" class="headerlink" title="方式一：proxychains4"></a>方式一：proxychains4</h4><p>proxychains4是一个用于Linux的代理链工具。当使用proxychains4时，它会将所有网络请求通过这些代理服务器转发。这可以用于绕过防火墙或其他网络限制。</p>
 <p>要使用proxychains4，您需要在proxychains4的配置文件 <code>/etc/proxychains4.conf</code> 中添加代理服务器的地址和端口号。然后，您可以使用proxychains4命令来启动代理。</p>
