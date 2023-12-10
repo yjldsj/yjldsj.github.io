@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Proxifier介绍1）支持 Windows 和 MacOS 系统，Windows XP&#x2F;Vista&#x2F;Win7&#x2F;Win10，MacOS，支持 http&#x2F;https、socks4&#x2F;5 等代理协议，支持TCP、UDP协议 2）Proxifier 代理客户端设置后，所有网络应用程序都可以实现代理上网，不需要逐一设置代理 3）Proxifier 代理客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxifier">
+<meta property="og:url" content="http://example.com/2023/12/05/Proxifier/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Proxifier介绍1）支持 Windows 和 MacOS 系统，Windows XP&#x2F;Vista&#x2F;Win7&#x2F;Win10，MacOS，支持 http&#x2F;https、socks4&#x2F;5 等代理协议，支持TCP、UDP协议 2）Proxifier 代理客户端设置后，所有网络应用程序都可以实现代理上网，不需要逐一设置代理 3）Proxifier 代理客">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_10_554.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_19_389.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_35_836.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_45_735.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_35_836.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_55_555.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_57_933.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_18_00_472.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_18_29_434.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_19_02_467.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_19_09_200.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_06_19_18_18_512.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_06_19_18_49_26.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_06_19_21_36_762.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_19_09_200.png">
+<meta property="og:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_06_19_26_19_454.png">
+<meta property="article:published_time" content="2023-12-05T12:23:25.000Z">
+<meta property="article:modified_time" content="2023-12-10T01:21:18.694Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Proxifier">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/12/05/Proxifier/oCam_2023_12_05_17_17_10_554.png">
+
+
+<link rel="canonical" href="http://example.com/2023/12/05/Proxifier/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/12/05/Proxifier/","path":"2023/12/05/Proxifier/","title":"Proxifier"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Proxifier | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/home/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxifier"><span class="nav-number">1.</span> <span class="nav-text">Proxifier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.</span> <span class="nav-text">使用说明</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/05/Proxifier/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Proxifier | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Proxifier
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-05 20:23:25" itemprop="dateCreated datePublished" datetime="2023-12-05T20:23:25+08:00">2023-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-12-10 09:21:18" itemprop="dateModified" datetime="2023-12-10T09:21:18+08:00">2023-12-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">软件</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><hr>
+<h2 id="Proxifier"><a href="#Proxifier" class="headerlink" title="Proxifier"></a>Proxifier</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>1）支持 <strong>Windows</strong> 和 <strong>MacOS</strong> 系统，Windows XP&#x2F;Vista&#x2F;Win7&#x2F;Win10，MacOS，支持 <strong>http&#x2F;https、socks4&#x2F;5</strong> 等代理协议，支持TCP、UDP协议</p>
+<p>2）Proxifier 代理客户端设置后，所有网络应用程序都可以实现代理上网，不需要逐一设置代理</p>
+<p>3）Proxifier 代理客户端开启后，所有网络应用程序必须取消代理设置，否则客户端代理上网会失败</p>
+<p>4）通过Proxifier代理上网，客户端必须先启动Proxifier，才能访问互联网</p>
+<p>5）通过代理服务器解析 DNS 名称，通过代理服务器链可使用不同的协议</p>
+<p>简单来说，就是控制哪些软件应用使用代理，是否使用系统代理。感觉和自己去Clash打开代理没什么区别。</p>
+<h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><p>下载地址：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.mustdown.com/software/13717.html">Proxifier 中文版 3.42 标准版 汉化版 → 必下网 (mustdown.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.proxifier.com/">Proxifier 官网</a></li>
+</ul>
+<blockquote>
+<p>Proxifier 有三个版本，Windows 下有标准版(Standard)、简易版(Portable)，以及MacOS版。</p>
+</blockquote>
+<blockquote>
+<p>Proxifier 是商业收费软件，提供31天全功能免费试用，过期后需要购买，单人售价约270元人民币，多人购买有折扣。</p>
+</blockquote>
+<p>选择安装位置就行，其它没什么好说的。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>0、打开proxifier后，界面如下：</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_10_554.png"></p>
+<p>1、打开 <code>代理服务器/Proxy Servers</code> 的窗口，点击 <code>添加</code> 按钮。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_19_389.png"></p>
+<p>2、输入代理服务器 <code>地址/Address</code> 和 <code>端口/Port</code>，选择协议，如果不知道怎么选，就选择 <code>SOCKS Version 5</code>。</p>
+<blockquote>
+<p><strong>127.0.0.1</strong>：这个填的是代理服务器的地址，因为我本机就有代理软件Clash，所有填本机的IP。但是每次断网重连的时候，都有可能被分配到一个新的IP地址，所以填127.0.0.1。127.0.0.1就是本机的意思，本机回环地址。</p>
+<p><strong>7890</strong>：是我代理软件Clash软件的端口号。具体要看看你自己的端口号，也有可能是别的，不一定是7890。</p>
+<p><strong>socks 5</strong>：看情况选择协议。也可以选择socks 4、https。</p>
+</blockquote>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_35_836.png"></p>
+<blockquote>
+<p>若代理IP没有密码，则不用授权用户名、密码。若代理ip有密码，则设置授权的用户名、密码，然后点击“检查”。若提示测试已通过则说明配置正确可以使用。</p>
+</blockquote>
+<p>3、在代理服务器设置界面点击 <code>检查</code> ，会对你填写代理服务器进行检查。（这步可有可无）</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_45_735.png"></p>
+<p>4、在代理服务器设置界面点击 <code>确定/OK</code>。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_35_836.png"></p>
+<p>5、点击 <strong>是</strong> 。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_55_555.png"></p>
+<p>6、点击 <strong>确定</strong> 。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_17_57_933.png"></p>
+<p>7、在 <strong>代理服务器</strong> 窗口点击 <strong>确定</strong> 按钮，此时就已经连接上代理了。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_18_00_472.png"></p>
+<p>8、配置代理规则可以打开 <strong>代理规则</strong> 窗口。</p>
+<blockquote>
+<p>应该还有一个规则名为 <strong>localhost</strong> 的，我删了。好像全删也行，没什么影响，大不了自己再配置规则就行。</p>
+</blockquote>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_18_29_434.png"></p>
+<p>9、你可以选择 <strong>添加</strong>。也可以在选择一条已有规则进行 <strong>编辑</strong> 。</p>
+<blockquote>
+<p>名称：随意。</p>
+<p>应用程序：根据下面的举例来写格式。</p>
+<p>目标主机：随意，可写可不写。</p>
+<p>目标端口：随意，可写可不写。</p>
+<p>下面有个 <code>Proxy SOCKS5 127.0.0.1</code> 就是之前提添加的代理。</p>
+</blockquote>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_19_02_467.png"></p>
+<p>8、<strong>应用程序</strong> 处点击 <strong>浏览</strong> 可以设置指定程序，<strong>目标端口</strong> 处可以设置指定端口。设置完成后点击“确定”。</p>
+<blockquote>
+<p>注意：要勾选到来再 <strong>确定</strong> 。</p>
+</blockquote>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_19_09_200.png"></p>
+<p>9、通过 <strong>Google</strong> 来进行演示</p>
+<p>没使用Proxifier前，访问 <code>youtube.com</code> ：</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_06_19_18_18_512.png"></p>
+<p>使用Proxifier后，访问 <code>youtube.com</code> ：</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_06_19_18_49_26.png"></p>
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><p>注意：使用Proxifier时，要把Clash打开，并不需要点开 <strong>System Proxy&#x2F;系统代理</strong>。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_06_19_21_36_762.png"></p>
+<p>也要把Proxifier中的配置Google应用的规则勾选中。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_05_17_19_09_200.png"></p>
+<p>如果不想让Google走代理，可以把Google的规则 <strong>不勾选</strong>，或者时选择 <strong>Direct&#x2F;直接放行</strong>。</p>
+<p><img src="/2023/12/05/Proxifier/oCam_2023_12_06_19_26_19_454.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Proxifier/" rel="tag"># Proxifier</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/28/%E7%A4%BE%E5%B7%A5%E5%BA%93/" rel="prev" title="社工库">
+                  <i class="fa fa-angle-left"></i> 社工库
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

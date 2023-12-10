@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://example.com/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_41_07_490.png">
 <meta property="og:image" content="http://example.com/2023/11/08/github+hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/oCam_2023_11_08_10_41_27_885.png">
 <meta property="article:published_time" content="2023-11-08T11:24:25.000Z">
-<meta property="article:modified_time" content="2023-12-03T01:04:40.977Z">
+<meta property="article:modified_time" content="2023-12-10T01:23:48.860Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="github">
 <meta property="article:tag" content="hexo">
@@ -109,7 +109,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/home/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
   </ul>
 </nav>
 
@@ -146,19 +146,19 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">9</span>
+        <a href="/">
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -221,7 +221,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-12-03 09:04:40" itemprop="dateModified" datetime="2023-12-03T09:04:40+08:00">2023-12-03</time>
+      <time title="Modified: 2023-12-10 09:23:48" itemprop="dateModified" datetime="2023-12-10T09:23:48+08:00">2023-12-10</time>
     </span>
 
   
@@ -437,17 +437,15 @@
 
 
 
-<p>选好主题后就要安装，在网站根目录下的 <strong>themes</strong> 右键 <strong>Git Bash Here</strong> ，然后运行下面的命令将主题下载到本地。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;link&gt;</span><br><span class="line">或者</span><br><span class="line">git clone &lt;link&gt;.git &lt;theme&gt; --depth=1</span><br><span class="line">或者</span><br><span class="line">// npm install hexo-theme-next    # 这个是安装到 boke/blog/node_modules 目录下，不会下到 themes 文件夹下，不建议</span><br></pre></td></tr></table></figure>
+<p>选好主题后就要安装，在网站根目录下的 <strong>themes</strong> 右键 <strong>Git Bash Here</strong> ，然后运行下面的其中一条命令将主题下载到本地。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;link&gt;</span><br><span class="line">git clone &lt;link&gt;.git &lt;theme&gt; --depth=1    # --depth=1 是为了 Clone 更快，只 Clone（下载） 最新提交。</span><br><span class="line">npm install hexo-theme-next    # 这个是安装到 boke/blog/node_modules 目录下，不会下到 themes 文件夹下，不建议使用</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p><code>--depth=1</code> 是为了 Clone 更快，只 Clone（下载） 最新提交。</p>
-</blockquote>
 <p>例如我的选的主题是 <a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">Next</a>，则下载命令如下为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next</span><br></pre></td></tr></table></figure>
 
 
 
+<p>更换主题</p>
 <p>安装完成后，在博客根目录下的 <strong>_config.yml</strong> 中设置 <code>theme</code> ，将<code>theme</code>原来的 <code>landscape</code> 改为你的主题名称，就可以切换主题，一般主题在 GitHub 项目页下都会有介绍和配置说明，可以按照说明自定义页面。</p>
 <p>清除缓存，也就是清除public目录，之后再生成的静态文件就是安装的主题了。（在网站目录中右击 <code>Git Bash</code> ，然后输入命令 <code>hexo clean</code> 清除之前的文件）</p>
 <p>更新主题（想更新就更新，不想就忽略）</p>
@@ -497,6 +495,15 @@
 <p>下文中的 <code>source</code> 均指主题文件夹下的。</p>
 </blockquote>
 <p>之后的可以查看 <a target="_blank" rel="noopener" href="https://argvchs.github.io/2022/04/17/hexo-blog-3/">博客搭建教程</a> 或者 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/618864711">hexo博客配置</a></p>
+<h2 id="Next-主题博客个性化配置"><a href="#Next-主题博客个性化配置" class="headerlink" title="Next 主题博客个性化配置"></a>Next 主题博客个性化配置</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/as480133937/article/details/100138838">Hexo-Next 主题博客个性化配置超详细，超全面(两万字)</a></p>
+</blockquote>
+<p>配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/blog/_config.yml                #  站点配置文件</span><br><span class="line">/blog/themes/next/_config.yml    #  主题配置文件</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>有时间再搞</p>
+</blockquote>
 <hr>
 <hr>
 <hr>
