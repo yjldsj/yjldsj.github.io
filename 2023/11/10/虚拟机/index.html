@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="对VMware的三种网络连接方式的介绍，VMware的使用。VirtualBox的使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机">
+<meta property="og:url" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="对VMware的三种网络连接方式的介绍，VMware的使用。VirtualBox的使用。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/oCam_2023_11_08_15_46_59_631.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/20160408183817187.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/oCam_2023_11_08_15_55_59_849.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/20160408184441387.png">
+<meta property="og:image" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/20160408185234834.png">
+<meta property="article:published_time" content="2023-11-10T11:23:25.000Z">
+<meta property="article:modified_time" content="2024-01-07T12:57:51.080Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="VMware">
+<meta property="article:tag" content="VirtualBox">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/oCam_2023_11_08_15_46_59_631.png">
+
+
+<link rel="canonical" href="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/","path":"2023/11/10/虚拟机/","title":"虚拟机"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>虚拟机 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VMware"><span class="nav-number">1.</span> <span class="nav-text">VMware</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%BF%AB%E7%85%A7"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟机快照</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">三种网络连接方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%A5%E6%8E%A5%EF%BC%88Bridged%EF%BC%89%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">桥接（Bridged）模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NAT%EF%BC%88%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%EF%BC%89%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">NAT（网络地址转换）模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%85%E4%B8%BB%E6%9C%BA%EF%BC%88Host-only%EF%BC%89%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">仅主机（Host-only）模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VMware%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">VMware的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kali"><span class="nav-number">2.1.</span> <span class="nav-text">Kali</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows10"><span class="nav-number">2.2.</span> <span class="nav-text">Windows10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CentOS-7"><span class="nav-number">2.3.</span> <span class="nav-text">CentOS 7</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VirtualBox"><span class="nav-number">3.</span> <span class="nav-text">VirtualBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VirtualBox%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">VirtualBox的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MoneyBox"><span class="nav-number">4.1.</span> <span class="nav-text">MoneyBox</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="虚拟机 | Hexo">
+      <meta itemprop="description" content="对VMware的三种网络连接方式的介绍，VMware的使用。VirtualBox的使用。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          虚拟机
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-11-10 19:23:25" itemprop="dateCreated datePublished" datetime="2023-11-10T19:23:25+08:00">2023-11-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-07 20:57:51" itemprop="dateModified" datetime="2024-01-07T20:57:51+08:00">2024-01-07</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">对VMware的三种网络连接方式的介绍，VMware的使用。VirtualBox的使用。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="VMware"><a href="#VMware" class="headerlink" title="VMware"></a>VMware</h2><h3 id="虚拟机快照"><a href="#虚拟机快照" class="headerlink" title="虚拟机快照"></a>虚拟机快照</h3><p>VMware虚拟机快照指的就是在特定时间点保存虚拟机的状态和数据。该状态包括虚拟机的电源状态（例如，通电、断电、挂起），数据包括构成虚拟机的全部文件（例如，磁盘、内存和其他设备，如虚拟网络接口卡）。</p>
+<h3 id="三种网络连接方式"><a href="#三种网络连接方式" class="headerlink" title="三种网络连接方式"></a>三种网络连接方式</h3><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wushuaishuai/p/9258849.html">vmware虚拟机三种网络连接方式</a>、<a target="_blank" rel="noopener" href="https://www.yuque.com/wangx1aoer/qfn3xp/bnbibwwy4r496eg0?singleDoc#%20%E3%80%8AVMware%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F%E3%80%8B">VMware的三种模式</a></p>
+</blockquote>
+<p>VMWare的虚拟机有三种网络连接方式，分别是桥接（Bridged）模式、NAT 模式（网络地址转换模式）和仅主机（Host-only）模式。</p>
+<p>在安装 VMware 之后，宿主机上会出现几个相关的虚拟设备，每个设备的功能如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VMware Network Adapter VMnet1：宿主机与 Host-only 虚拟网络进行通信的虚拟网卡。</span><br><span class="line">VMware Network Adapter VMnet8：宿主机与 NAT 虚拟网络进行通信的虚拟网卡。</span><br><span class="line"></span><br><span class="line">VMnet0：桥接（Bridge）模式下的虚拟交换机。</span><br><span class="line">VMnet1：仅主机（Host-only）模式下的虚拟交换机。</span><br><span class="line">VMnet8：NAT 模式下的虚拟交换机。</span><br></pre></td></tr></table></figure>
+
+<p>在 <strong>网络连接</strong> 中我们可以看到这两块虚拟网卡。</p>
+<p><img src="/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/oCam_2023_11_08_15_46_59_631.png"></p>
+<blockquote>
+<p>如果不小心将这两块卸载了，可以在VMware的 <strong>编辑</strong> 下的 <strong>虚拟网络编辑器</strong> 中点击 <strong>还原默认设置</strong> ，可重新将虚拟网卡还原。</p>
+</blockquote>
+<h4 id="桥接（Bridged）模式"><a href="#桥接（Bridged）模式" class="headerlink" title="桥接（Bridged）模式"></a>桥接（Bridged）模式</h4><p>在桥接模式下，使用 VMware 创建的虚拟机就像是你买了一台新主机接到了局域网的交换机或者路由器上。它可以配置IP地址、子网掩码和其它的 TCP&#x2F;IP 信息，同时它也可以访问局域网内任何一台机器。</p>
+<p>其实在网络层面，完全可以把桥接模式的虚拟机看做是与宿主机具有同等地位的两台电脑。只要将虚拟机的 IP 地址、子网掩码配置成与宿主机同一网段，那么二者就可以进行通信。</p>
+<p>桥接模式的使用很简单，只要将虚拟机配置为桥接模式，然后将其 IP 地址和子网掩码配置到与宿主机同一网段即可正常工作。</p>
+<p>优先使用桥接模式的场景：局域网中的 IP 地址足够，并且局域网内的其他设备需要访问虚拟机。</p>
+<p>虚拟系统与宿主计算机以及宿主计算机所在网络的其他计算机都可以相互访问。</p>
+<p><strong>Ping 的详细过程和原理：</strong></p>
+<p>在桥接模式下，一个VMware的虚拟机之间会建立一个虚拟网络，虚拟网络中的所有虚拟机都可以直接通信，而不需要经过宿主机。当一个虚拟机向另一个虚拟机发送 ICMP 请求数据包时，数据包会直接发送到另一个虚拟机。另一个虚拟机的网卡会收到 ICMP 请求数据包，并将数据包发送给操作系统。操作系统会将 ICMP 请求数据包转发给内核，内核会将 ICMP 请求数据包转发给 ICMP 协议栈。ICMP 协议栈会将 ICMP 请求数据包封装成一个 ICMP 响应数据包，并将数据包发送给发送端。</p>
+<p>桥接模式就是将<strong>主机网卡</strong>与<strong>虚拟机虚拟的网卡</strong>利用<strong>虚拟网桥</strong>进行通信。在桥接的作用下，类似于把物理主机虚拟为一个交换机，所有桥接设置的虚拟机连接到这个交换机的一个接口上，物理主机也同样插在这个交换机当中，所以所有桥接下的网卡与网卡都是交换模式的，相互可以访问而不干扰。在桥接模式下，<strong>虚拟机ip地址需要与主机在同一个网段</strong>，如果需要联网，则<strong>网关与DNS需要与主机网卡一致</strong>。其网络结构如下图所示：</p>
+<p><img src="/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/20160408183817187.png"></p>
+<p>主机的ip地址、网关、DNS等信息如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主机ip == IPv4 地址</span><br><span class="line">默认网关 == IPv4 默认网关 == IPv4 网关地址</span><br><span class="line">DNS服务器 == IPv4 DNS 服务器</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/oCam_2023_11_08_15_55_59_849.png"></p>
+<h4 id="NAT（网络地址转换）模式"><a href="#NAT（网络地址转换）模式" class="headerlink" title="NAT（网络地址转换）模式"></a>NAT（网络地址转换）模式</h4><blockquote>
+<p>一个主机有2个虚拟机，1个虚拟机是桥接模式，1个虚拟机时NAT模式。NAT的可以ping通桥接的，桥接的ping不通NAT的。</p>
+</blockquote>
+<p>NAT 模式就是让虚拟机借助 <strong>NAT （网络地址转换）</strong>功能，通过宿主机来访问外部网络。如果你希望你的虚拟机连接外部网络，这种模式最简单，虚拟系统不用做任何网络设置就可以访问外部网络。</p>
+<p>在 NAT 模式下，虚拟机与宿主机的关系就像是孩子与监管很严格的父亲之间的关系。孩子想要和外面的人交流，需要先告诉父亲，然后由父亲转达。外面的人想和孩子交流，也需要先告诉父亲，然后由父亲转达给孩子。虚拟机想要访问网络，需要经过宿主机代劳。在外部设备看来，是宿主机提出了网络请求，所以将网络数据返回给了宿主机。宿主机收到数据之后，转发给虚拟机。</p>
+<p>在 NAT 模式下，一个VMware的两个虚拟机之间的通信需要通过<strong>宿主机</strong>作为中介。宿主机会为每个虚拟机分配一个虚拟 IP 地址，并将<strong>虚拟 IP 地址映射到宿主机的物理 IP 地址</strong>。当一个虚拟机向另一个虚拟机发送数据时，数据会先经过宿主机的 <strong>NAT 设备</strong>，然后再发送到另一个虚拟机。</p>
+<p><strong>Ping 的详细过程和原理：</strong></p>
+<p>在 NAT 模式下，当你在一个虚拟机上执行 ping 命令时，虚拟机会向另一个虚拟机发送一个 ICMP 请求数据包。</p>
+<p>数据包会先经过宿主机的 <strong>NAT 设备</strong>。NAT 设备会将 ICMP 请求数据包的源 IP 地址和源端口号修改为宿主机的物理 IP 地址和物理端口号，然后再将数据包发送到<strong>外网</strong>。</p>
+<p>外网中的路由器会根据 ICMP 请求数据包的目的 IP 地址，将数据包转发到另一个虚拟机所在的<strong>网络</strong>。</p>
+<p>另一个虚拟机的网卡会收到 ICMP 请求数据包，并将数据包发送给<strong>操作系统</strong>。操作系统会将 ICMP 请求数据包转发给<strong>内核</strong>，内核会将 ICMP 请求数据包转发给 <strong>ICMP 协议栈</strong>。ICMP 协议栈会将 ICMP 请求数据包封装成一个 <strong>ICMP 响应数据包</strong>，并将数据包发送给<strong>发送端</strong>。</p>
+<p>NAT 模式下，宿主机之外的网络设备是看不到虚拟机的存在的。如果外部设备（例如嵌入式 Linux 开发板等）想要访问虚拟机怎么办？这就需要配置 VMware 的“虚拟网络编辑器”配置端口映射，将宿主机的网络端口与虚拟机的网络端口进行映射。外部设备访问宿主机映射之后的端口就可以实现对虚拟机的访问。</p>
+<p>NAT 模式下的虚拟系统的 <strong>TCP&#x2F;IP 配置信息</strong>是由 <strong>VMnet8(NAT) 虚拟网络的 DHCP 服务器</strong>提供的，无法进行手工修改。如果只是要求虚拟机能够访问外部网络而不需要外部设备访问虚拟机，那用 NAT 模式比较方便。如果需要外部设备访问虚拟机，在 IP 地址足够的情况下，不如使用桥接模式方便。毕竟，配置端口映射也挺麻烦。</p>
+<p>优先使用 NAT 模式的场景：</p>
+<ul>
+<li><p>场景1：局域网中的 IP 地址紧张，不能给虚拟机分配单独的 IP 地址。</p>
+</li>
+<li><p>场景2：只需要虚拟机访问外部网络，不需要外部设备访问虚拟机。</p>
+</li>
+</ul>
+<p>虚拟机可以访问宿主计算机所在网络的其他计算机（反之不行），可以与宿主计算机互访。</p>
+<p>如果你的网络ip资源紧缺，但是你又希望你的虚拟机能够联网，这时候NAT模式是最好的选择。NAT模式借助虚拟NAT设备和虚拟DHCP服务器，使得虚拟机可以联网。其网络结构如下图所示：</p>
+<p><img src="/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/20160408184441387.png"></p>
+<blockquote>
+<p>NAT模式：利用虚拟的<strong>NAT设备</strong>以及<strong>虚拟DHCP服务器</strong>来使虚拟机连接外网，而VMware Network Adapter VMnet8虚拟网卡是用来与虚拟机通信的。</p>
+</blockquote>
+<h4 id="仅主机（Host-only）模式"><a href="#仅主机（Host-only）模式" class="headerlink" title="仅主机（Host-only）模式"></a>仅主机（Host-only）模式</h4><p>在有些情况下，我们需要 将虚拟机所在的网络环境与宿主机所在的网络环境进行隔离，这个时候就可以采用 Host-only 模式。</p>
+<p>在 Host-only 模式下：</p>
+<ul>
+<li><p>所有的虚拟机之间可以相互通信</p>
+</li>
+<li><p>虚拟机与宿主机之间可以相同通信，类似于将二者通过双绞线互连。</p>
+</li>
+<li><p>虚拟机与宿主机所在局域网中的其它设备之间不能通信。</p>
+</li>
+</ul>
+<p>在 Host-only 模式下，虚拟系统的 TCP&#x2F;IP 配置信息(如 IP 地址、网关地址、DNS 服务器等)，都是由 VMnet1 (host-only) 虚拟网络的 DHCP 服务器来动态分配的。</p>
+<p>这种模式可以把 VMnet1 想象成一个路由器，它为所有连接上的虚拟机分配 IP 地址。宿主机也通过 VMware Network Adapter VMnet1 虚拟网卡连接到 VMnet1 上，所以也会得到一个 IP 地址。VMnet1 管理下的所有机器（虚拟机、宿主机）之间可以正常通信。</p>
+<p>除了 VMware Network Adapter VMnet1 虚拟网卡之外，宿主机还会有物理网卡，并通过物理网卡连接到了现实中的交换机或者路由器上。物理网卡所在的网络和 VMware Network Adapter VMnet1 虚拟网卡所在的网络之间是完全隔离的，所以物理局域网内的其他设备和 VMnet1 管理下的虚拟机之间无法通信。</p>
+<p>优先使用 Host-only 模式的场景：</p>
+<ul>
+<li>VMware 虚拟机与物理局域网内的其他设备需要进行网络隔离。</li>
+</ul>
+<p>这种模式下，虚拟系统的网卡连接到宿主计算机的VMware Network Adapter VMnet1网卡上。虚拟系统的TCP&#x2F;IP配置信息(如IP地址、网关地址、DNS服务器等)，都是由VMnet1(host-only)虚拟网络的DHCP服务器来动态分配的。  </p>
+<p>默认情况下，虚拟系统只能与宿主计算机互访，这也是Host-only的名字的意义。此时相当于两台机器通过双绞线直连。</p>
+<p>Host-Only模式其实就是NAT模式去除了虚拟NAT设备，然后使用VMware Network Adapter VMnet1虚拟网卡连接VMnet1虚拟交换机来与虚拟机通信的，Host-Only模式将虚拟机与外网隔开，使得虚拟机成为一个独立的系统，只与主机相互通讯。</p>
+<p><img src="/2023/11/10/%E8%99%9A%E6%8B%9F%E6%9C%BA/20160408185234834.png"></p>
+<h2 id="VMware的使用"><a href="#VMware的使用" class="headerlink" title="VMware的使用"></a>VMware的使用</h2><blockquote>
+<p>尽量不要用中文目录</p>
+</blockquote>
+<h3 id="Kali"><a href="#Kali" class="headerlink" title="Kali"></a>Kali</h3><p>解压 <strong>kali-linux-2023-W10-vmware-amd64.vmwarevm.zip</strong> 文件，然后在VMware的工具栏中 <strong>文件</strong> - 》 <strong>扫描虚拟机</strong> 将kali导入</p>
+<h3 id="Windows10"><a href="#Windows10" class="headerlink" title="Windows10"></a>Windows10</h3><ul>
+<li>在VMware的工具栏中 文件 - 》 新建虚拟机</li>
+<li>自定义</li>
+<li>。。。</li>
+<li>安装程序光盘映像文件(iso)(M) 中选择 <strong>Win10_1903_V2_Chinese(Simplified)_x64.iso</strong> </li>
+<li>。。。</li>
+<li>内存 4G ，处理器 2，硬盘60G</li>
+</ul>
+<h3 id="CentOS-7"><a href="#CentOS-7" class="headerlink" title="CentOS 7"></a>CentOS 7</h3><p>下载地址：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/">清华大学开源软件镜像站</a>，<a target="_blank" rel="noopener" href="http://ftp.sjtu.edu.cn/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso">下载二</a></p>
+<p>选择 <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Everything-2207-02.iso">CentOS-7-x86_64-Everything-2207-02.iso</a> 和 <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso">CentOS-7-x86_64-Minimal-2009.iso</a> 都可以。 （CentOS-7-x86_64-Minimal-2009.iso是最小安装，什么也没有，所以需要进行初始化）</p>
+<p>1、在 <code>VMware</code> 上新建虚拟机，选择 下载到的 <code>CentOS-7-x86_64-Minimal-2009.iso</code> 镜像。</p>
+<p>2、语言选择：中文，简体中文</p>
+<p>3、软件选择：最小安装</p>
+<p>4、安装目标位置：本地标准磁盘</p>
+<p>5、网络和主机名：以太网ens33，打开</p>
+<p>6、设置root密码：1234567。（随便设置密码，添不添加用户随意）</p>
+<h2 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h2><p>VirtualBox是一款开源的虚拟化软件，由Oracle公司开发和维护。它可以在计算机上创建和运行虚拟机，允许用户在单个物理计算机上同时运行多个操作系统。</p>
+<p>VirtualBox支持在Windows、Linux、macOS和Solaris等操作系统上安装，同时可以在虚拟机中运行多种不同的操作系统，包括Windows、Linux、macOS、Solaris等。它提供了丰富的功能和灵活的配置选项，使用户可以轻松地创建和管理虚拟机。</p>
+<blockquote>
+<p>安装时记得改安装目录，不然可能会默认到C盘</p>
+</blockquote>
+<h2 id="VirtualBox的使用"><a href="#VirtualBox的使用" class="headerlink" title="VirtualBox的使用"></a>VirtualBox的使用</h2><h3 id="MoneyBox"><a href="#MoneyBox" class="headerlink" title="MoneyBox"></a>MoneyBox</h3><p>工具栏 - 》 管理 - 》 导入虚拟电脑 - 》 选择 <strong>MoneyBox.ova</strong> 文件</p>
+<p>右击虚拟机 - 》 设置</p>
+<ul>
+<li><p>网络 - 》 网卡1 - 》 连接方式 - 》 选择 <strong>仅主机(Host-only)网络</strong> 模式 - 》 高级 - 》 查看MAC地址</p>
+</li>
+<li><p>USB设备 - 》 选择 <strong>USB 1.1 (OCHI) 控制器</strong></p>
+</li>
+</ul>
+<p>右击虚拟机 - 》 启动 - 》 有3种模式，随意即可</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/VMware/" rel="tag"># VMware</a>
+              <a href="/tags/VirtualBox/" rel="tag"># VirtualBox</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/09/typora/" rel="prev" title="typora">
+                  <i class="fa fa-angle-left"></i> typora
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/11/11/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" rel="next" title="网络基本知识">
+                  网络基本知识 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

